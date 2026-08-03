@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Dashboard local para visualizar el progreso del año, mes y día, junto con tareas personales."
+    >
+
+    <title>Dashboard de Progreso</title>
+
+    <!-- Fuente Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- ==================================
+             ENCABEZADO
+        =================================== -->
+
+        <header class="header">
+
+            <div class="logo">
+
+                <h1>Dashboard de Progreso</h1>
+
+                <span class="live-badge">
+
+                    <span class="live-dot"></span>
+
+                    EN VIVO
+
+                </span>
+
+            </div>
+
+            <button
+                class="settings-button"
+                type="button"
+                aria-label="Abrir configuración"
+                title="Configuración"
+            >
+                ⚙
+            </button>
+
+        </header>
+
+
+        <!-- ==================================
+             CONTENIDO PRINCIPAL
+        =================================== -->
+
+        <main>
+
+            <!-- ==============================
+                 PROGRESO DEL TIEMPO
+            =============================== -->
+
+            <section
+                class="progress-panel"
+                aria-label="Progreso del tiempo"
+            >
+
+                <!-- AÑO -->
+
+                <article class="progress-card">
+
+                    <div class="progress-info">
+
+                        <span
+                            id="yearTitle"
+                            class="progress-title"
+                        >
+                            AÑO
+                        </span>
+
+                        <span
+                            id="yearPercentage"
+                            class="progress-value"
+                        >
+                            0.000%
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="progress-bar"
+                        role="progressbar"
+                        aria-label="Progreso del año"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                    >
+
+                        <div
+                            id="yearBar"
+                            class="progress-fill"
+                        ></div>
+
+                    </div>
+
+                    <div class="progress-detail">
+
+                        <span id="yearDetailLabel">
+                            Mes 1 de 12
+                        </span>
+
+                        <strong id="yearDetail">
+                            0.00 / 365 días
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- MES -->
+
+                <article class="progress-card">
+
+                    <div class="progress-info">
+
+                        <span
+                            id="monthTitle"
+                            class="progress-title"
+                        >
+                            MES
+                        </span>
+
+                        <span
+                            id="monthPercentage"
+                            class="progress-value"
+                        >
+                            0.000%
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="progress-bar"
+                        role="progressbar"
+                        aria-label="Progreso del mes"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                    >
+
+                        <div
+                            id="monthBar"
+                            class="progress-fill"
+                        ></div>
+
+                    </div>
+
+                    <div class="progress-detail">
+
+                        <span id="monthDetailLabel">
+                            Día 1 de 31
+                        </span>
+
+                        <strong id="monthDetail">
+                            0.00 días transcurridos
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- DÍA -->
+
+                <article class="progress-card">
+
+                    <div class="progress-info">
+
+                        <span
+                            id="dayTitle"
+                            class="progress-title"
+                        >
+                            DÍA
+                        </span>
+
+                        <span
+                            id="dayPercentage"
+                            class="progress-value"
+                        >
+                            0.000%
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="progress-bar"
+                        role="progressbar"
+                        aria-label="Progreso del día"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                    >
+
+                        <div
+                            id="dayBar"
+                            class="progress-fill"
+                        ></div>
+
+                    </div>
+
+                    <div class="progress-detail">
+
+                        <span id="dayDetailLabel">
+                            Hora 0 de 24
+                        </span>
+
+                        <strong id="dayDetail">
+                            0.00 horas transcurridas
+                        </strong>
+
+                    </div>
+                </article>
+
+            </section>
+
+
+            <!-- ==============================
+                 INFORMACIÓN GENERAL
+            =============================== -->
+
+            <section
+                class="status-card"
+                aria-label="Resumen del año"
+            >
+
+                <span>
+
+                    Día del año
+
+                    <strong id="dayOfYear">
+                        0
+                    </strong>
+
+                </span>
+
+                <span>
+
+                    Semana
+
+                    <strong id="weekNumber">
+                        0
+                    </strong>
+
+                </span>
+
+                <span>
+
+                    Restan
+
+                    <strong id="remainingDays">
+                        0
+                    </strong>
+
+                    días
+
+                </span>
+
+            </section>
+
+
+            <!-- ==============================
+                 RELOJ Y TAREAS
+            =============================== -->
+
+            <section class="bottom-grid">
+
+                <!-- RELOJ -->
+
+                <article class="clock-card">
+
+                    <div
+                        id="clock"
+                        class="clock"
+                    >
+                        00:00:00
+                    </div>
+
+                    <div
+                        id="dayName"
+                        class="day-name"
+                    >
+                        Lunes
+                    </div>
+
+                    <div
+                        id="fullDate"
+                        class="full-date"
+                    >
+                        1 de enero de 2026
+                    </div>
+
+                    <div
+                        id="timezone"
+                        class="timezone"
+                    >
+                        Zona horaria local
+                    </div>
+
+                </article>
+
+
+                <!-- TAREAS LOCALES -->
+
+                <article class="tasks-card">
+
+                    <div class="tasks-header">
+
+                        <div>
+
+                            <span class="tasks-label">
+                                ALMACENAMIENTO LOCAL
+                            </span>
+
+                            <h2>Mis tareas</h2>
+
+                        </div>
+
+                        <span
+                            id="taskCount"
+                            class="task-count"
+                        >
+                            0 pendientes
+                        </span>
+
+                    </div>
+
+
+                    <form
+                        id="taskForm"
+                        class="task-form"
+                    >
+
+                        <input
+                            id="taskInput"
+                            class="task-input"
+                            type="text"
+                            maxlength="120"
+                            autocomplete="off"
+                            placeholder="Escribe una nueva tarea..."
+                            aria-label="Nueva tarea"
+                        >
+
+                        <button
+                            class="add-task-button"
+                            type="submit"
+                        >
+                            Agregar
+                        </button>
+
+                    </form>
+
+
+                    <div class="tasks-container">
+
+                        <p
+                            id="emptyTasks"
+                            class="empty-state"
+                        >
+                            Todavía no tienes tareas.
+                        </p>
+
+                        <ul
+                            id="taskList"
+                            class="task-list"
+                            aria-label="Lista de tareas"
+                        ></ul>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+
+</body>
+</html>
