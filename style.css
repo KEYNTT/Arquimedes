@@ -1361,19 +1361,36 @@ body::before {
 
 }
 
-/* La sección de tareas crece hacia abajo */
+/* Corrección definitiva para múltiples tareas en PC */
 
 .bottom-grid {
-    align-items: start;
+    align-items: start !important;
+}
+
+.tasks-card,
+.tasks-container {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
 }
 
 .task-list {
-    max-height: none;
-    overflow: visible;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: minmax(50px, auto);
+
+    width: 100%;
+    height: auto !important;
+    max-height: none !important;
+
+    overflow: visible !important;
     padding-right: 0;
 }
 
 .task-list .task-item {
-    flex: 0 0 auto;
-    min-height: 50px;
+    flex: none !important;
+
+    width: 100%;
+    height: auto !important;
+    min-height: 50px !important;
 }
