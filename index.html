@@ -338,7 +338,30 @@
                                 ALMACENAMIENTO LOCAL
                             </span>
 
-                            <h2>Mis tareas</h2>
+                            <div class="tasks-title-row">
+
+                                <h2
+                                    id="tasksTitle"
+                                    class="tasks-title"
+                                    contenteditable="true"
+                                    role="textbox"
+                                    aria-label="Título editable de la lista de tareas"
+                                    aria-multiline="false"
+                                    spellcheck="false"
+                                    title="Haz clic para editar el título"
+                                >Mis tareas</h2>
+
+                                <button
+                                    id="editTasksTitle"
+                                    class="edit-title-button"
+                                    type="button"
+                                    aria-label="Editar título de las tareas"
+                                    title="Editar título"
+                                >
+                                    ✎
+                                </button>
+
+                            </div>
 
                         </div>
 
@@ -374,6 +397,87 @@
                             Agregar
                         </button>
 
+                        <div class="task-options">
+
+                            <fieldset class="task-colors">
+
+                                <legend>Color</legend>
+
+                                <div class="color-options">
+
+                                    <label title="Azul">
+                                        <input
+                                            type="radio"
+                                            name="taskColor"
+                                            value="blue"
+                                            checked
+                                            aria-label="Color azul"
+                                        >
+                                        <span class="color-swatch color-blue"></span>
+                                    </label>
+
+                                    <label title="Verde">
+                                        <input
+                                            type="radio"
+                                            name="taskColor"
+                                            value="green"
+                                            aria-label="Color verde"
+                                        >
+                                        <span class="color-swatch color-green"></span>
+                                    </label>
+
+                                    <label title="Amarillo">
+                                        <input
+                                            type="radio"
+                                            name="taskColor"
+                                            value="amber"
+                                            aria-label="Color amarillo"
+                                        >
+                                        <span class="color-swatch color-amber"></span>
+                                    </label>
+
+                                    <label title="Rojo">
+                                        <input
+                                            type="radio"
+                                            name="taskColor"
+                                            value="red"
+                                            aria-label="Color rojo"
+                                        >
+                                        <span class="color-swatch color-red"></span>
+                                    </label>
+
+                                    <label title="Morado">
+                                        <input
+                                            type="radio"
+                                            name="taskColor"
+                                            value="violet"
+                                            aria-label="Color morado"
+                                        >
+                                        <span class="color-swatch color-violet"></span>
+                                    </label>
+
+                                </div>
+
+                            </fieldset>
+
+                            <label class="important-option">
+
+                                <input
+                                    id="taskImportant"
+                                    type="checkbox"
+                                >
+
+                                <span
+                                    class="important-icon"
+                                    aria-hidden="true"
+                                >★</span>
+
+                                <span>Importante</span>
+
+                            </label>
+
+                        </div>
+
                     </form>
 
 
@@ -399,6 +503,44 @@
             </section>
 
         </main>
+
+
+        <!-- ==================================
+             CONTACTO Y APOYO
+        =================================== -->
+
+        <footer class="site-footer">
+
+            <div
+                class="footer-contact"
+                aria-label="Redes sociales y contacto"
+            >
+
+                <a
+                    href="https://www.instagram.com/kevi1no/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Instagram · @Kevi1no
+                </a>
+
+                <a href="mailto:kevin.123.abanto@gmail.com">
+                    Gmail · kevin.123.abanto@gmail.com
+                </a>
+
+            </div>
+
+            <a
+                class="kofi-link"
+                href="https://ko-fi.com/kevinal"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <span aria-hidden="true">☕</span>
+                Apóyame en Ko-fi
+            </a>
+
+        </footer>
 
     </div>
 
