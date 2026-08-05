@@ -1358,4 +1358,22 @@ body::before {
         flex-direction: column;
         gap: 10px;
     }
+
+}
+
+/* La sección de tareas crece hacia abajo */
+
+.bottom-grid {
+    align-items: start;
+}
+
+.task-list {
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+}
+
+.task-list .task-item {
+    flex: 0 0 auto;
+    min-height: 50px;
 }
