@@ -566,7 +566,7 @@ function renderProgressCard(card, data) {
             },
             remaining: {
                 title:
-                    `RESTANTE · MES ${meses[data.month]} ` +
+                    `RESTANTE · ${meses[data.month]} ` +
                     monthNumber,
                 percentage:
                     100 - data.monthProgress,
@@ -592,7 +592,7 @@ function renderProgressCard(card, data) {
             },
             remaining: {
                 title:
-                    `RESTANTE · DÍA ` +
+                    `RESTANTE · ` +
                     `${dias[data.now.getDay()]} ${dayNumber}`,
                 percentage:
                     100 - data.dayProgress,
