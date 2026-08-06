@@ -7,6 +7,14 @@ const TASKS_KEY = "progress-dashboard-tasks";
 const TASKS_TITLE_KEY = "progress-dashboard-tasks-title";
 const DEFAULT_TASKS_TITLE = "Mis tareas";
 const MAX_TASKS_TITLE_LENGTH = 45;
+const LIKE_VISITOR_KEY = "progress-dashboard-like-visitor";
+
+/*
+   Después de desplegar el Worker, reemplaza
+   TU-SUBDOMINIO por el subdominio de tu cuenta.
+*/
+const LIKES_API_URL =
+    "https://dashboard-feedback-api.kevin-123-abanto.workers.dev";
 
 const TASK_COLORS = [
     "blue",
@@ -126,8 +134,205 @@ const ui = {
         document.getElementById("tasksTitle"),
 
     editTasksTitle:
-        document.getElementById("editTasksTitle")
+        document.getElementById("editTasksTitle"),
+
+    likeButton:
+        document.getElementById("likeButton"),
+
+    likeCount:
+        document.getElementById("likeCount")
 };
+
+
+/* ==========================================
+   CONTADOR GLOBAL DE LIKES
+========================================== */
+
+let visitorId = "";
+let likeRequestPending = false;
+
+
+function createVisitorId() {
+    if (
+        typeof crypto !== "undefined" &&
+        typeof crypto.randomUUID === "function"
+    ) {
+        return crypto.randomUUID();
+    }
+
+    return (
+        `${Date.now()}-` +
+        Math.random().toString(36).slice(2) +
+        Math.random().toString(36).slice(2)
+    );
+}
+
+
+function getVisitorId() {
+    if (visitorId) {
+        return visitorId;
+    }
+
+    try {
+        const savedId =
+            localStorage.getItem(
+                LIKE_VISITOR_KEY
+            );
+
+        if (savedId) {
+            visitorId = savedId;
+            return visitorId;
+        }
+
+        visitorId = createVisitorId();
+
+        localStorage.setItem(
+            LIKE_VISITOR_KEY,
+            visitorId
+        );
+    } catch {
+        visitorId = createVisitorId();
+    }
+
+    return visitorId;
+}
+
+
+function getLikesEndpoint() {
+    if (
+        !LIKES_API_URL ||
+        LIKES_API_URL.includes("TU-SUBDOMINIO")
+    ) {
+        return null;
+    }
+
+    return new URL(
+        "api/likes",
+        `${LIKES_API_URL.replace(/\/$/, "")}/`
+    );
+}
+
+
+function renderLikeState({ count, liked }) {
+    ui.likeCount.textContent =
+        new Intl.NumberFormat("es-PE")
+            .format(count);
+
+    ui.likeButton.classList.toggle(
+        "is-liked",
+        liked
+    );
+
+    ui.likeButton.setAttribute(
+        "aria-pressed",
+        String(liked)
+    );
+
+    ui.likeButton.setAttribute(
+        "aria-label",
+        liked
+            ? "Quitar mi me gusta"
+            : "Dar me gusta a esta página"
+    );
+
+    ui.likeButton.title =
+        liked
+            ? "Quitar me gusta"
+            : "Me gusta";
+}
+
+
+async function loadLikeState() {
+    const endpoint = getLikesEndpoint();
+
+    if (!endpoint) {
+        ui.likeCount.textContent = "—";
+        ui.likeButton.disabled = true;
+        ui.likeButton.title =
+            "Configura la URL del Worker en app.js";
+        return;
+    }
+
+    endpoint.searchParams.set(
+        "visitorId",
+        getVisitorId()
+    );
+
+    try {
+        const response = await fetch(
+            endpoint,
+            {
+                headers: {
+                    Accept: "application/json"
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                `Error ${response.status}`
+            );
+        }
+
+        const data = await response.json();
+
+        renderLikeState({
+            count: Number(data.count) || 0,
+            liked: Boolean(data.liked)
+        });
+    } catch {
+        ui.likeCount.textContent = "—";
+        ui.likeButton.title =
+            "No se pudo conectar con el contador";
+    }
+}
+
+
+async function toggleLike() {
+    const endpoint = getLikesEndpoint();
+
+    if (!endpoint || likeRequestPending) {
+        return;
+    }
+
+    likeRequestPending = true;
+    ui.likeButton.disabled = true;
+
+    try {
+        const response = await fetch(
+            endpoint,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
+                },
+                body: JSON.stringify({
+                    visitorId: getVisitorId()
+                })
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                `Error ${response.status}`
+            );
+        }
+
+        const data = await response.json();
+
+        renderLikeState({
+            count: Number(data.count) || 0,
+            liked: Boolean(data.liked)
+        });
+    } catch {
+        ui.likeButton.title =
+            "No se pudo registrar el me gusta";
+    } finally {
+        likeRequestPending = false;
+        ui.likeButton.disabled = false;
+    }
+}
 
 
 /* ==========================================
@@ -1179,8 +1384,14 @@ ui.taskList.addEventListener(
    INICIAR
 ========================================== */
 
+ui.likeButton.addEventListener(
+    "click",
+    toggleLike
+);
+
 updateDashboard();
 renderTasks();
+loadLikeState();
 
 setInterval(
     updateDashboard,
