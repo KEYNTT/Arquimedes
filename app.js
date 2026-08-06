@@ -9,10 +9,6 @@ const DEFAULT_TASKS_TITLE = "Mis tareas";
 const MAX_TASKS_TITLE_LENGTH = 45;
 const LIKE_VISITOR_KEY = "progress-dashboard-like-visitor";
 
-/*
-   Después de desplegar el Worker, reemplaza
-   TU-SUBDOMINIO por el subdominio de tu cuenta.
-*/
 const LIKES_API_URL =
     "https://dashboard-feedback-api.kevin-123-abanto.workers.dev";
 
@@ -63,6 +59,11 @@ const dias = [
 ========================================== */
 
 const ui = {
+    progressCards:
+        document.querySelectorAll(
+            "[data-progress-card]"
+        ),
+
     yearTitle: document.getElementById("yearTitle"),
     monthTitle: document.getElementById("monthTitle"),
     dayTitle: document.getElementById("dayTitle"),
@@ -477,6 +478,273 @@ function calculateDashboardData(now) {
 
 
 /* ==========================================
+   VISTA TRANSCURRIDA / RESTANTE
+========================================== */
+
+let latestDashboardData = null;
+
+
+function clampPercentage(value) {
+    return Math.min(
+        100,
+        Math.max(0, value)
+    );
+}
+
+
+function renderProgressCard(card, data) {
+    const type =
+        card.dataset.progressCard;
+
+    const isRemaining =
+        card.dataset.view === "remaining";
+
+    const monthNumber =
+        String(data.month + 1)
+            .padStart(2, "0");
+
+    const dayNumber =
+        String(data.date)
+            .padStart(2, "0");
+
+    const remainingYearDays =
+        Math.max(
+            0,
+            data.daysInYear -
+            data.elapsedYearDays
+        );
+
+    const remainingMonthDays =
+        Math.max(
+            0,
+            data.daysInMonth -
+            data.elapsedMonthDays
+        );
+
+    const remainingHours =
+        Math.max(
+            0,
+            24 - data.elapsedHoursToday
+        );
+
+    const configurations = {
+        year: {
+            elapsed: {
+                title: `AÑO · ${data.year}`,
+                percentage: data.yearProgress,
+                detailLabel:
+                    `Mes ${data.month + 1} de 12`,
+                detail:
+                    `${data.elapsedYearDays.toFixed(2)} / ` +
+                    `${data.daysInYear} días`,
+                barLabel: "Progreso transcurrido del año"
+            },
+            remaining: {
+                title: `RESTANTE · AÑO ${data.year}`,
+                percentage:
+                    100 - data.yearProgress,
+                detailLabel: "Días que quedan",
+                detail:
+                    `${remainingYearDays.toFixed(2)} / ` +
+                    `${data.daysInYear} días`,
+                barLabel: "Tiempo restante del año"
+            }
+        },
+        month: {
+            elapsed: {
+                title:
+                    `MES · ${meses[data.month]} ` +
+                    monthNumber,
+                percentage: data.monthProgress,
+                detailLabel:
+                    `Día ${data.date} de ` +
+                    data.daysInMonth,
+                detail:
+                    `${data.elapsedMonthDays.toFixed(2)} ` +
+                    "días transcurridos",
+                barLabel: "Progreso transcurrido del mes"
+            },
+            remaining: {
+                title:
+                    `RESTANTE · MES ${meses[data.month]} ` +
+                    monthNumber,
+                percentage:
+                    100 - data.monthProgress,
+                detailLabel: "Días que quedan",
+                detail:
+                    `${remainingMonthDays.toFixed(2)} / ` +
+                    `${data.daysInMonth} días`,
+                barLabel: "Tiempo restante del mes"
+            }
+        },
+        day: {
+            elapsed: {
+                title:
+                    `DÍA · ${dias[data.now.getDay()]} ` +
+                    dayNumber,
+                percentage: data.dayProgress,
+                detailLabel:
+                    `Hora ${data.now.getHours()} de 24`,
+                detail:
+                    `${data.elapsedHoursToday.toFixed(2)} ` +
+                    "horas transcurridas",
+                barLabel: "Progreso transcurrido del día"
+            },
+            remaining: {
+                title:
+                    `RESTANTE · DÍA ` +
+                    `${dias[data.now.getDay()]} ${dayNumber}`,
+                percentage:
+                    100 - data.dayProgress,
+                detailLabel: "Horas que quedan",
+                detail:
+                    `${remainingHours.toFixed(2)} / 24 horas`,
+                barLabel: "Tiempo restante del día"
+            }
+        }
+    };
+
+    const configuration =
+        configurations[type]?.[
+            isRemaining
+                ? "remaining"
+                : "elapsed"
+        ];
+
+    if (!configuration) {
+        return;
+    }
+
+    const percentage =
+        clampPercentage(
+            configuration.percentage
+        );
+
+    ui[`${type}Title`].textContent =
+        configuration.title;
+
+    ui[`${type}Percentage`].textContent =
+        `${percentage.toFixed(3)}%`;
+
+    ui[`${type}Bar`].style.width =
+        `${percentage}%`;
+
+    ui[`${type}DetailLabel`].textContent =
+        configuration.detailLabel;
+
+    ui[`${type}Detail`].textContent =
+        configuration.detail;
+
+    ui[`${type}Bar`]
+        .parentElement
+        .setAttribute(
+            "aria-valuenow",
+            percentage.toFixed(3)
+        );
+
+    ui[`${type}Bar`]
+        .parentElement
+        .setAttribute(
+            "aria-label",
+            configuration.barLabel
+        );
+}
+
+
+function renderProgressCards(data) {
+    ui.progressCards.forEach(
+        card => renderProgressCard(
+            card,
+            data
+        )
+    );
+}
+
+
+function updateProgressCardAccessibility(
+    card,
+    isRemaining
+) {
+    const names = {
+        year: "año",
+        month: "mes",
+        day: "día"
+    };
+
+    const name =
+        names[card.dataset.progressCard];
+
+    card.setAttribute(
+        "aria-pressed",
+        String(isRemaining)
+    );
+
+    card.setAttribute(
+        "aria-label",
+        isRemaining
+            ? `Mostrar el tiempo transcurrido del ${name}`
+            : `Mostrar el tiempo restante del ${name}`
+    );
+
+    card.title =
+        isRemaining
+            ? "Haz clic para volver al tiempo transcurrido"
+            : "Haz clic para ver el tiempo restante";
+}
+
+
+function toggleProgressCard(card) {
+    if (
+        !latestDashboardData ||
+        card.classList.contains("is-switching")
+    ) {
+        return;
+    }
+
+    card.classList.remove("is-entering");
+    card.classList.add("is-switching");
+
+    window.setTimeout(() => {
+        const isRemaining =
+            card.dataset.view !== "remaining";
+
+        card.dataset.view =
+            isRemaining
+                ? "remaining"
+                : "elapsed";
+
+        card.classList.toggle(
+            "is-remaining",
+            isRemaining
+        );
+
+        updateProgressCardAccessibility(
+            card,
+            isRemaining
+        );
+
+        renderProgressCard(
+            card,
+            latestDashboardData
+        );
+
+        card.classList.remove("is-switching");
+
+        void card.offsetWidth;
+
+        card.classList.add("is-entering");
+
+        window.setTimeout(
+            () => card.classList.remove(
+                "is-entering"
+            ),
+            280
+        );
+    }, 170);
+}
+
+
+/* ==========================================
    MOSTRAR DASHBOARD
 ========================================== */
 
@@ -503,56 +771,7 @@ function renderDashboard(data) {
         weekNumber
     } = data;
 
-    const currentMonth =
-        month + 1;
-
-    const monthNumber =
-        String(currentMonth).padStart(2, "0");
-
-    const dayNumber =
-        String(date).padStart(2, "0");
-
-
-    /* ======================================
-       TÍTULOS
-    ====================================== */
-
-    ui.yearTitle.textContent =
-        `AÑO · ${year}`;
-
-    ui.monthTitle.textContent =
-        `MES · ${meses[month]} ${monthNumber}`;
-
-    ui.dayTitle.textContent =
-        `DÍA · ${dias[now.getDay()]} ${dayNumber}`;
-
-
-    /* ======================================
-       PORCENTAJES EXACTOS
-    ====================================== */
-
-    ui.yearPercentage.textContent =
-        `${yearProgress.toFixed(3)}%`;
-
-    ui.monthPercentage.textContent =
-        `${monthProgress.toFixed(3)}%`;
-
-    ui.dayPercentage.textContent =
-        `${dayProgress.toFixed(3)}%`;
-
-
-    /* ======================================
-       AVANCE DE LAS BARRAS
-    ====================================== */
-
-    ui.yearBar.style.width =
-        `${yearProgress}%`;
-
-    ui.monthBar.style.width =
-        `${monthProgress}%`;
-
-    ui.dayBar.style.width =
-        `${dayProgress}%`;
+    renderProgressCards(data);
 
 
     /* ======================================
@@ -578,52 +797,6 @@ function renderDashboard(data) {
     ui.dayBar.parentElement.style.setProperty(
         "--segments",
         24
-    );
-
-
-    /* ======================================
-       INFORMACIÓN DE CADA BARRA
-    ====================================== */
-
-    ui.yearDetailLabel.textContent =
-        `Mes ${currentMonth} de 12`;
-
-    ui.yearDetail.textContent =
-        `${elapsedYearDays.toFixed(2)} / ` +
-        `${daysInYear} días`;
-
-    ui.monthDetailLabel.textContent =
-        `Día ${date} de ${daysInMonth}`;
-
-    ui.monthDetail.textContent =
-        `${elapsedMonthDays.toFixed(2)} ` +
-        "días transcurridos";
-
-    ui.dayDetailLabel.textContent =
-        `Hora ${now.getHours()} de 24`;
-
-    ui.dayDetail.textContent =
-        `${elapsedHoursToday.toFixed(2)} ` +
-        "horas transcurridas";
-
-
-    /* ======================================
-       ACCESIBILIDAD DE LAS BARRAS
-    ====================================== */
-
-    ui.yearBar.parentElement.setAttribute(
-        "aria-valuenow",
-        yearProgress.toFixed(3)
-    );
-
-    ui.monthBar.parentElement.setAttribute(
-        "aria-valuenow",
-        monthProgress.toFixed(3)
-    );
-
-    ui.dayBar.parentElement.setAttribute(
-        "aria-valuenow",
-        dayProgress.toFixed(3)
     );
 
 
@@ -688,6 +861,7 @@ function updateDashboard() {
     const data =
         calculateDashboardData(new Date());
 
+    latestDashboardData = data;
     renderDashboard(data);
 }
 
@@ -1383,6 +1557,28 @@ ui.taskList.addEventListener(
 /* ==========================================
    INICIAR
 ========================================== */
+
+ui.progressCards.forEach((card) => {
+    card.addEventListener(
+        "click",
+        () => toggleProgressCard(card)
+    );
+
+    card.addEventListener(
+        "keydown",
+        (event) => {
+            if (
+                event.key !== "Enter" &&
+                event.key !== " "
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+            toggleProgressCard(card);
+        }
+    );
+});
 
 ui.likeButton.addEventListener(
     "click",

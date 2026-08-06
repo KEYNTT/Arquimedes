@@ -30,7 +30,7 @@
     >
 
     <!-- Estilos -->
-    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="stylesheet" href="style.css?v=7">
 </head>
 
 <body>
@@ -86,7 +86,16 @@
 
                 <!-- AÑO -->
 
-                <article class="progress-card">
+                <article
+                    class="progress-card"
+                    data-progress-card="year"
+                    data-view="elapsed"
+                    role="button"
+                    tabindex="0"
+                    aria-pressed="false"
+                    aria-label="Mostrar el tiempo restante del año"
+                    title="Haz clic para ver el tiempo restante"
+                >
 
                     <div class="progress-info">
 
@@ -138,7 +147,16 @@
 
                 <!-- MES -->
 
-                <article class="progress-card">
+                <article
+                    class="progress-card"
+                    data-progress-card="month"
+                    data-view="elapsed"
+                    role="button"
+                    tabindex="0"
+                    aria-pressed="false"
+                    aria-label="Mostrar el tiempo restante del mes"
+                    title="Haz clic para ver el tiempo restante"
+                >
 
                     <div class="progress-info">
 
@@ -190,7 +208,16 @@
 
                 <!-- DÍA -->
 
-                <article class="progress-card">
+                <article
+                    class="progress-card"
+                    data-progress-card="day"
+                    data-view="elapsed"
+                    role="button"
+                    tabindex="0"
+                    aria-pressed="false"
+                    aria-label="Mostrar el tiempo restante del día"
+                    title="Haz clic para ver el tiempo restante"
+                >
 
                     <div class="progress-info">
 
@@ -608,7 +635,7 @@
 
 
     <!-- JavaScript -->
-    <script src="app.js?v=6"></script>
+    <script src="app.js?v=7"></script>
 
 </body>
 </html>
