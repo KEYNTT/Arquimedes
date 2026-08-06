@@ -476,7 +476,32 @@ function calculateDashboardData(now) {
     };
 }
 
+/* ==========================================
+   TEXTOS TRADUCIBLES DESDE EL HTML
+========================================== */
 
+const dashboardTranslations =
+    document.getElementById(
+        "dashboardTranslations"
+    );
+
+const labels = {
+    year:
+        dashboardTranslations?.dataset.year ||
+        "AÑO",
+
+    month:
+        dashboardTranslations?.dataset.month ||
+        "MES",
+
+    day:
+        dashboardTranslations?.dataset.day ||
+        "DÍA",
+
+    remaining:
+        dashboardTranslations?.dataset.remaining ||
+        "RESTANTE"
+};
 /* ==========================================
    VISTA TRANSCURRIDA / RESTANTE
 ========================================== */
@@ -491,6 +516,7 @@ function clampPercentage(value) {
     );
 }
 
+    
 
 function renderProgressCard(card, data) {
     const type =
@@ -530,80 +556,129 @@ function renderProgressCard(card, data) {
     const configurations = {
         year: {
             elapsed: {
-                title: `AÑO · ${data.year}`,
-                percentage: data.yearProgress,
+                title:
+                    `${labels.year} · ${data.year}`,
+
+                percentage:
+                    data.yearProgress,
+
                 detailLabel:
                     `Mes ${data.month + 1} de 12`,
+
                 detail:
                     `${data.elapsedYearDays.toFixed(2)} / ` +
                     `${data.daysInYear} días`,
-                barLabel: "Progreso transcurrido del año"
+
+                barLabel:
+                    "Progreso transcurrido del año"
             },
+
             remaining: {
-                title: `RESTANTE · AÑO ${data.year}`,
+                title:
+                    `${labels.remaining} · ` +
+                    `${labels.year} ${data.year}`,
+
                 percentage:
                     100 - data.yearProgress,
-                detailLabel: "Días que quedan",
+
+                detailLabel:
+                    "Días que quedan",
+
                 detail:
                     `${remainingYearDays.toFixed(2)} / ` +
                     `${data.daysInYear} días`,
-                barLabel: "Tiempo restante del año"
+
+                barLabel:
+                    "Tiempo restante del año"
             }
         },
+
         month: {
             elapsed: {
                 title:
-                    `MES · ${meses[data.month]} ` +
+                    `${labels.month} · ` +
+                    `${meses[data.month]} ` +
                     monthNumber,
-                percentage: data.monthProgress,
+
+                percentage:
+                    data.monthProgress,
+
                 detailLabel:
                     `Día ${data.date} de ` +
                     data.daysInMonth,
+
                 detail:
                     `${data.elapsedMonthDays.toFixed(2)} ` +
                     "días transcurridos",
-                barLabel: "Progreso transcurrido del mes"
+
+                barLabel:
+                    "Progreso transcurrido del mes"
             },
+
             remaining: {
                 title:
-                    `RESTANTE · ${meses[data.month]} ` +
+                    `${labels.remaining} · ` +
+                    `${labels.month} ` +
+                    `${meses[data.month]} ` +
                     monthNumber,
+
                 percentage:
                     100 - data.monthProgress,
-                detailLabel: "Días que quedan",
+
+                detailLabel:
+                    "Días que quedan",
+
                 detail:
                     `${remainingMonthDays.toFixed(2)} / ` +
                     `${data.daysInMonth} días`,
-                barLabel: "Tiempo restante del mes"
+
+                barLabel:
+                    "Tiempo restante del mes"
             }
         },
+
         day: {
             elapsed: {
                 title:
-                    `DÍA · ${dias[data.now.getDay()]} ` +
+                    `${labels.day} · ` +
+                    `${dias[data.now.getDay()]} ` +
                     dayNumber,
-                percentage: data.dayProgress,
+
+                percentage:
+                    data.dayProgress,
+
                 detailLabel:
                     `Hora ${data.now.getHours()} de 24`,
+
                 detail:
                     `${data.elapsedHoursToday.toFixed(2)} ` +
                     "horas transcurridas",
-                barLabel: "Progreso transcurrido del día"
+
+                barLabel:
+                    "Progreso transcurrido del día"
             },
+
             remaining: {
                 title:
-                    `RESTANTE · ` +
-                    `${dias[data.now.getDay()]} ${dayNumber}`,
+                    `${labels.remaining} · ` +
+                    `${dias[data.now.getDay()]} ` +
+                    dayNumber,
+
                 percentage:
                     100 - data.dayProgress,
-                detailLabel: "Horas que quedan",
+
+                detailLabel:
+                    "Horas que quedan",
+
                 detail:
                     `${remainingHours.toFixed(2)} / 24 horas`,
-                barLabel: "Tiempo restante del día"
+
+                barLabel:
+                    "Tiempo restante del día"
             }
         }
     };
-
+    
     const configuration =
         configurations[type]?.[
             isRemaining
