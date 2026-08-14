@@ -7,7 +7,6 @@ const MS_PER_HOUR = 3_600_000;
 const MS_PER_MINUTE = 60_000;
 const TASKS_KEY = "progress-dashboard-tasks";
 const TASKS_TITLE_KEY = "progress-dashboard-tasks-title";
-const DEFAULT_TASKS_TITLE = "Mis tareas";
 const MAX_TASKS_TITLE_LENGTH = 45;
 const LIKE_VISITOR_KEY = "progress-dashboard-like-visitor";
  
@@ -22,40 +21,6 @@ const TASK_COLORS = [
     "violet"
 ];
  
-const TASK_COLOR_NAMES = {
-    blue: "azul",
-    green: "verde",
-    amber: "amarillo",
-    red: "rojo",
-    violet: "morado"
-};
- 
-const meses = [
-    "ENERO",
-    "FEBRERO",
-    "MARZO",
-    "ABRIL",
-    "MAYO",
-    "JUNIO",
-    "JULIO",
-    "AGOSTO",
-    "SEPTIEMBRE",
-    "OCTUBRE",
-    "NOVIEMBRE",
-    "DICIEMBRE"
-];
- 
-const dias = [
-    "DOMINGO",
-    "LUNES",
-    "MARTES",
-    "MIÉRCOLES",
-    "JUEVES",
-    "VIERNES",
-    "SÁBADO"
-];
- 
- 
 /* ==========================================
    ELEMENTOS DEL HTML
 ========================================== */
@@ -68,6 +33,7 @@ const ui = {
  
     yearTitle: document.getElementById("yearTitle"),
     monthTitle: document.getElementById("monthTitle"),
+    weekTitle: document.getElementById("weekTitle"),
     dayTitle: document.getElementById("dayTitle"),
  
     yearPercentage:
@@ -75,12 +41,16 @@ const ui = {
  
     monthPercentage:
         document.getElementById("monthPercentage"),
+
+    weekPercentage:
+        document.getElementById("weekPercentage"),
  
     dayPercentage:
         document.getElementById("dayPercentage"),
  
     yearBar: document.getElementById("yearBar"),
     monthBar: document.getElementById("monthBar"),
+    weekBar: document.getElementById("weekBar"),
     dayBar: document.getElementById("dayBar"),
  
     yearDetailLabel:
@@ -88,6 +58,9 @@ const ui = {
  
     monthDetailLabel:
         document.getElementById("monthDetailLabel"),
+
+    weekDetailLabel:
+        document.getElementById("weekDetailLabel"),
  
     dayDetailLabel:
         document.getElementById("dayDetailLabel"),
@@ -97,6 +70,9 @@ const ui = {
  
     monthDetail:
         document.getElementById("monthDetail"),
+
+    weekDetail:
+        document.getElementById("weekDetail"),
  
     dayDetail:
         document.getElementById("dayDetail"),
@@ -155,68 +131,62 @@ const dashboardTranslations =
     document.getElementById(
         "dashboardTranslations"
     );
- 
-const labels = {
-    year:
-        dashboardTranslations?.dataset.year ||
-        "AÑO",
- 
-    month:
-        dashboardTranslations?.dataset.month ||
-        "MES",
- 
-    day:
-        dashboardTranslations?.dataset.day ||
-        "DÍA",
- 
-    remaining:
-        dashboardTranslations?.dataset.remaining ||
-        "RESTANTE",
- 
-    elapsedTime:
-        dashboardTranslations?.dataset.elapsedTime ||
-        "Tiempo transcurrido",
- 
-    remainingTime:
-        dashboardTranslations?.dataset.remainingTime ||
-        "Tiempo que queda",
- 
-    and:
-        dashboardTranslations?.dataset.and ||
-        "y",
- 
-    monthUnitSingular:
-        dashboardTranslations?.dataset.monthUnitSingular ||
-        "mes",
- 
-    monthUnitPlural:
-        dashboardTranslations?.dataset.monthUnitPlural ||
-        "meses",
- 
-    dayUnitSingular:
-        dashboardTranslations?.dataset.dayUnitSingular ||
-        "día",
- 
-    dayUnitPlural:
-        dashboardTranslations?.dataset.dayUnitPlural ||
-        "días",
- 
-    hourUnitSingular:
-        dashboardTranslations?.dataset.hourUnitSingular ||
-        "hora",
- 
-    hourUnitPlural:
-        dashboardTranslations?.dataset.hourUnitPlural ||
-        "horas",
- 
-    minuteUnitSingular:
-        dashboardTranslations?.dataset.minuteUnitSingular ||
-        "minuto",
- 
-    minuteUnitPlural:
-        dashboardTranslations?.dataset.minuteUnitPlural ||
-        "minutos"
+
+const labels =
+    dashboardTranslations?.dataset || {};
+
+const dashboardLocale =
+    labels.locale ||
+    document.documentElement.lang ||
+    undefined;
+
+const DEFAULT_TASKS_TITLE =
+    labels.defaultTasksTitle ||
+    ui.tasksTitle.textContent.trim();
+
+const TASK_COLOR_NAMES = {
+    blue: labels.colorBlue,
+    green: labels.colorGreen,
+    amber: labels.colorAmber,
+    red: labels.colorRed,
+    violet: labels.colorViolet
 };
+
+
+function formatTranslation(
+    template,
+    values = {}
+) {
+    return String(template || "").replace(
+        /\{([a-zA-Z][a-zA-Z0-9]*)\}/g,
+        (match, key) =>
+            Object.hasOwn(values, key)
+                ? String(values[key])
+                : match
+    );
+}
+
+
+function formatUppercaseDatePart(
+    date,
+    options
+) {
+    return new Intl.DateTimeFormat(
+        dashboardLocale,
+        options
+    )
+        .format(date)
+        .toLocaleUpperCase(dashboardLocale);
+}
+
+
+function capitalizeLocalized(value) {
+    return (
+        value.charAt(0)
+            .toLocaleUpperCase(dashboardLocale) +
+        value.slice(1)
+    );
+}
  
  
 /* ==========================================
@@ -290,7 +260,7 @@ function getLikesEndpoint() {
  
 function renderLikeState({ count, liked }) {
     ui.likeCount.textContent =
-        new Intl.NumberFormat("es-PE")
+        new Intl.NumberFormat(dashboardLocale)
             .format(count);
  
     ui.likeButton.classList.toggle(
@@ -306,14 +276,14 @@ function renderLikeState({ count, liked }) {
     ui.likeButton.setAttribute(
         "aria-label",
         liked
-            ? "Quitar mi me gusta"
-            : "Dar me gusta a esta página"
+            ? labels.likeRemoveAria
+            : labels.likeAddAria
     );
  
     ui.likeButton.title =
         liked
-            ? "Quitar me gusta"
-            : "Me gusta";
+            ? labels.likeRemoveTitle
+            : labels.likeTitle;
 }
  
  
@@ -321,10 +291,10 @@ async function loadLikeState() {
     const endpoint = getLikesEndpoint();
  
     if (!endpoint) {
-        ui.likeCount.textContent = "—";
+        ui.likeCount.textContent = "\u2014";
         ui.likeButton.disabled = true;
         ui.likeButton.title =
-            "Configura la URL del Worker en app.js";
+            labels.likesWorkerMissing;
         return;
     }
  
@@ -356,9 +326,9 @@ async function loadLikeState() {
             liked: Boolean(data.liked)
         });
     } catch {
-        ui.likeCount.textContent = "—";
+        ui.likeCount.textContent = "\u2014";
         ui.likeButton.title =
-            "No se pudo conectar con el contador";
+            labels.likesConnectionError;
     }
 }
  
@@ -402,7 +372,7 @@ async function toggleLike() {
         });
     } catch {
         ui.likeButton.title =
-            "No se pudo registrar el me gusta";
+            labels.likesRegisterError;
     } finally {
         likeRequestPending = false;
         ui.likeButton.disabled = false;
@@ -518,6 +488,17 @@ function calculateDashboardData(now) {
  
     const elapsedMonthDays =
         date - 1 + dayFraction;
+
+    /*
+       La semana ISO comienza el lunes.
+       Lunes = 0 y domingo = 6.
+    */
+
+    const weekDayIndex =
+        (now.getDay() + 6) % 7;
+
+    const elapsedWeekDays =
+        weekDayIndex + dayFraction;
  
     return {
         now,
@@ -531,6 +512,7 @@ function calculateDashboardData(now) {
  
         elapsedYearDays,
         elapsedMonthDays,
+        elapsedWeekDays,
         elapsedHoursToday,
  
         yearProgress:
@@ -538,6 +520,9 @@ function calculateDashboardData(now) {
  
         monthProgress:
             (elapsedMonthDays / daysInMonth) * 100,
+
+        weekProgress:
+            (elapsedWeekDays / 7) * 100,
  
         dayProgress:
             (elapsedHoursToday / 24) * 100,
@@ -546,7 +531,9 @@ function calculateDashboardData(now) {
             daysInYear - dayOfYear,
  
         weekNumber:
-            getISOWeek(now)
+            getISOWeek(now),
+
+        weekDayIndex
     };
 }
  
@@ -635,6 +622,27 @@ function getRemainingTimeParts(data) {
                 MS_PER_HOUR
             )
         );
+
+    const nextWeekStart = new Date(
+        data.year,
+        data.month,
+        data.date + (7 - data.weekDayIndex)
+    );
+
+    const remainingWeekHours =
+        Math.max(
+            0,
+            Math.ceil(
+                (nextWeekStart - data.now) /
+                MS_PER_HOUR
+            )
+        );
+
+    const weekDays =
+        Math.floor(remainingWeekHours / 24);
+
+    const weekHours =
+        remainingWeekHours % 24;
  
     const monthDays =
         data.daysInMonth - data.date +
@@ -670,6 +678,10 @@ function getRemainingTimeParts(data) {
             days: monthDays,
             hours: monthHours
         },
+        week: {
+            days: weekDays,
+            hours: weekHours
+        },
         day: {
             hours: dayHours,
             minutes: dayMinutes
@@ -687,6 +699,10 @@ function getElapsedTimeParts(data) {
         },
         month: {
             days: data.date - 1,
+            hours: data.now.getHours()
+        },
+        week: {
+            days: data.weekDayIndex,
             hours: data.now.getHours()
         },
         day: {
@@ -711,6 +727,18 @@ function renderProgressCard(card, data) {
     const dayNumber =
         String(data.date)
             .padStart(2, "0");
+
+    const monthName =
+        formatUppercaseDatePart(
+            data.now,
+            { month: "long" }
+        );
+
+    const weekdayName =
+        formatUppercaseDatePart(
+            data.now,
+            { weekday: "long" }
+        );
  
     const remainingTime =
         getRemainingTimeParts(data);
@@ -722,7 +750,13 @@ function renderProgressCard(card, data) {
         year: {
             elapsed: {
                 title:
-                    `${labels.year} · ${data.year}`,
+                    formatTranslation(
+                        labels.yearTitleTemplate,
+                        {
+                            period: labels.year,
+                            year: data.year
+                        }
+                    ),
                 percentage: data.yearProgress,
                 detailLabel:
                     labels.elapsedTime,
@@ -743,12 +777,19 @@ function renderProgressCard(card, data) {
                         labels.hourUnitPlural
                     ]
                 ]),
-                barLabel: "Progreso transcurrido del año"
+                barLabel:
+                    labels.yearElapsedBarLabel
             },
             remaining: {
                 title:
-                    `${labels.remaining} · ` +
-                    `${labels.year} ${data.year}`,
+                    formatTranslation(
+                        labels.yearRemainingTitleTemplate,
+                        {
+                            remaining: labels.remaining,
+                            period: labels.year,
+                            year: data.year
+                        }
+                    ),
                 percentage:
                     100 - data.yearProgress,
                 detailLabel:
@@ -770,15 +811,21 @@ function renderProgressCard(card, data) {
                         labels.hourUnitPlural
                     ]
                 ]),
-                barLabel: "Tiempo restante del año"
+                barLabel:
+                    labels.yearRemainingBarLabel
             }
         },
         month: {
             elapsed: {
                 title:
-                    `${labels.month} · ` +
-                    `${meses[data.month]} ` +
-                    monthNumber,
+                    formatTranslation(
+                        labels.monthTitleTemplate,
+                        {
+                            period: labels.month,
+                            monthName,
+                            monthNumber
+                        }
+                    ),
                 percentage: data.monthProgress,
                 detailLabel:
                     labels.elapsedTime,
@@ -794,14 +841,20 @@ function renderProgressCard(card, data) {
                         labels.hourUnitPlural
                     ]
                 ]),
-                barLabel: "Progreso transcurrido del mes"
+                barLabel:
+                    labels.monthElapsedBarLabel
             },
             remaining: {
                 title:
-                    `${labels.remaining} · ` +
-                    `${labels.month} ` +
-                    `${meses[data.month]} ` +
-                    monthNumber,
+                    formatTranslation(
+                        labels.monthRemainingTitleTemplate,
+                        {
+                            remaining: labels.remaining,
+                            period: labels.month,
+                            monthName,
+                            monthNumber
+                        }
+                    ),
                 percentage:
                     100 - data.monthProgress,
                 detailLabel:
@@ -818,15 +871,79 @@ function renderProgressCard(card, data) {
                         labels.hourUnitPlural
                     ]
                 ]),
-                barLabel: "Tiempo restante del mes"
+                barLabel:
+                    labels.monthRemainingBarLabel
+            }
+        },
+        week: {
+            elapsed: {
+                title:
+                    formatTranslation(
+                        labels.weekTitleTemplate,
+                        {
+                            period: labels.week,
+                            weekNumber: data.weekNumber
+                        }
+                    ),
+                percentage: data.weekProgress,
+                detailLabel:
+                    labels.elapsedTime,
+                detail: joinDuration([
+                    [
+                        elapsedTime.week.days,
+                        labels.dayUnitSingular,
+                        labels.dayUnitPlural
+                    ],
+                    [
+                        elapsedTime.week.hours,
+                        labels.hourUnitSingular,
+                        labels.hourUnitPlural
+                    ]
+                ]),
+                barLabel:
+                    labels.weekElapsedBarLabel
+            },
+            remaining: {
+                title:
+                    formatTranslation(
+                        labels.weekRemainingTitleTemplate,
+                        {
+                            remaining: labels.remaining,
+                            period: labels.week,
+                            weekNumber: data.weekNumber
+                        }
+                    ),
+                percentage:
+                    100 - data.weekProgress,
+                detailLabel:
+                    labels.remainingTime,
+                detail: joinDuration([
+                    [
+                        remainingTime.week.days,
+                        labels.dayUnitSingular,
+                        labels.dayUnitPlural
+                    ],
+                    [
+                        remainingTime.week.hours,
+                        labels.hourUnitSingular,
+                        labels.hourUnitPlural
+                    ]
+                ]),
+                barLabel:
+                    labels.weekRemainingBarLabel
             }
         },
         day: {
             elapsed: {
                 title:
-                    `${labels.day} · ` +
-                    `${dias[data.now.getDay()]} ` +
-                    dayNumber,
+                    formatTranslation(
+                        labels.dayTitleTemplate,
+                        {
+                            period: labels.day,
+                            weekday: weekdayName,
+                            dayNumber
+                        }
+                    ),
                 percentage: data.dayProgress,
                 detailLabel:
                     labels.elapsedTime,
@@ -842,12 +959,20 @@ function renderProgressCard(card, data) {
                         labels.minuteUnitPlural
                     ]
                 ]),
-                barLabel: "Progreso transcurrido del día"
+                barLabel:
+                    labels.dayElapsedBarLabel
             },
             remaining: {
                 title:
-                    `${labels.remaining} · ` +
-                    `${dias[data.now.getDay()]} ${dayNumber}`,
+                    formatTranslation(
+                        labels.dayRemainingTitleTemplate,
+                        {
+                            remaining: labels.remaining,
+                            period: labels.day,
+                            weekday: weekdayName,
+                            dayNumber
+                        }
+                    ),
                 percentage:
                     100 - data.dayProgress,
                 detailLabel:
@@ -864,7 +989,8 @@ function renderProgressCard(card, data) {
                         labels.minuteUnitPlural
                     ]
                 ]),
-                barLabel: "Tiempo restante del día"
+                barLabel:
+                    labels.dayRemainingBarLabel
             }
         }
     };
@@ -930,14 +1056,15 @@ function updateProgressCardAccessibility(
     card,
     isRemaining
 ) {
-    const names = {
-        year: "año",
-        month: "mes",
-        day: "día"
+    const periodNames = {
+        year: labels.periodYear,
+        month: labels.periodMonth,
+        week: labels.periodWeek,
+        day: labels.periodDay
     };
  
-    const name =
-        names[card.dataset.progressCard];
+    const periodName =
+        periodNames[card.dataset.progressCard];
  
     card.setAttribute(
         "aria-pressed",
@@ -946,15 +1073,18 @@ function updateProgressCardAccessibility(
  
     card.setAttribute(
         "aria-label",
-        isRemaining
-            ? `Mostrar el tiempo transcurrido del ${name}`
-            : `Mostrar el tiempo restante del ${name}`
+        formatTranslation(
+            isRemaining
+                ? labels.showElapsedCardTemplate
+                : labels.showRemainingCardTemplate,
+            { period: periodName }
+        )
     );
  
     card.title =
         isRemaining
-            ? "Haz clic para volver al tiempo transcurrido"
-            : "Haz clic para ver el tiempo restante";
+            ? labels.showElapsedHint
+            : labels.showRemainingHint;
 }
  
  
@@ -1026,10 +1156,12 @@ function renderDashboard(data) {
  
         elapsedYearDays,
         elapsedMonthDays,
+        elapsedWeekDays,
         elapsedHoursToday,
  
         yearProgress,
         monthProgress,
+        weekProgress,
         dayProgress,
  
         remainingDays,
@@ -1046,6 +1178,7 @@ function renderDashboard(data) {
     /*
        Año: 12 divisiones.
        Mes: 28, 29, 30 o 31 divisiones.
+       Semana: 7 divisiones.
        Día: 24 divisiones.
     */
  
@@ -1057,6 +1190,11 @@ function renderDashboard(data) {
     ui.monthBar.parentElement.style.setProperty(
         "--segments",
         daysInMonth
+    );
+
+    ui.weekBar.parentElement.style.setProperty(
+        "--segments",
+        7
     );
  
     ui.dayBar.parentElement.style.setProperty(
@@ -1070,7 +1208,7 @@ function renderDashboard(data) {
     ====================================== */
  
     ui.clock.textContent =
-        now.toLocaleTimeString("es-PE", {
+        now.toLocaleTimeString(dashboardLocale, {
             hour: "2-digit",
             minute: "2-digit",
             second: "2-digit",
@@ -1078,24 +1216,22 @@ function renderDashboard(data) {
         });
  
     const formattedDay =
-        now.toLocaleDateString("es-PE", {
+        now.toLocaleDateString(dashboardLocale, {
             weekday: "long"
         });
  
     ui.dayName.textContent =
-        formattedDay.charAt(0).toUpperCase() +
-        formattedDay.slice(1);
+        capitalizeLocalized(formattedDay);
  
     const formattedDate =
-        now.toLocaleDateString("es-PE", {
+        now.toLocaleDateString(dashboardLocale, {
             day: "numeric",
             month: "long",
             year: "numeric"
         });
  
     ui.fullDate.textContent =
-        formattedDate.charAt(0).toUpperCase() +
-        formattedDate.slice(1);
+        capitalizeLocalized(formattedDate);
  
     ui.timezone.textContent =
         Intl.DateTimeFormat()
@@ -1378,13 +1514,13 @@ function renderTasks() {
             "toggle";
  
         toggle.textContent =
-            task.completed ? "✓" : "";
+            task.completed ? "\u2713" : "";
  
         toggle.setAttribute(
             "aria-label",
             task.completed
-                ? "Marcar como pendiente"
-                : "Marcar como completada"
+                ? labels.taskMarkPending
+                : labels.taskMarkCompleted
         );
  
  
@@ -1417,7 +1553,7 @@ function renderTasks() {
                 "task-priority-badge";
  
             priorityBadge.textContent =
-                "IMPORTANTE";
+                labels.taskImportantBadge;
  
             content.appendChild(
                 priorityBadge
@@ -1467,15 +1603,21 @@ function renderTasks() {
  
         colorButton.setAttribute(
             "aria-label",
-            `Cambiar color. Color actual: ${
-                TASK_COLOR_NAMES[
-                    normalizeTaskColor(task.color)
-                ]
-            }`
+            formatTranslation(
+                labels.taskChangeColorTemplate,
+                {
+                    color:
+                        TASK_COLOR_NAMES[
+                            normalizeTaskColor(
+                                task.color
+                            )
+                        ]
+                }
+            )
         );
  
         colorButton.title =
-            "Cambiar color";
+            labels.taskChangeColorTitle;
  
  
         /* BOTÓN IMPORTANTE */
@@ -1495,19 +1637,19 @@ function renderTasks() {
             "important";
  
         priorityButton.textContent =
-            "★";
+            "\u2605";
  
         priorityButton.setAttribute(
             "aria-label",
             task.important
-                ? "Quitar estado importante"
-                : "Marcar como importante"
+                ? labels.taskRemoveImportantAria
+                : labels.taskMarkImportantAria
         );
  
         priorityButton.title =
             task.important
-                ? "Quitar importancia"
-                : "Marcar como importante";
+                ? labels.taskRemoveImportantTitle
+                : labels.taskMarkImportantTitle;
  
  
         /* BOTÓN ELIMINAR */
@@ -1525,15 +1667,15 @@ function renderTasks() {
             "delete";
  
         remove.textContent =
-            "×";
+            "\u00d7";
  
         remove.setAttribute(
             "aria-label",
-            "Eliminar tarea"
+            labels.taskDelete
         );
  
         remove.title =
-            "Eliminar tarea";
+            labels.taskDelete;
  
  
         /* AGREGAR ACCIONES */
@@ -1566,9 +1708,12 @@ function renderTasks() {
         ).length;
  
     ui.taskCount.textContent =
-        pending === 1
-            ? "1 pendiente"
-            : `${pending} pendientes`;
+        formatTranslation(
+            pending === 1
+                ? labels.pendingSingularTemplate
+                : labels.pendingPluralTemplate,
+            { count: pending }
+        );
  
     ui.emptyTasks.hidden =
         tasks.length > 0;
@@ -1858,3 +2003,4 @@ setInterval(
     updateDashboard,
     1000
 );
+

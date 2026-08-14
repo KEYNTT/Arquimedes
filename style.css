@@ -298,6 +298,12 @@ body::before {
 }
 
 .progress-card:nth-child(3) {
+    --bar-start: #f59e0b;
+    --bar-middle: #fb7185;
+    --bar-end: #c084fc;
+}
+
+.progress-card:nth-child(4) {
     --bar-start: #7c5cff;
     --bar-middle: #c35fff;
     --bar-end: #ff7ca8;
