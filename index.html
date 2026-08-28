@@ -526,8 +526,9 @@ body::before {
     font-weight: 500;
     font-variant-numeric: tabular-nums;
     color: var(--text);
+    border: 1px solid transparent;
 
-    transition: transform 120ms ease, background 120ms ease;
+    transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
 }
 
 .day-cell.is-empty {
@@ -539,6 +540,44 @@ body::before {
     position: relative;
     z-index: 1;
     line-height: 1;
+}
+
+/* Clickable Day (Hoy y fechas futuras) */
+.day-cell.is-clickable {
+    cursor: pointer;
+}
+
+.day-cell.is-clickable:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: scale(1.16);
+    z-index: 4;
+}
+
+.day-cell.is-clickable:focus-visible {
+    outline: 2px solid #5b8cff;
+    outline-offset: 1px;
+    z-index: 4;
+}
+
+/* Day with Note: Star indicator without covering number */
+.day-cell.has-note {
+    border-color: rgba(245, 158, 11, 0.35);
+}
+
+.day-cell.has-note:not(.is-today) {
+    background: rgba(245, 158, 11, 0.08);
+}
+
+.day-note-star {
+    position: absolute;
+    top: 1px;
+    right: 2px;
+    z-index: 3;
+    font-size: 0.52rem;
+    color: #fbbf24;
+    line-height: 1;
+    pointer-events: none;
+    text-shadow: 0 0 4px rgba(251, 191, 36, 0.7);
 }
 
 /* Past Day (Con X roja y número claramente visible) */
@@ -759,6 +798,12 @@ body::before {
     color: var(--text-muted);
 }
 
+.legend-bullet.is-note {
+    background: rgba(245, 158, 11, 0.16);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: #fbbf24;
+}
+
 /* Responsive: Mobile & Tablet (3 columnas de meses y cuadros inferiores adaptados) */
 @media (max-width: 960px) {
     .calendar-modal {
@@ -829,6 +874,12 @@ body::before {
 
     .day-cell.is-past .day-x-mark {
         font-size: 0.92em;
+    }
+
+    .day-note-star {
+        top: 1px;
+        right: 1px;
+        font-size: 0.46rem;
     }
 
     /* Cuadros finales de información: 100% responsive para celular */
@@ -935,6 +986,12 @@ body::before {
         font-size: 0.62rem;
     }
 
+    .day-note-star {
+        top: 0px;
+        right: 1px;
+        font-size: 0.42rem;
+    }
+
     .calendar-modal-stats {
         gap: 4px;
     }
@@ -961,6 +1018,246 @@ body::before {
         gap: 4px 8px;
         padding: 4px 6px;
     }
+}
+
+/* ==========================================
+   CALENDAR NOTE MODAL
+========================================== */
+
+.calendar-note-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 200ms ease,
+        visibility 200ms ease;
+}
+
+.calendar-note-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.calendar-note-backdrop {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(4, 6, 12, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.calendar-note-dialog {
+    position: relative;
+    z-index: 1;
+
+    width: min(440px, 100%);
+
+    border: 1px solid var(--border-strong);
+    border-radius: 18px;
+
+    background:
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(245, 158, 11, 0.08),
+            transparent 40%
+        ),
+        linear-gradient(
+            165deg,
+            #171c28 0%,
+            #0e121a 100%
+        );
+
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.75),
+        0 0 0 1px rgba(255, 255, 255, 0.06);
+
+    transform: scale(0.95) translateY(8px);
+    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+.calendar-note-modal.is-open .calendar-note-dialog {
+    transform: scale(1) translateY(0);
+}
+
+.calendar-note-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.calendar-note-header-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.calendar-note-icon {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #fbbf24;
+    font-size: 0.9rem;
+}
+
+.calendar-note-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+}
+
+.calendar-note-close {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--surface);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    transition:
+        transform 160ms ease,
+        background 160ms ease,
+        color 160ms ease,
+        border-color 160ms ease;
+}
+
+.calendar-note-close:hover {
+    transform: scale(1.08);
+    background: rgba(239, 68, 68, 0.16);
+    color: #f87171;
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.calendar-note-close:focus-visible {
+    outline: 3px solid rgba(239, 68, 68, 0.4);
+    outline-offset: 2px;
+}
+
+.calendar-note-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 20px 20px;
+}
+
+.calendar-note-date-display {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #93c5fd;
+    text-transform: capitalize;
+}
+
+.calendar-note-input {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    resize: vertical;
+    transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.calendar-note-input::placeholder {
+    color: var(--text-muted);
+}
+
+.calendar-note-input:focus {
+    outline: none;
+    border-color: rgba(91, 140, 255, 0.55);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 3px rgba(91, 140, 255, 0.18);
+}
+
+.calendar-note-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.calendar-note-save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 0.84rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+}
+
+.calendar-note-save-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.1);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.45);
+}
+
+.calendar-note-save-btn:active {
+    transform: translateY(0);
+}
+
+.calendar-note-delete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 10px;
+    background: rgba(239, 68, 68, 0.1);
+    color: #fca5a5;
+    font-family: inherit;
+    font-size: 0.84rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.calendar-note-delete-btn:hover {
+    transform: translateY(-1px);
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+    color: #f87171;
+}
+
+.calendar-note-delete-btn:active {
+    transform: translateY(0);
 }
 
 
@@ -3284,6 +3581,10 @@ body::before {
                             <span class="legend-bullet is-remaining">○</span>
                             <span>Días restantes</span>
                         </div>
+                        <div class="calendar-legend-item">
+                            <span class="legend-bullet is-note">★</span>
+                            <span id="calLegendNoteLabel">Con nota</span>
+                        </div>
                     </div>
 
                 </div>
@@ -3292,6 +3593,64 @@ body::before {
 
         </div>
 
+    </div>
+
+    <!-- ==========================================
+         MODAL DE NOTA DE CALENDARIO
+    =========================================== -->
+    <div
+        id="calendarNoteModal"
+        class="calendar-note-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-labelledby="calendarNoteTitle"
+    >
+        <div
+            id="calendarNoteBackdrop"
+            class="calendar-note-backdrop"
+        ></div>
+
+        <div class="calendar-note-dialog">
+            <div class="calendar-note-header">
+                <div class="calendar-note-header-info">
+                    <span class="calendar-note-icon" aria-hidden="true">★</span>
+                    <h3 id="calendarNoteTitle" class="calendar-note-title">Nota del día</h3>
+                </div>
+                <button
+                    id="closeCalendarNoteBtn"
+                    class="calendar-note-close"
+                    type="button"
+                    aria-label="Cerrar nota"
+                    title="Cerrar"
+                >✕</button>
+            </div>
+
+            <form id="calendarNoteForm" class="calendar-note-form">
+                <p id="calendarNoteDateDisplay" class="calendar-note-date-display">-</p>
+                <textarea
+                    id="calendarNoteInput"
+                    class="calendar-note-input"
+                    maxlength="300"
+                    rows="4"
+                    placeholder="Escribe una nota para este día..."
+                    aria-label="Contenido de la nota"
+                ></textarea>
+
+                <div class="calendar-note-actions">
+                    <button
+                        id="deleteCalendarNoteBtn"
+                        class="calendar-note-delete-btn"
+                        type="button"
+                    >Eliminar</button>
+                    <button
+                        id="saveCalendarNoteBtn"
+                        class="calendar-note-save-btn"
+                        type="submit"
+                    >Guardar</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!--
@@ -3401,6 +3760,13 @@ body::before {
         data-cal-legend-past="D&#237;as pasados"
         data-cal-legend-today="Hoy"
         data-cal-legend-remaining="D&#237;as restantes"
+        data-cal-legend-note="Con nota"
+        data-cal-note-modal-title="Nota del d&#237;a"
+        data-cal-note-close-aria="Cerrar nota"
+        data-cal-note-placeholder="Escribe una nota para este d&#237;a..."
+        data-cal-note-input-aria="Contenido de la nota"
+        data-cal-note-save-btn="Guardar"
+        data-cal-note-delete-btn="Eliminar"
     ></div>
     
     <!-- JavaScript -->
@@ -3418,6 +3784,7 @@ const TASKS_KEY = "progress-dashboard-tasks";
 const TASKS_TITLE_KEY = "progress-dashboard-tasks-title";
 const MAX_TASKS_TITLE_LENGTH = 45;
 const LIKE_VISITOR_KEY = "progress-dashboard-like-visitor";
+const CALENDAR_NOTES_KEY = "progress-dashboard-calendar-notes";
  
 const LIKES_API_URL =
     "https://dashboard-feedback-api.kevin-123-abanto.workers.dev";
@@ -3564,7 +3931,34 @@ const ui = {
         document.getElementById("calendarRemainingPercent"),
 
     calendarMonthsGrid:
-        document.getElementById("calendarMonthsGrid")
+        document.getElementById("calendarMonthsGrid"),
+
+    calendarNoteModal:
+        document.getElementById("calendarNoteModal"),
+
+    calendarNoteBackdrop:
+        document.getElementById("calendarNoteBackdrop"),
+
+    closeCalendarNoteBtn:
+        document.getElementById("closeCalendarNoteBtn"),
+
+    calendarNoteTitle:
+        document.getElementById("calendarNoteTitle"),
+
+    calendarNoteForm:
+        document.getElementById("calendarNoteForm"),
+
+    calendarNoteDateDisplay:
+        document.getElementById("calendarNoteDateDisplay"),
+
+    calendarNoteInput:
+        document.getElementById("calendarNoteInput"),
+
+    saveCalendarNoteBtn:
+        document.getElementById("saveCalendarNoteBtn"),
+
+    deleteCalendarNoteBtn:
+        document.getElementById("deleteCalendarNoteBtn")
 };
  
  
@@ -3690,7 +4084,15 @@ const SPANISH_FALLBACK_LABELS =
         pendingSingularTemplate:
             "{count} pendiente",
         pendingPluralTemplate:
-            "{count} pendientes"
+            "{count} pendientes",
+        calLegendNote: "Con nota",
+        calNoteModalTitle: "Nota del d\u00EDa",
+        calNoteCloseAria: "Cerrar nota",
+        calNotePlaceholder:
+            "Escribe una nota para este d\u00EDa...",
+        calNoteInputAria: "Contenido de la nota",
+        calNoteSaveBtn: "Guardar",
+        calNoteDeleteBtn: "Eliminar"
     });
 
 const labels = {
@@ -5604,6 +6006,109 @@ function getLocalizedWeekdayHeaders() {
 }
  
  
+let isCalendarNoteOpen = false;
+let selectedNoteDateKey = null;
+
+
+function getCalendarNotes() {
+    try {
+        const raw = localStorage.getItem(CALENDAR_NOTES_KEY);
+        return raw ? JSON.parse(raw) : {};
+    } catch {
+        return {};
+    }
+}
+
+
+function saveCalendarNotes(notes) {
+    try {
+        localStorage.setItem(CALENDAR_NOTES_KEY, JSON.stringify(notes));
+    } catch {
+        // Ignored
+    }
+}
+
+
+function openCalendarNoteModal(dateKey, formattedDate) {
+    if (!ui.calendarNoteModal) {
+        return;
+    }
+
+    selectedNoteDateKey = dateKey;
+    isCalendarNoteOpen = true;
+
+    const notes = getCalendarNotes();
+    const existingNote = notes[dateKey] || "";
+
+    if (ui.calendarNoteDateDisplay) {
+        ui.calendarNoteDateDisplay.textContent = formattedDate;
+    }
+
+    if (ui.calendarNoteInput) {
+        ui.calendarNoteInput.value = existingNote;
+    }
+
+    if (ui.deleteCalendarNoteBtn) {
+        ui.deleteCalendarNoteBtn.style.display = existingNote ? "inline-flex" : "none";
+    }
+
+    ui.calendarNoteModal.classList.add("is-open");
+    ui.calendarNoteModal.setAttribute("aria-hidden", "false");
+
+    setTimeout(() => {
+        if (ui.calendarNoteInput) {
+            ui.calendarNoteInput.focus();
+        }
+    }, 60);
+}
+
+
+function closeCalendarNoteModal() {
+    if (!ui.calendarNoteModal) {
+        return;
+    }
+
+    isCalendarNoteOpen = false;
+    selectedNoteDateKey = null;
+    ui.calendarNoteModal.classList.remove("is-open");
+    ui.calendarNoteModal.setAttribute("aria-hidden", "true");
+}
+
+
+function handleCalendarNoteSubmit(event) {
+    event.preventDefault();
+    if (!selectedNoteDateKey) {
+        return;
+    }
+
+    const noteText = ui.calendarNoteInput?.value.trim() || "";
+    const notes = getCalendarNotes();
+
+    if (noteText) {
+        notes[selectedNoteDateKey] = noteText;
+    } else {
+        delete notes[selectedNoteDateKey];
+    }
+
+    saveCalendarNotes(notes);
+    closeCalendarNoteModal();
+    renderCalendarView(new Date());
+}
+
+
+function handleDeleteCalendarNote() {
+    if (!selectedNoteDateKey) {
+        return;
+    }
+
+    const notes = getCalendarNotes();
+    delete notes[selectedNoteDateKey];
+    saveCalendarNotes(notes);
+    closeCalendarNoteModal();
+    renderCalendarView(new Date());
+}
+
+
 function renderCalendarView(now) {
     if (!ui.calendarMonthsGrid) {
         return;
@@ -5694,6 +6199,7 @@ function renderCalendarView(now) {
     }
  
     const weekdayHeaders = getLocalizedWeekdayHeaders();
+    const calendarNotes = getCalendarNotes();
     const monthFrag = document.createDocumentFragment();
  
     for (let m = 0; m < 12; m++) {
@@ -5751,11 +6257,15 @@ function renderCalendarView(now) {
             const cell = document.createElement("div");
             cell.className = "day-cell";
  
-            const cellDate = new Date(
+            const cellDateObj = new Date(
                 currentYear,
                 m,
                 d
-            ).getTime();
+            );
+            const cellDate = cellDateObj.getTime();
+            const dateKey = `${currentYear}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+            const noteText = calendarNotes[dateKey] || "";
+            const hasNote = Boolean(noteText);
  
             let status = "";
  
@@ -5774,27 +6284,62 @@ function renderCalendarView(now) {
  
                 cell.appendChild(numSpan);
                 cell.appendChild(xMark);
-            } else if (cellDate === todayMidnight) {
-                cell.classList.add("is-today");
-                status = labels.calStatusToday || "";
- 
-                const numSpan = document.createElement("span");
-                numSpan.className = "day-number";
-                numSpan.textContent = String(d);
- 
-                cell.appendChild(numSpan);
             } else {
-                cell.classList.add("is-future");
-                status = labels.calStatusFuture || "";
- 
+                cell.classList.add("is-clickable");
+                cell.setAttribute("role", "button");
+                cell.setAttribute("tabindex", "0");
+
+                let formattedDateStr = "";
+                try {
+                    formattedDateStr = new Intl.DateTimeFormat(dashboardLocale, {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    }).format(cellDateObj);
+                } catch {
+                    formattedDateStr = `${d} / ${m + 1} / ${currentYear}`;
+                }
+
+                cell.addEventListener("click", () => {
+                    openCalendarNoteModal(dateKey, formattedDateStr);
+                });
+
+                cell.addEventListener("keydown", (event) => {
+                    if (
+                        event.key === "Enter" ||
+                        event.key === " "
+                    ) {
+                        event.preventDefault();
+                        openCalendarNoteModal(dateKey, formattedDateStr);
+                    }
+                });
+
+                if (cellDate === todayMidnight) {
+                    cell.classList.add("is-today");
+                    status = labels.calStatusToday || "";
+                } else {
+                    cell.classList.add("is-future");
+                    status = labels.calStatusFuture || "";
+                }
+
                 const numSpan = document.createElement("span");
                 numSpan.className = "day-number";
                 numSpan.textContent = String(d);
- 
                 cell.appendChild(numSpan);
             }
+
+            if (hasNote) {
+                cell.classList.add("has-note");
+
+                const starSpan = document.createElement("span");
+                starSpan.className = "day-note-star";
+                starSpan.setAttribute("aria-hidden", "true");
+                starSpan.textContent = "\u2605";
+
+                cell.appendChild(starSpan);
+            }
  
-            cell.title = formatTranslation(
+            let tooltip = formatTranslation(
                 labels.calDayTooltipTemplate,
                 {
                     day: d,
@@ -5803,7 +6348,12 @@ function renderCalendarView(now) {
                     status: status
                 }
             );
+
+            if (hasNote) {
+                tooltip += ` \u2014 ${noteText}`;
+            }
  
+            cell.title = tooltip;
             daysGrid.appendChild(cell);
         }
  
@@ -5901,15 +6451,44 @@ if (ui.calendarModalBackdrop) {
         closeCalendarModal
     );
 }
+
+if (ui.closeCalendarNoteBtn) {
+    ui.closeCalendarNoteBtn.addEventListener(
+        "click",
+        closeCalendarNoteModal
+    );
+}
+
+if (ui.calendarNoteBackdrop) {
+    ui.calendarNoteBackdrop.addEventListener(
+        "click",
+        closeCalendarNoteModal
+    );
+}
+
+if (ui.calendarNoteForm) {
+    ui.calendarNoteForm.addEventListener(
+        "submit",
+        handleCalendarNoteSubmit
+    );
+}
+
+if (ui.deleteCalendarNoteBtn) {
+    ui.deleteCalendarNoteBtn.addEventListener(
+        "click",
+        handleDeleteCalendarNote
+    );
+}
  
 document.addEventListener(
     "keydown",
     (event) => {
-        if (
-            event.key === "Escape" &&
-            isCalendarOpen
-        ) {
-            closeCalendarModal();
+        if (event.key === "Escape") {
+            if (isCalendarNoteOpen) {
+                closeCalendarNoteModal();
+            } else if (isCalendarOpen) {
+                closeCalendarModal();
+            }
         }
     }
 );

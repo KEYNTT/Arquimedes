@@ -9,6 +9,7 @@ const TASKS_KEY = "progress-dashboard-tasks";
 const TASKS_TITLE_KEY = "progress-dashboard-tasks-title";
 const MAX_TASKS_TITLE_LENGTH = 45;
 const LIKE_VISITOR_KEY = "progress-dashboard-like-visitor";
+const CALENDAR_NOTES_KEY = "progress-dashboard-calendar-notes";
  
 const LIKES_API_URL =
     "https://dashboard-feedback-api.kevin-123-abanto.workers.dev";
@@ -108,19 +109,16 @@ const ui = {
  
     emptyTasks:
         document.getElementById("emptyTasks"),
- 
-    tasksTitle:
-        document.getElementById("tasksTitle"),
- 
-    editTasksTitle:
-        document.getElementById("editTasksTitle"),
- 
+
+    pendingCount:
+        document.getElementById("pendingCount"),
+
     likeButton:
         document.getElementById("likeButton"),
  
     likeCount:
         document.getElementById("likeCount"),
-
+ 
     calendarViewButton:
         document.getElementById("calendarViewButton"),
 
@@ -155,7 +153,34 @@ const ui = {
         document.getElementById("calendarRemainingPercent"),
 
     calendarMonthsGrid:
-        document.getElementById("calendarMonthsGrid")
+        document.getElementById("calendarMonthsGrid"),
+
+    calendarNoteModal:
+        document.getElementById("calendarNoteModal"),
+
+    calendarNoteBackdrop:
+        document.getElementById("calendarNoteBackdrop"),
+
+    closeCalendarNoteBtn:
+        document.getElementById("closeCalendarNoteBtn"),
+
+    calendarNoteTitle:
+        document.getElementById("calendarNoteTitle"),
+
+    calendarNoteForm:
+        document.getElementById("calendarNoteForm"),
+
+    calendarNoteDateDisplay:
+        document.getElementById("calendarNoteDateDisplay"),
+
+    calendarNoteInput:
+        document.getElementById("calendarNoteInput"),
+
+    saveCalendarNoteBtn:
+        document.getElementById("saveCalendarNoteBtn"),
+
+    deleteCalendarNoteBtn:
+        document.getElementById("deleteCalendarNoteBtn")
 };
  
  
@@ -2056,6 +2081,109 @@ function getLocalizedWeekdayHeaders() {
 }
 
 
+let isCalendarNoteOpen = false;
+let selectedNoteDateKey = null;
+
+
+function getCalendarNotes() {
+    try {
+        const raw = localStorage.getItem(CALENDAR_NOTES_KEY);
+        return raw ? JSON.parse(raw) : {};
+    } catch {
+        return {};
+    }
+}
+
+
+function saveCalendarNotes(notes) {
+    try {
+        localStorage.setItem(CALENDAR_NOTES_KEY, JSON.stringify(notes));
+    } catch {
+        // Ignored
+    }
+}
+
+
+function openCalendarNoteModal(dateKey, formattedDate) {
+    if (!ui.calendarNoteModal) {
+        return;
+    }
+
+    selectedNoteDateKey = dateKey;
+    isCalendarNoteOpen = true;
+
+    const notes = getCalendarNotes();
+    const existingNote = notes[dateKey] || "";
+
+    if (ui.calendarNoteDateDisplay) {
+        ui.calendarNoteDateDisplay.textContent = formattedDate;
+    }
+
+    if (ui.calendarNoteInput) {
+        ui.calendarNoteInput.value = existingNote;
+    }
+
+    if (ui.deleteCalendarNoteBtn) {
+        ui.deleteCalendarNoteBtn.style.display = existingNote ? "inline-flex" : "none";
+    }
+
+    ui.calendarNoteModal.classList.add("is-open");
+    ui.calendarNoteModal.setAttribute("aria-hidden", "false");
+
+    setTimeout(() => {
+        if (ui.calendarNoteInput) {
+            ui.calendarNoteInput.focus();
+        }
+    }, 60);
+}
+
+
+function closeCalendarNoteModal() {
+    if (!ui.calendarNoteModal) {
+        return;
+    }
+
+    isCalendarNoteOpen = false;
+    selectedNoteDateKey = null;
+    ui.calendarNoteModal.classList.remove("is-open");
+    ui.calendarNoteModal.setAttribute("aria-hidden", "true");
+}
+
+
+function handleCalendarNoteSubmit(event) {
+    event.preventDefault();
+    if (!selectedNoteDateKey) {
+        return;
+    }
+
+    const noteText = ui.calendarNoteInput?.value.trim() || "";
+    const notes = getCalendarNotes();
+
+    if (noteText) {
+        notes[selectedNoteDateKey] = noteText;
+    } else {
+        delete notes[selectedNoteDateKey];
+    }
+
+    saveCalendarNotes(notes);
+    closeCalendarNoteModal();
+    renderCalendarView(new Date());
+}
+
+
+function handleDeleteCalendarNote() {
+    if (!selectedNoteDateKey) {
+        return;
+    }
+
+    const notes = getCalendarNotes();
+    delete notes[selectedNoteDateKey];
+    saveCalendarNotes(notes);
+    closeCalendarNoteModal();
+    renderCalendarView(new Date());
+}
+
+
 function renderCalendarView(now) {
     if (!ui.calendarMonthsGrid) {
         return;
@@ -2146,6 +2274,7 @@ function renderCalendarView(now) {
     }
 
     const weekdayHeaders = getLocalizedWeekdayHeaders();
+    const calendarNotes = getCalendarNotes();
     const monthFrag = document.createDocumentFragment();
 
     for (let m = 0; m < 12; m++) {
@@ -2203,11 +2332,15 @@ function renderCalendarView(now) {
             const cell = document.createElement("div");
             cell.className = "day-cell";
 
-            const cellDate = new Date(
+            const cellDateObj = new Date(
                 currentYear,
                 m,
                 d
-            ).getTime();
+            );
+            const cellDate = cellDateObj.getTime();
+            const dateKey = `${currentYear}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+            const noteText = calendarNotes[dateKey] || "";
+            const hasNote = Boolean(noteText);
 
             let status = "";
 
@@ -2226,27 +2359,62 @@ function renderCalendarView(now) {
 
                 cell.appendChild(numSpan);
                 cell.appendChild(xMark);
-            } else if (cellDate === todayMidnight) {
-                cell.classList.add("is-today");
-                status = labels.calStatusToday || "";
-
-                const numSpan = document.createElement("span");
-                numSpan.className = "day-number";
-                numSpan.textContent = String(d);
-
-                cell.appendChild(numSpan);
             } else {
-                cell.classList.add("is-future");
-                status = labels.calStatusFuture || "";
+                cell.classList.add("is-clickable");
+                cell.setAttribute("role", "button");
+                cell.setAttribute("tabindex", "0");
+
+                let formattedDateStr = "";
+                try {
+                    formattedDateStr = new Intl.DateTimeFormat(dashboardLocale, {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    }).format(cellDateObj);
+                } catch {
+                    formattedDateStr = `${d} / ${m + 1} / ${currentYear}`;
+                }
+
+                cell.addEventListener("click", () => {
+                    openCalendarNoteModal(dateKey, formattedDateStr);
+                });
+
+                cell.addEventListener("keydown", (event) => {
+                    if (
+                        event.key === "Enter" ||
+                        event.key === " "
+                    ) {
+                        event.preventDefault();
+                        openCalendarNoteModal(dateKey, formattedDateStr);
+                    }
+                });
+
+                if (cellDate === todayMidnight) {
+                    cell.classList.add("is-today");
+                    status = labels.calStatusToday || "";
+                } else {
+                    cell.classList.add("is-future");
+                    status = labels.calStatusFuture || "";
+                }
 
                 const numSpan = document.createElement("span");
                 numSpan.className = "day-number";
                 numSpan.textContent = String(d);
-
                 cell.appendChild(numSpan);
             }
 
-            cell.title = formatTranslation(
+            if (hasNote) {
+                cell.classList.add("has-note");
+
+                const starSpan = document.createElement("span");
+                starSpan.className = "day-note-star";
+                starSpan.setAttribute("aria-hidden", "true");
+                starSpan.textContent = "\u2605";
+
+                cell.appendChild(starSpan);
+            }
+
+            let tooltip = formatTranslation(
                 labels.calDayTooltipTemplate,
                 {
                     day: d,
@@ -2256,6 +2424,11 @@ function renderCalendarView(now) {
                 }
             );
 
+            if (hasNote) {
+                tooltip += ` \u2014 ${noteText}`;
+            }
+
+            cell.title = tooltip;
             daysGrid.appendChild(cell);
         }
 
@@ -2353,15 +2526,44 @@ if (ui.calendarModalBackdrop) {
         closeCalendarModal
     );
 }
+
+if (ui.closeCalendarNoteBtn) {
+    ui.closeCalendarNoteBtn.addEventListener(
+        "click",
+        closeCalendarNoteModal
+    );
+}
+
+if (ui.calendarNoteBackdrop) {
+    ui.calendarNoteBackdrop.addEventListener(
+        "click",
+        closeCalendarNoteModal
+    );
+}
+
+if (ui.calendarNoteForm) {
+    ui.calendarNoteForm.addEventListener(
+        "submit",
+        handleCalendarNoteSubmit
+    );
+}
+
+if (ui.deleteCalendarNoteBtn) {
+    ui.deleteCalendarNoteBtn.addEventListener(
+        "click",
+        handleDeleteCalendarNote
+    );
+}
  
 document.addEventListener(
     "keydown",
     (event) => {
-        if (
-            event.key === "Escape" &&
-            isCalendarOpen
-        ) {
-            closeCalendarModal();
+        if (event.key === "Escape") {
+            if (isCalendarNoteOpen) {
+                closeCalendarNoteModal();
+            } else if (isCalendarOpen) {
+                closeCalendarModal();
+            }
         }
     }
 );
