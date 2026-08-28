@@ -574,16 +574,16 @@ body::before {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 10px 16px;
+    gap: 12px 16px;
 
-    padding-top: 12px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .calendar-modal-stats {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
@@ -592,13 +592,14 @@ body::before {
     align-items: center;
     gap: 8px;
 
-    padding: 6px 12px;
+    padding: 7px 14px;
 
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 12px;
 
     background: var(--surface);
-    font-size: 0.78rem;
+    font-size: 0.8rem;
+    transition: transform 140ms ease, background 140ms ease;
 }
 
 .calendar-stat-pill.is-elapsed {
@@ -616,11 +617,20 @@ body::before {
     background: rgba(54, 211, 153, 0.08);
 }
 
+.calendar-stat-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
 .calendar-stat-dot {
     display: inline-block;
     width: 6px;
     height: 6px;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .calendar-stat-pill.is-elapsed .calendar-stat-dot {
@@ -638,9 +648,10 @@ body::before {
     box-shadow: 0 0 6px #36d399;
 }
 
-.calendar-stat-label {
-    color: var(--text-secondary);
-    font-weight: 500;
+.calendar-stat-values {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
 }
 
 .calendar-stat-val {
@@ -663,7 +674,7 @@ body::before {
 
 .calendar-stat-percent {
     color: var(--text-muted);
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     font-weight: 500;
 }
 
@@ -671,9 +682,9 @@ body::before {
 .calendar-legend {
     display: inline-flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     flex-wrap: wrap;
-    font-size: 0.74rem;
+    font-size: 0.76rem;
     color: var(--text-secondary);
 }
 
@@ -687,10 +698,10 @@ body::before {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
     border-radius: 4px;
-    font-size: 0.65rem;
+    font-size: 0.68rem;
     font-weight: 800;
 }
 
@@ -713,7 +724,7 @@ body::before {
     color: var(--text-muted);
 }
 
-/* Responsive: 3 columns on Mobile / Tablet (Enero - Marzo, Abril - Junio, etc.) */
+/* Responsive: Mobile & Tablet (3 columnas de meses y cuadros inferiores adaptados) */
 @media (max-width: 960px) {
     .calendar-modal {
         padding: 8px;
@@ -785,38 +796,90 @@ body::before {
         font-size: 0.92em;
     }
 
+    /* Cuadros finales de información: 100% responsive para celular */
     .calendar-modal-bottom {
-        padding-top: 8px;
+        display: flex;
+        flex-direction: column;
         gap: 8px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        width: 100%;
     }
 
     .calendar-modal-stats {
-        gap: 6px;
-        width: 100%;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        width: 100%;
     }
 
     .calendar-stat-pill {
-        padding: 5px 8px;
-        font-size: 0.72rem;
-        gap: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         justify-content: center;
+        text-align: center;
+        padding: 7px 4px 6px;
+        border-radius: 10px;
+        gap: 3px;
+        min-width: 0;
+        width: 100%;
     }
 
     .calendar-stat-label {
-        font-size: 0.68rem;
+        font-size: 0.62rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        gap: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    .calendar-stat-dot {
+        width: 5px;
+        height: 5px;
+    }
+
+    .calendar-stat-values {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 3px;
+        flex-wrap: wrap;
+    }
+
+    .calendar-stat-val {
+        font-size: 0.88rem;
+        font-weight: 800;
+        line-height: 1.1;
     }
 
     .calendar-stat-percent {
-        font-size: 0.64rem;
+        font-size: 0.62rem;
+        line-height: 1;
     }
 
     .calendar-legend {
-        font-size: 0.68rem;
-        gap: 10px;
+        display: flex;
+        align-items: center;
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 6px 12px;
+        padding: 6px 8px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 0.66rem;
         width: 100%;
+    }
+
+    .legend-bullet {
+        width: 13px;
+        height: 13px;
+        font-size: 0.6rem;
     }
 }
 
@@ -837,13 +900,31 @@ body::before {
         font-size: 0.62rem;
     }
 
+    .calendar-modal-stats {
+        gap: 4px;
+    }
+
     .calendar-stat-pill {
-        padding: 4px 6px;
-        font-size: 0.66rem;
+        padding: 6px 2px 5px;
     }
 
     .calendar-stat-label {
-        display: none;
+        font-size: 0.58rem;
+        gap: 3px;
+    }
+
+    .calendar-stat-val {
+        font-size: 0.82rem;
+    }
+
+    .calendar-stat-percent {
+        font-size: 0.58rem;
+    }
+
+    .calendar-legend {
+        font-size: 0.62rem;
+        gap: 4px 8px;
+        padding: 4px 6px;
     }
 }
 
