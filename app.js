@@ -119,7 +119,43 @@ const ui = {
         document.getElementById("likeButton"),
  
     likeCount:
-        document.getElementById("likeCount")
+        document.getElementById("likeCount"),
+
+    calendarViewButton:
+        document.getElementById("calendarViewButton"),
+
+    calendarModal:
+        document.getElementById("calendarModal"),
+
+    closeCalendarBtn:
+        document.getElementById("closeCalendarBtn"),
+
+    calendarModalBackdrop:
+        document.getElementById("calendarModalBackdrop"),
+
+    calendarYearBadge:
+        document.getElementById("calendarYearBadge"),
+
+    calendarElapsedStat:
+        document.getElementById("calendarElapsedStat"),
+
+    calendarElapsedPercent:
+        document.getElementById("calendarElapsedPercent"),
+
+    calendarTodayStat:
+        document.getElementById("calendarTodayStat"),
+
+    calendarTodayNumber:
+        document.getElementById("calendarTodayNumber"),
+
+    calendarRemainingStat:
+        document.getElementById("calendarRemainingStat"),
+
+    calendarRemainingPercent:
+        document.getElementById("calendarRemainingPercent"),
+
+    calendarMonthsGrid:
+        document.getElementById("calendarMonthsGrid")
 };
  
  
@@ -1965,6 +2001,308 @@ ui.taskList.addEventListener(
  
  
 /* ==========================================
+   VISTA CALENDARIO
+========================================== */
+ 
+let isCalendarOpen = false;
+ 
+ 
+function getLocalizedMonthName(monthIndex) {
+    const key = `calMonth${monthIndex + 1}`;
+ 
+    if (labels[key]) {
+        return labels[key];
+    }
+ 
+    try {
+        return new Intl.DateTimeFormat(
+            dashboardLocale,
+            { month: "long" }
+        ).format(new Date(2026, monthIndex, 1));
+    } catch {
+        return String(monthIndex + 1);
+    }
+}
+ 
+ 
+function getLocalizedWeekdayHeaders() {
+    const keys = [
+        "calDaySun",
+        "calDayMon",
+        "calDayTue",
+        "calDayWed",
+        "calDayThu",
+        "calDayFri",
+        "calDaySat"
+    ];
+
+    const custom = keys.map(k => labels[k]);
+
+    if (custom.every(Boolean)) {
+        return custom;
+    }
+
+    return [0, 1, 2, 3, 4, 5, 6].map(d => {
+        const dt = new Date(Date.UTC(2026, 0, 4 + d)); // 2026-01-04 is Sunday
+        try {
+            return new Intl.DateTimeFormat(
+                dashboardLocale,
+                { weekday: "narrow" }
+            ).format(dt);
+        } catch {
+            return String(d);
+        }
+    });
+}
+
+
+function renderCalendarView(now) {
+    if (!ui.calendarMonthsGrid) {
+        return;
+    }
+
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth();
+    const currentDate = now.getDate();
+    const todayMidnight = new Date(
+        currentYear,
+        currentMonth,
+        currentDate
+    ).getTime();
+
+    const isLeap =
+        currentYear % 4 === 0 &&
+        (
+            currentYear % 100 !== 0 ||
+            currentYear % 400 === 0
+        );
+
+    const daysInYear = isLeap ? 366 : 365;
+
+    const startOfYear = new Date(
+        currentYear,
+        0,
+        1
+    ).getTime();
+
+    const dayOfYear =
+        Math.floor((todayMidnight - startOfYear) / MS_PER_DAY) + 1;
+
+    const elapsedDays = Math.max(0, dayOfYear - 1);
+    const remainingDays = Math.max(0, daysInYear - elapsedDays);
+
+    const elapsedPercentVal =
+        (elapsedDays / daysInYear) * 100;
+
+    const remainingPercentVal =
+        (remainingDays / daysInYear) * 100;
+
+    if (ui.calendarYearBadge) {
+        ui.calendarYearBadge.textContent = String(currentYear);
+    }
+
+    if (ui.calendarElapsedStat) {
+        ui.calendarElapsedStat.textContent =
+            new Intl.NumberFormat(dashboardLocale).format(elapsedDays);
+    }
+
+    if (ui.calendarElapsedPercent) {
+        ui.calendarElapsedPercent.textContent =
+            `(${elapsedPercentVal.toFixed(1)}%)`;
+    }
+
+    if (ui.calendarTodayStat) {
+        try {
+            ui.calendarTodayStat.textContent =
+                new Intl.DateTimeFormat(dashboardLocale, {
+                    day: "numeric",
+                    month: "short"
+                }).format(now);
+        } catch {
+            ui.calendarTodayStat.textContent =
+                `${currentDate}/${currentMonth + 1}`;
+        }
+    }
+
+    if (ui.calendarTodayNumber) {
+        ui.calendarTodayNumber.textContent =
+            formatTranslation(
+                labels.calDayOfYearTemplate,
+                {
+                    current: dayOfYear,
+                    total: daysInYear
+                }
+            );
+    }
+
+    if (ui.calendarRemainingStat) {
+        ui.calendarRemainingStat.textContent =
+            new Intl.NumberFormat(dashboardLocale).format(remainingDays);
+    }
+
+    if (ui.calendarRemainingPercent) {
+        ui.calendarRemainingPercent.textContent =
+            `(${remainingPercentVal.toFixed(1)}%)`;
+    }
+
+    const weekdayHeaders = getLocalizedWeekdayHeaders();
+    const monthFrag = document.createDocumentFragment();
+
+    for (let m = 0; m < 12; m++) {
+        const monthCard = document.createElement("div");
+        monthCard.className = "month-card";
+
+        const monthHeader = document.createElement("div");
+        monthHeader.className = "month-card-header";
+
+        const monthNameSpan = document.createElement("span");
+        monthNameSpan.className = "month-name";
+        monthNameSpan.textContent = getLocalizedMonthName(m);
+
+        monthHeader.appendChild(monthNameSpan);
+        monthCard.appendChild(monthHeader);
+
+        const weekdaysRow = document.createElement("div");
+        weekdaysRow.className = "month-weekdays";
+
+        for (const wd of weekdayHeaders) {
+            const wdSpan = document.createElement("span");
+            wdSpan.className = "month-weekday";
+            wdSpan.textContent = wd;
+            weekdaysRow.appendChild(wdSpan);
+        }
+
+        monthCard.appendChild(weekdaysRow);
+
+        const daysGrid = document.createElement("div");
+        daysGrid.className = "month-days-grid";
+
+        const daysInThisMonth = new Date(
+            currentYear,
+            m + 1,
+            0
+        ).getDate();
+
+        const firstDayWeekday = new Date(
+            currentYear,
+            m,
+            1
+        ).getDay(); // 0 is Sunday
+
+        const offset = firstDayWeekday;
+
+        for (let o = 0; o < offset; o++) {
+            const emptyCell = document.createElement("div");
+            emptyCell.className = "day-cell is-empty";
+            daysGrid.appendChild(emptyCell);
+        }
+
+        const monthNameStr = getLocalizedMonthName(m);
+
+        for (let d = 1; d <= daysInThisMonth; d++) {
+            const cell = document.createElement("div");
+            cell.className = "day-cell";
+
+            const cellDate = new Date(
+                currentYear,
+                m,
+                d
+            ).getTime();
+
+            let status = "";
+
+            if (cellDate < todayMidnight) {
+                cell.classList.add("is-past");
+                status = labels.calStatusPast || "";
+
+                const numSpan = document.createElement("span");
+                numSpan.className = "day-number";
+                numSpan.textContent = String(d);
+
+                const xMark = document.createElement("span");
+                xMark.className = "day-x-mark";
+                xMark.setAttribute("aria-hidden", "true");
+                xMark.textContent = "\u2715";
+
+                cell.appendChild(numSpan);
+                cell.appendChild(xMark);
+            } else if (cellDate === todayMidnight) {
+                cell.classList.add("is-today");
+                status = labels.calStatusToday || "";
+
+                const numSpan = document.createElement("span");
+                numSpan.className = "day-number";
+                numSpan.textContent = String(d);
+
+                cell.appendChild(numSpan);
+            } else {
+                cell.classList.add("is-future");
+                status = labels.calStatusFuture || "";
+
+                const numSpan = document.createElement("span");
+                numSpan.className = "day-number";
+                numSpan.textContent = String(d);
+
+                cell.appendChild(numSpan);
+            }
+
+            cell.title = formatTranslation(
+                labels.calDayTooltipTemplate,
+                {
+                    day: d,
+                    month: monthNameStr,
+                    year: currentYear,
+                    status: status
+                }
+            );
+
+            daysGrid.appendChild(cell);
+        }
+
+        monthCard.appendChild(daysGrid);
+        monthFrag.appendChild(monthCard);
+    }
+
+    ui.calendarMonthsGrid.innerHTML = "";
+    ui.calendarMonthsGrid.appendChild(monthFrag);
+}
+ 
+ 
+function openCalendarModal() {
+    if (!ui.calendarModal) {
+        return;
+    }
+ 
+    isCalendarOpen = true;
+    ui.calendarModal.classList.add("is-open");
+    ui.calendarModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+ 
+    renderCalendarView(new Date());
+ 
+    if (ui.closeCalendarBtn) {
+        ui.closeCalendarBtn.focus();
+    }
+}
+ 
+ 
+function closeCalendarModal() {
+    if (!ui.calendarModal) {
+        return;
+    }
+ 
+    isCalendarOpen = false;
+    ui.calendarModal.classList.remove("is-open");
+    ui.calendarModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+ 
+    if (ui.calendarViewButton) {
+        ui.calendarViewButton.focus();
+    }
+}
+ 
+ 
+/* ==========================================
    INICIAR
 ========================================== */
  
@@ -1995,6 +2333,39 @@ ui.likeButton.addEventListener(
     toggleLike
 );
  
+if (ui.calendarViewButton) {
+    ui.calendarViewButton.addEventListener(
+        "click",
+        openCalendarModal
+    );
+}
+ 
+if (ui.closeCalendarBtn) {
+    ui.closeCalendarBtn.addEventListener(
+        "click",
+        closeCalendarModal
+    );
+}
+ 
+if (ui.calendarModalBackdrop) {
+    ui.calendarModalBackdrop.addEventListener(
+        "click",
+        closeCalendarModal
+    );
+}
+ 
+document.addEventListener(
+    "keydown",
+    (event) => {
+        if (
+            event.key === "Escape" &&
+            isCalendarOpen
+        ) {
+            closeCalendarModal();
+        }
+    }
+);
+ 
 updateDashboard();
 renderTasks();
 loadLikeState();
@@ -2003,4 +2374,3 @@ setInterval(
     updateDashboard,
     1000
 );
-
