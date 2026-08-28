@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-PE" dir="ltr" data-locale-code="es" data-build="standalone-v14-i18n">
+<html lang="ar" dir="rtl" data-locale-code="ar" data-build="standalone-v14-i18n">
 <head>
     <meta charset="UTF-8">
 
@@ -9,11 +9,11 @@
     >
 
     <!-- SEO principal: traducir estos metadatos en cada versión de idioma -->
-    <title>Progreso del año, mes, semana y día | RutaFinal</title>
+    <title>تقدّم السنة والشهر والأسبوع واليوم | RutaFinal</title>
 
     <meta
         name="description"
-        content="Visualiza en tiempo real cuánto ha transcurrido y cuánto falta del año, mes, semana y día. Organiza tareas y añade notas a tu calendario."
+        content="شاهد لحظيًا مقدار ما مضى وما تبقّى من السنة والشهر والأسبوع واليوم. نظّم مهامك وأضف ملاحظات لكل يوم في التقويم."
     >
 
     <meta
@@ -21,7 +21,7 @@
         content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     >
 
-    <link rel="canonical" href="https://big-strategy.com/">
+    <link rel="canonical" href="https://big-strategy.com/ar/">
 
     <link rel="alternate" hreflang="es" href="https://big-strategy.com/">
     <link rel="alternate" hreflang="en" href="https://big-strategy.com/en/">
@@ -53,68 +53,37 @@
     <!-- Vista previa al compartir; el texto se localizará por idioma -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="RutaFinal">
-    <meta property="og:locale" content="es_PE">
-    <meta property="og:url" content="https://big-strategy.com/">
-    <meta property="og:title" content="Progreso del año, mes, semana y día | RutaFinal">
-    <meta property="og:description" content="Visualiza en tiempo real cuánto ha transcurrido y cuánto falta del año, mes, semana y día. Organiza tareas y añade notas a tu calendario.">
+    <meta property="og:locale" content="ar_SA">
+    <meta property="og:url" content="https://big-strategy.com/ar/">
+    <meta property="og:title" content="تقدّم السنة والشهر والأسبوع واليوم | RutaFinal">
+    <meta property="og:description" content="شاهد لحظيًا مقدار ما مضى وما تبقّى من السنة والشهر والأسبوع واليوم. نظّم مهامك وأضف ملاحظات لكل يوم في التقويم.">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Progreso del año, mes, semana y día | RutaFinal">
-    <meta name="twitter:description" content="Visualiza en tiempo real cuánto ha transcurrido y cuánto falta del año, mes, semana y día. Organiza tareas y añade notas a tu calendario.">
+    <meta name="twitter:title" content="تقدّم السنة والشهر والأسبوع واليوم | RutaFinal">
+    <meta name="twitter:description" content="شاهد لحظيًا مقدار ما مضى وما تبقّى من السنة والشهر والأسبوع واليوم. نظّم مهامك وأضف ملاحظات لكل يوم في التقويم.">
 
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "RutaFinal",
-        "url": "https://big-strategy.com/",
-        "description": "Visualiza en tiempo real cuánto ha transcurrido y cuánto falta del año, mes, semana y día. Organiza tareas y añade notas a tu calendario.",
+        "url": "https://big-strategy.com/ar/",
+        "description": "شاهد لحظيًا مقدار ما مضى وما تبقّى من السنة والشهر والأسبوع واليوم. نظّم مهامك وأضف ملاحظات لكل يوم في التقويم.",
         "applicationCategory": "ProductivityApplication",
         "operatingSystem": "Any",
         "browserRequirements": "Requires JavaScript",
-        "inLanguage": "es-PE",
+        "inLanguage": "ar",
         "isAccessibleForFree": true,
         "featureList": [
-            "Progreso del año, mes, semana y día en tiempo real",
-            "Vista de tiempo transcurrido y restante",
-            "Tareas personales guardadas en el dispositivo",
-            "Calendario anual con notas por día"
+            "تقدّم السنة والشهر والأسبوع واليوم في الوقت الفعلي",
+            "عرض الوقت المنقضي والمتبقي",
+            "حفظ المهام الشخصية على الجهاز",
+            "تقويم سنوي مع ملاحظات لكل يوم"
         ]
     }
     </script>
 
-    <script>
-    (() => {
-        const LANGUAGE_KEY = "rutafinal-language";
-        const routes = {"es":"/","en":"/en/","pt":"/pt/","zh":"/zh/","ja":"/ja/","ko":"/ko/","de":"/de/","fr":"/fr/","it":"/it/","hi":"/hi/","ar":"/ar/","ru":"/ru/"};
-        const isRoot = location.pathname === "/" || location.pathname === "/index.html";
-        const isCrawler = /bot|crawler|spider|crawling/i.test(navigator.userAgent);
-
-        if (!isRoot || isCrawler) {
-            return;
-        }
-
-        let savedLanguage = "";
-
-        try {
-            savedLanguage = localStorage.getItem(LANGUAGE_KEY) || "";
-        } catch {}
-
-        const preferredLanguages = savedLanguage
-            ? [savedLanguage]
-            : (navigator.languages?.length ? navigator.languages : [navigator.language]);
-
-        const selectedLanguage = preferredLanguages
-            .map(value => String(value || "").toLowerCase().split("-")[0])
-            .find(value => routes[value]);
-
-        const destination = routes[selectedLanguage] || "/";
-
-        if (destination !== "/") {
-            location.replace(destination + location.search + location.hash);
-        }
-    })();
-    </script>
+    
 
     <!-- Fuente Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3011,7 +2980,7 @@ html[dir="rtl"] textarea {
 
                     <span class="live-dot"></span>
 
-                    EN VIVO
+                    مباشر
 
                 </span>
 
@@ -3019,8 +2988,8 @@ html[dir="rtl"] textarea {
             <div class="header-actions">
                 <label class="language-picker">
                     <span class="language-picker-icon" aria-hidden="true">🌐</span>
-                    <select id="languageSelector" aria-label="Seleccionar idioma">
-                        <option value="/" data-code="es" selected>Español</option>
+                    <select id="languageSelector" aria-label="اختر اللغة">
+                        <option value="/" data-code="es">Español</option>
                         <option value="/en/" data-code="en">English</option>
                         <option value="/pt/" data-code="pt">Português</option>
                         <option value="/zh/" data-code="zh">简体中文</option>
@@ -3030,7 +2999,7 @@ html[dir="rtl"] textarea {
                         <option value="/fr/" data-code="fr">Français</option>
                         <option value="/it/" data-code="it">Italiano</option>
                         <option value="/hi/" data-code="hi">हिन्दी</option>
-                        <option value="/ar/" data-code="ar">العربية</option>
+                        <option value="/ar/" data-code="ar" selected>العربية</option>
                         <option value="/ru/" data-code="ru">Русский</option>
                     </select>
                 </label>
@@ -3041,18 +3010,18 @@ html[dir="rtl"] textarea {
                 id="calendarViewButton"
                 class="calendar-view-button"
                 type="button"
-                aria-label="Abrir vista calendario"
-                title="Vista Calendario"
+                aria-label="فتح عرض التقويم"
+                title="عرض التقويم"
             >
                 <span class="calendar-view-btn-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentاللون" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                         <line x1="16" y1="2" x2="16" y2="6"></line>
                         <line x1="8" y1="2" x2="8" y2="6"></line>
                         <line x1="3" y1="10" x2="21" y2="10"></line>
                     </svg>
                 </span>
-                <span class="calendar-view-btn-text">Vista Calendario</span>
+                <span class="calendar-view-btn-text">عرض التقويم</span>
             </button>
             </div>
 
@@ -3071,10 +3040,10 @@ html[dir="rtl"] textarea {
 
             <section
                 class="progress-panel"
-                aria-label="Progreso del tiempo"
+                aria-label="تقدّم الوقت"
             >
 
-                <!-- AÑO -->
+                <!-- السنة -->
 
                 <article
                     class="progress-card"
@@ -3083,8 +3052,8 @@ html[dir="rtl"] textarea {
                     role="button"
                     tabindex="0"
                     aria-pressed="false"
-                    aria-label="Mostrar el tiempo restante del año"
-                    title="Haz clic para ver el tiempo restante"
+                    aria-label="عرض الوقت المتبقي من السنة"
+                    title="انقر لعرض الوقت المتبقي"
                 >
 
                     <div class="progress-info">
@@ -3093,7 +3062,7 @@ html[dir="rtl"] textarea {
                             id="yearTitle"
                             class="progress-title"
                         >
-                            AÑO
+                            السنة
                         </span>
 
                         <span
@@ -3108,7 +3077,7 @@ html[dir="rtl"] textarea {
                     <div
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Progreso del año"
+                        aria-label="الجزء المنقضي من السنة"
                         aria-valuemin="0"
                         aria-valuemax="100"
                     >
@@ -3123,11 +3092,11 @@ html[dir="rtl"] textarea {
                     <div class="progress-detail">
 
                         <span id="yearDetailLabel">
-                            Mes 1 de 12
+                            الشهر 1 من 12
                         </span>
 
                         <strong id="yearDetail">
-                            0.00 / 365 días
+                            0.00 / 365 يومًا
                         </strong>
 
                     </div>
@@ -3135,7 +3104,7 @@ html[dir="rtl"] textarea {
                 </article>
 
 
-                <!-- MES -->
+                <!-- الشهر -->
 
                 <article
                     class="progress-card"
@@ -3144,8 +3113,8 @@ html[dir="rtl"] textarea {
                     role="button"
                     tabindex="0"
                     aria-pressed="false"
-                    aria-label="Mostrar el tiempo restante del mes"
-                    title="Haz clic para ver el tiempo restante"
+                    aria-label="عرض الوقت المتبقي من الشهر"
+                    title="انقر لعرض الوقت المتبقي"
                 >
 
                     <div class="progress-info">
@@ -3154,7 +3123,7 @@ html[dir="rtl"] textarea {
                             id="monthTitle"
                             class="progress-title"
                         >
-                            MES
+                            الشهر
                         </span>
 
                         <span
@@ -3169,7 +3138,7 @@ html[dir="rtl"] textarea {
                     <div
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Progreso del mes"
+                        aria-label="الجزء المنقضي من الشهر"
                         aria-valuemin="0"
                         aria-valuemax="100"
                     >
@@ -3184,11 +3153,11 @@ html[dir="rtl"] textarea {
                     <div class="progress-detail">
 
                         <span id="monthDetailLabel">
-                            Día 1 de 31
+                            اليوم 1 من 31
                         </span>
 
                         <strong id="monthDetail">
-                            0.00 días transcurridos
+                            مضى 0.00 يوم
                         </strong>
 
                     </div>
@@ -3196,7 +3165,7 @@ html[dir="rtl"] textarea {
                 </article>
 
 
-                <!-- SEMANA -->
+                <!-- الأسبوع -->
 
                 <article
                     class="progress-card"
@@ -3205,8 +3174,8 @@ html[dir="rtl"] textarea {
                     role="button"
                     tabindex="0"
                     aria-pressed="false"
-                    aria-label="Mostrar el tiempo restante de la semana"
-                    title="Haz clic para ver el tiempo restante"
+                    aria-label="عرض الوقت المتبقي من الأسبوع"
+                    title="انقر لعرض الوقت المتبقي"
                 >
 
                     <div class="progress-info">
@@ -3215,7 +3184,7 @@ html[dir="rtl"] textarea {
                             id="weekTitle"
                             class="progress-title"
                         >
-                            SEMANA
+                            الأسبوع
                         </span>
 
                         <span
@@ -3230,7 +3199,7 @@ html[dir="rtl"] textarea {
                     <div
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Progreso de la semana"
+                        aria-label="الجزء المنقضي من الأسبوع"
                         aria-valuemin="0"
                         aria-valuemax="100"
                     >
@@ -3245,11 +3214,11 @@ html[dir="rtl"] textarea {
                     <div class="progress-detail">
 
                         <span id="weekDetailLabel">
-                            Pasaron
+                            مضى
                         </span>
 
                         <strong id="weekDetail">
-                            0 días y 0 horas
+                            0 يوم و0 ساعة
                         </strong>
 
                     </div>
@@ -3257,7 +3226,7 @@ html[dir="rtl"] textarea {
                 </article>
 
 
-                <!-- DÍA -->
+                <!-- اليوم -->
 
                 <article
                     class="progress-card"
@@ -3266,8 +3235,8 @@ html[dir="rtl"] textarea {
                     role="button"
                     tabindex="0"
                     aria-pressed="false"
-                    aria-label="Mostrar el tiempo restante del día"
-                    title="Haz clic para ver el tiempo restante"
+                    aria-label="عرض الوقت المتبقي من اليوم"
+                    title="انقر لعرض الوقت المتبقي"
                 >
 
                     <div class="progress-info">
@@ -3276,7 +3245,7 @@ html[dir="rtl"] textarea {
                             id="dayTitle"
                             class="progress-title"
                         >
-                            DÍA
+                            اليوم
                         </span>
 
                         <span
@@ -3291,7 +3260,7 @@ html[dir="rtl"] textarea {
                     <div
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Progreso del día"
+                        aria-label="الجزء المنقضي من اليوم"
                         aria-valuemin="0"
                         aria-valuemax="100"
                     >
@@ -3306,11 +3275,11 @@ html[dir="rtl"] textarea {
                     <div class="progress-detail">
 
                         <span id="dayDetailLabel">
-                            Hora 0 de 24
+                            الساعة 0 من 24
                         </span>
 
                         <strong id="dayDetail">
-                            0.00 horas transcurridas
+                            مضى 0.00 ساعة
                         </strong>
 
                     </div>
@@ -3325,12 +3294,12 @@ html[dir="rtl"] textarea {
 
             <section
                 class="status-card"
-                aria-label="Resumen del año"
+                aria-label="ملخص السنة"
             >
 
                 <span>
 
-                    Día del año
+                    يوم السنة
 
                     <strong id="dayOfYear">
                         0
@@ -3340,7 +3309,7 @@ html[dir="rtl"] textarea {
 
                 <span>
 
-                    Semana
+                    الأسبوع
 
                     <strong id="weekNumber">
                         0
@@ -3350,13 +3319,13 @@ html[dir="rtl"] textarea {
 
                 <span>
 
-                    Restan
+                    المتبقي
 
                     <strong id="remainingDays">
                         0
                     </strong>
 
-                    días
+                    أيام
 
                 </span>
 
@@ -3384,26 +3353,26 @@ html[dir="rtl"] textarea {
                         id="dayName"
                         class="day-name"
                     >
-                        Lunes
+                        الاثنين
                     </div>
 
                     <div
                         id="fullDate"
                         class="full-date"
                     >
-                        1 de enero de 2026
+                        1 يناير 2026
                     </div>
 
                     <div
                         id="timezone"
                         class="timezone"
                     >
-                        Zona horaria local
+                        المنطقة الزمنية المحلية
                     </div>
 
                     <div
                         class="engagement-panel"
-                        aria-label="Opiniones sobre la página"
+                        aria-label="الآراء حول الصفحة"
                     >
 
                         <a
@@ -3411,7 +3380,7 @@ html[dir="rtl"] textarea {
                             href="https://tally.so/r/VLabPE"
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label="Enviar feedback mediante Tally"
+                            aria-label="إرسال ملاحظات عبر Tally"
                         >
                             <span
                                 class="feedback-card-icon"
@@ -3424,8 +3393,8 @@ html[dir="rtl"] textarea {
                             </span>
 
                             <span class="feedback-card-copy">
-                                <strong>Feedback</strong>
-                                <small>Enviar una sugerencia</small>
+                                <strong>ملاحظات</strong>
+                                <small>إرسال اقتراح</small>
                             </span>
 
                             <span
@@ -3439,9 +3408,9 @@ html[dir="rtl"] textarea {
                                 id="likeButton"
                                 class="like-button"
                                 type="button"
-                                aria-label="Dar me gusta a esta página"
+                                aria-label="الإعجاب بهذه الصفحة"
                                 aria-pressed="false"
-                                title="Me gusta"
+                                title="إعجاب"
                             >
                                 <svg
                                     class="like-icon"
@@ -3458,7 +3427,7 @@ html[dir="rtl"] textarea {
                                 aria-live="polite"
                             >—</span>
 
-                            <span class="like-label">Me gusta</span>
+                            <span class="like-label">إعجاب</span>
                         </div>
 
                     </div>
@@ -3475,7 +3444,7 @@ html[dir="rtl"] textarea {
                         <div>
 
                             <span class="tasks-label">
-                                ALMACENAMIENTO LOCAL
+                                تخزين محلي
                             </span>
 
                             <div class="tasks-title-row">
@@ -3485,18 +3454,18 @@ html[dir="rtl"] textarea {
                                     class="tasks-title"
                                     contenteditable="true"
                                     role="textbox"
-                                    aria-label="Título editable de la lista de tareas"
+                                    aria-label="عنوان قابل للتعديل لقائمة المهام"
                                     aria-multiline="false"
                                     spellcheck="false"
-                                    title="Haz clic para editar el título"
-                                >Mis tareas</h2>
+                                    title="انقر لتعديل العنوان"
+                                >مهامي</h2>
 
                                 <button
                                     id="editTasksTitle"
                                     class="edit-title-button"
                                     type="button"
-                                    aria-label="Editar título de las tareas"
-                                    title="Editar título"
+                                    aria-label="تعديل عنوان قائمة المهام"
+                                    title="تعديل العنوان"
                                 >
                                     ✎
                                 </button>
@@ -3509,7 +3478,7 @@ html[dir="rtl"] textarea {
                             id="taskCount"
                             class="task-count"
                         >
-                            0 pendientes
+                            0 قيد الانتظار
                         </span>
 
                     </div>
@@ -3526,72 +3495,72 @@ html[dir="rtl"] textarea {
                             type="text"
                             maxlength="120"
                             autocomplete="off"
-                            placeholder="Escribe una nueva tarea..."
-                            aria-label="Nueva tarea"
+                            placeholder="اكتب مهمة جديدة..."
+                            aria-label="مهمة جديدة"
                         >
 
                         <button
                             class="add-task-button"
                             type="submit"
                         >
-                            Agregar
+                            إضافة
                         </button>
 
                         <div class="task-options">
 
                             <fieldset class="task-colors">
 
-                                <legend>Color</legend>
+                                <legend>اللون</legend>
 
                                 <div class="color-options">
 
-                                    <label title="Azul">
+                                    <label title="أزرق">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="taskاللون"
                                             value="blue"
                                             checked
-                                            aria-label="Color azul"
+                                            aria-label="اللون: أزرق"
                                         >
                                         <span class="color-swatch color-blue"></span>
                                     </label>
 
-                                    <label title="Verde">
+                                    <label title="أخضر">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="taskاللون"
                                             value="green"
-                                            aria-label="Color verde"
+                                            aria-label="اللون: أخضر"
                                         >
                                         <span class="color-swatch color-green"></span>
                                     </label>
 
-                                    <label title="Amarillo">
+                                    <label title="أصفر">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="taskاللون"
                                             value="amber"
-                                            aria-label="Color amarillo"
+                                            aria-label="اللون: أصفر"
                                         >
                                         <span class="color-swatch color-amber"></span>
                                     </label>
 
-                                    <label title="Rojo">
+                                    <label title="أحمر">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="taskاللون"
                                             value="red"
-                                            aria-label="Color rojo"
+                                            aria-label="اللون: أحمر"
                                         >
                                         <span class="color-swatch color-red"></span>
                                     </label>
 
-                                    <label title="Morado">
+                                    <label title="بنفسجي">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="taskاللون"
                                             value="violet"
-                                            aria-label="Color morado"
+                                            aria-label="اللون: بنفسجي"
                                         >
                                         <span class="color-swatch color-violet"></span>
                                     </label>
@@ -3612,7 +3581,7 @@ html[dir="rtl"] textarea {
                                     aria-hidden="true"
                                 >★</span>
 
-                                <span>Importante</span>
+                                <span>مهم</span>
 
                             </label>
 
@@ -3627,13 +3596,13 @@ html[dir="rtl"] textarea {
                             id="emptyTasks"
                             class="empty-state"
                         >
-                            Todavía no tienes tareas.
+                            لا توجد مهام بعد.
                         </p>
 
                         <ul
                             id="taskList"
                             class="task-list"
-                            aria-label="Lista de tareas"
+                            aria-label="قائمة المهام"
                         ></ul>
 
                     </div>
@@ -3653,7 +3622,7 @@ html[dir="rtl"] textarea {
 
             <div
                 class="footer-contact"
-                aria-label="Redes sociales y contacto"
+                aria-label="الشبكات الاجتماعية والتواصل"
             >
 
                 <a
@@ -3677,7 +3646,7 @@ html[dir="rtl"] textarea {
                 rel="noopener noreferrer"
             >
                 <span aria-hidden="true">☕</span>
-                Apóyame en Ko-fi
+                ادعمني على Ko-fi
             </a>
 
         </footer>
@@ -3716,15 +3685,15 @@ html[dir="rtl"] textarea {
                     <span
                         id="calendarTitleName"
                         class="calendar-title-name"
-                    >Calendario</span>
+                    >التقويم</span>
                 </h2>
 
                 <button
                     id="closeCalendarBtn"
                     class="calendar-modal-close"
                     type="button"
-                    aria-label="Cerrar calendario"
-                    title="Cerrar"
+                    aria-label="إغلاق التقويم"
+                    title="إغلاق"
                 >
                     ✕
                 </button>
@@ -3750,7 +3719,7 @@ html[dir="rtl"] textarea {
                         <div class="calendar-stat-pill is-elapsed">
                             <span class="calendar-stat-label">
                                 <span class="calendar-stat-dot"></span>
-                                Transcurridos:
+                                مضى:
                             </span>
                             <div class="calendar-stat-values">
                                 <strong
@@ -3768,7 +3737,7 @@ html[dir="rtl"] textarea {
                         <div class="calendar-stat-pill is-today">
                             <span class="calendar-stat-label">
                                 <span class="calendar-stat-dot"></span>
-                                Hoy:
+                                اليوم:
                             </span>
                             <div class="calendar-stat-values">
                                 <strong
@@ -3786,7 +3755,7 @@ html[dir="rtl"] textarea {
                         <div class="calendar-stat-pill is-remaining">
                             <span class="calendar-stat-label">
                                 <span class="calendar-stat-dot"></span>
-                                Faltan:
+                                المتبقي:
                             </span>
                             <div class="calendar-stat-values">
                                 <strong
@@ -3806,19 +3775,19 @@ html[dir="rtl"] textarea {
                     <div class="calendar-legend">
                         <div class="calendar-legend-item">
                             <span class="legend-bullet is-past">✕</span>
-                            <span>Días pasados</span>
+                            <span>الأيام الماضية</span>
                         </div>
                         <div class="calendar-legend-item">
                             <span class="legend-bullet is-today">●</span>
-                            <span>Hoy</span>
+                            <span>اليوم</span>
                         </div>
                         <div class="calendar-legend-item">
                             <span class="legend-bullet is-remaining">○</span>
-                            <span>Días restantes</span>
+                            <span>الأيام المتبقية</span>
                         </div>
                         <div class="calendar-legend-item">
                             <span class="legend-bullet is-note">★</span>
-                            <span id="calLegendNoteLabel">Con nota</span>
+                            <span id="calLegendNoteLabel">مع ملاحظة</span>
                         </div>
                     </div>
 
@@ -3850,14 +3819,14 @@ html[dir="rtl"] textarea {
             <div class="calendar-note-header">
                 <div class="calendar-note-header-info">
                     <span class="calendar-note-icon" aria-hidden="true">★</span>
-                    <h3 id="calendarNoteTitle" class="calendar-note-title">Nota del día</h3>
+                    <h3 id="calendarNoteTitle" class="calendar-note-title">ملاحظة اليوم</h3>
                 </div>
                 <button
                     id="closeCalendarNoteBtn"
                     class="calendar-note-close"
                     type="button"
-                    aria-label="Cerrar nota"
-                    title="Cerrar"
+                    aria-label="إغلاق الملاحظة"
+                    title="إغلاق"
                 >✕</button>
             </div>
 
@@ -3868,8 +3837,8 @@ html[dir="rtl"] textarea {
                     class="calendar-note-input"
                     maxlength="300"
                     rows="4"
-                    placeholder="Escribe una nota para este día..."
-                    aria-label="Contenido de la nota"
+                    placeholder="اكتب ملاحظة لهذا اليوم..."
+                    aria-label="محتوى الملاحظة"
                 ></textarea>
 
                 <div class="calendar-note-actions">
@@ -3877,12 +3846,12 @@ html[dir="rtl"] textarea {
                         id="deleteCalendarNoteBtn"
                         class="calendar-note-delete-btn"
                         type="button"
-                    >Eliminar</button>
+                    >حذف</button>
                     <button
                         id="saveCalendarNoteBtn"
                         class="calendar-note-save-btn"
                         type="submit"
-                    >Guardar</button>
+                    >حفظ</button>
                 </div>
             </form>
         </div>
@@ -3895,113 +3864,113 @@ html[dir="rtl"] textarea {
     <div
         id="dashboardTranslations"
         hidden
-        data-locale="es-PE"
-        data-year="A&#209;O"
-        data-month="MES"
-        data-week="SEMANA"
-        data-day="D&#205;A"
-        data-remaining="RESTANTE"
-        data-elapsed-time="Pasaron"
-        data-remaining-time="Quedan"
-        data-and="y"
-        data-month-unit-singular="mes"
-        data-month-unit-plural="meses"
-        data-day-unit-singular="d&#237;a"
-        data-day-unit-plural="d&#237;as"
-        data-hour-unit-singular="hora"
-        data-hour-unit-plural="horas"
-        data-minute-unit-singular="minuto"
-        data-minute-unit-plural="minutos"
+        data-locale="ar"
+        data-year="السنة"
+        data-month="الشهر"
+        data-week="الأسبوع"
+        data-day="اليوم"
+        data-remaining="المتبقي"
+        data-elapsed-time="مضى"
+        data-remaining-time="متبقٍ"
+        data-and="و"
+        data-month-unit-singular="شهر"
+        data-month-unit-plural="أشهر"
+        data-day-unit-singular="يوم"
+        data-day-unit-plural="أيام"
+        data-hour-unit-singular="ساعة"
+        data-hour-unit-plural="ساعات"
+        data-minute-unit-singular="دقيقة"
+        data-minute-unit-plural="دقائق"
         data-year-title-template="{period} {year}"
-        data-year-remaining-title-template="{remaining} {period} {year}"
-        data-month-title-template="{period} {monthName} {monthNumber}"
-        data-month-remaining-title-template="{remaining} {period} {monthName} {monthNumber}"
-        data-week-title-template="{period} {weekNumber}"
-        data-week-remaining-title-template="{remaining} {period} {weekNumber}"
-        data-day-title-template="{period} {weekday} {dayNumber}"
-        data-day-remaining-title-template="{remaining} {period} {weekday} {dayNumber}"
-        data-year-elapsed-bar-label="Progreso transcurrido del a&#241;o"
-        data-year-remaining-bar-label="Tiempo restante del a&#241;o"
-        data-month-elapsed-bar-label="Progreso transcurrido del mes"
-        data-month-remaining-bar-label="Tiempo restante del mes"
-        data-week-elapsed-bar-label="Progreso transcurrido de la semana"
-        data-week-remaining-bar-label="Tiempo restante de la semana"
-        data-day-elapsed-bar-label="Progreso transcurrido del d&#237;a"
-        data-day-remaining-bar-label="Tiempo restante del d&#237;a"
-        data-period-year="del a&#241;o"
-        data-period-month="del mes"
-        data-period-week="de la semana"
-        data-period-day="del d&#237;a"
-        data-show-elapsed-card-template="Mostrar el tiempo transcurrido {period}"
-        data-show-remaining-card-template="Mostrar el tiempo restante {period}"
-        data-show-elapsed-hint="Haz clic para volver al tiempo transcurrido"
-        data-show-remaining-hint="Haz clic para ver el tiempo restante"
-        data-like-remove-aria="Quitar mi me gusta"
-        data-like-add-aria="Dar me gusta a esta p&#225;gina"
-        data-like-remove-title="Quitar me gusta"
-        data-like-title="Me gusta"
-        data-likes-worker-missing="Configura la URL del Worker en app.js"
-        data-likes-connection-error="No se pudo conectar con el contador"
-        data-likes-register-error="No se pudo registrar el me gusta"
-        data-default-tasks-title="Mis tareas"
-        data-color-blue="azul"
-        data-color-green="verde"
-        data-color-amber="amarillo"
-        data-color-red="rojo"
-        data-color-violet="morado"
-        data-task-mark-pending="Marcar como pendiente"
-        data-task-mark-completed="Marcar como completada"
-        data-task-important-badge="IMPORTANTE"
-        data-task-change-color-template="Cambiar color. Color actual: {color}"
-        data-task-change-color-title="Cambiar color"
-        data-task-remove-important-aria="Quitar estado importante"
-        data-task-mark-important-aria="Marcar como importante"
-        data-task-remove-important-title="Quitar importancia"
-        data-task-mark-important-title="Marcar como importante"
-        data-task-delete="Eliminar tarea"
-        data-pending-singular-template="{count} pendiente"
-        data-pending-plural-template="{count} pendientes"
-        data-calendar-view-button="Vista Calendario"
-        data-calendar-modal-title="Calendario"
-        data-calendar-close-aria="Cerrar calendario"
-        data-calendar-close-title="Cerrar"
-        data-cal-stat-elapsed-label="Transcurridos:"
-        data-cal-stat-today-label="Hoy:"
-        data-cal-stat-remaining-label="Faltan:"
-        data-cal-month-1="Enero"
-        data-cal-month-2="Febrero"
-        data-cal-month-3="Marzo"
-        data-cal-month-4="Abril"
-        data-cal-month-5="Mayo"
-        data-cal-month-6="Junio"
-        data-cal-month-7="Julio"
-        data-cal-month-8="Agosto"
-        data-cal-month-9="Septiembre"
-        data-cal-month-10="Octubre"
-        data-cal-month-11="Noviembre"
-        data-cal-month-12="Diciembre"
-        data-cal-day-sun="Do"
-        data-cal-day-mon="Lu"
-        data-cal-day-tue="Ma"
-        data-cal-day-wed="Mi"
-        data-cal-day-thu="Ju"
-        data-cal-day-fri="Vi"
-        data-cal-day-sat="S&#225;"
-        data-cal-status-past="Transcurrido"
-        data-cal-status-today="Hoy"
-        data-cal-status-future="Restante"
+        data-year-remaining-title-template="{period} {year} · {remaining}"
+        data-month-title-template="{monthName}"
+        data-month-remaining-title-template="{monthName} · {remaining}"
+        data-week-title-template="الأسبوع {weekNumber}"
+        data-week-remaining-title-template="الأسبوع {weekNumber} · {remaining}"
+        data-day-title-template="{weekday} {dayNumber}"
+        data-day-remaining-title-template="{weekday} {dayNumber} · {remaining}"
+        data-year-elapsed-bar-label="الجزء المنقضي من السنة"
+        data-year-remaining-bar-label="الوقت المتبقي من السنة"
+        data-month-elapsed-bar-label="الجزء المنقضي من الشهر"
+        data-month-remaining-bar-label="الوقت المتبقي من الشهر"
+        data-week-elapsed-bar-label="الجزء المنقضي من الأسبوع"
+        data-week-remaining-bar-label="الوقت المتبقي من الأسبوع"
+        data-day-elapsed-bar-label="الجزء المنقضي من اليوم"
+        data-day-remaining-bar-label="الوقت المتبقي من اليوم"
+        data-period-year="من السنة"
+        data-period-month="من الشهر"
+        data-period-week="من الأسبوع"
+        data-period-day="من اليوم"
+        data-show-elapsed-card-template="عرض الوقت المنقضي {period}"
+        data-show-remaining-card-template="عرض الوقت المتبقي {period}"
+        data-show-elapsed-hint="انقر للعودة إلى الوقت المنقضي"
+        data-show-remaining-hint="انقر لعرض الوقت المتبقي"
+        data-like-remove-aria="إزالة إعجابي"
+        data-like-add-aria="الإعجاب بهذه الصفحة"
+        data-like-remove-title="إزالة الإعجاب"
+        data-like-title="إعجاب"
+        data-likes-worker-missing="اضبط رابط Worker في app.js"
+        data-likes-connection-error="تعذّر الاتصال بالعداد"
+        data-likes-register-error="تعذّر تسجيل الإعجاب"
+        data-default-tasks-title="مهامي"
+        data-color-blue="أزرق"
+        data-color-green="أخضر"
+        data-color-amber="أصفر"
+        data-color-red="أحمر"
+        data-color-violet="بنفسجي"
+        data-task-mark-pending="وضع علامة قيد الانتظار"
+        data-task-mark-completed="وضع علامة مكتملة"
+        data-task-important-badge="مهم"
+        data-task-change-color-template="تغيير اللون. اللون الحالي: {color}"
+        data-task-change-color-title="تغيير اللون"
+        data-task-remove-important-aria="إزالة حالة مهم"
+        data-task-mark-important-aria="وضع علامة مهم"
+        data-task-remove-important-title="إزالة الأهمية"
+        data-task-mark-important-title="وضع علامة مهم"
+        data-task-delete="حذف المهمة"
+        data-pending-singular-template="{count} قيد الانتظار"
+        data-pending-plural-template="{count} قيد الانتظار"
+        data-calendar-view-button="عرض التقويم"
+        data-calendar-modal-title="التقويم"
+        data-calendar-close-aria="إغلاق التقويم"
+        data-calendar-close-title="إغلاق"
+        data-cal-stat-elapsed-label="مضى:"
+        data-cal-stat-today-label="اليوم:"
+        data-cal-stat-remaining-label="المتبقي:"
+        data-cal-month-1="يناير"
+        data-cal-month-2="فبراير"
+        data-cal-month-3="مارس"
+        data-cal-month-4="أبريل"
+        data-cal-month-5="مايو"
+        data-cal-month-6="يونيو"
+        data-cal-month-7="يوليو"
+        data-cal-month-8="أغسطس"
+        data-cal-month-9="سبتمبر"
+        data-cal-month-10="أكتوبر"
+        data-cal-month-11="نوفمبر"
+        data-cal-month-12="ديسمبر"
+        data-cal-day-sun="الأحد"
+        data-cal-day-mon="الاثنين"
+        data-cal-day-tue="الثلاثاء"
+        data-cal-day-wed="الأربعاء"
+        data-cal-day-thu="الخميس"
+        data-cal-day-fri="الجمعة"
+        data-cal-day-sat="السبت"
+        data-cal-status-past="منقضٍ"
+        data-cal-status-today="اليوم"
+        data-cal-status-future="متبقٍ"
         data-cal-day-of-year-template="({current}/{total})"
-        data-cal-day-tooltip-template="{day} de {month} de {year} - {status}"
-        data-cal-legend-past="D&#237;as pasados"
-        data-cal-legend-today="Hoy"
-        data-cal-legend-remaining="D&#237;as restantes"
-        data-cal-legend-note="Con nota"
-        data-cal-note-modal-title="Nota del d&#237;a"
-        data-cal-note-close-aria="Cerrar nota"
-        data-cal-note-placeholder="Escribe una nota para este d&#237;a..."
-        data-cal-note-input-aria="Contenido de la nota"
-        data-cal-note-save-btn="Guardar"
-        data-cal-note-delete-btn="Eliminar"
+        data-cal-day-tooltip-template="{day} {month} {year} - {status}"
+        data-cal-legend-past="الأيام الماضية"
+        data-cal-legend-today="اليوم"
+        data-cal-legend-remaining="الأيام المتبقية"
+        data-cal-legend-note="مع ملاحظة"
+        data-cal-note-modal-title="ملاحظة اليوم"
+        data-cal-note-close-aria="إغلاق الملاحظة"
+        data-cal-note-placeholder="اكتب ملاحظة لهذا اليوم..."
+        data-cal-note-input-aria="محتوى الملاحظة"
+        data-cal-note-save-btn="حفظ"
+        data-cal-note-delete-btn="حذف"
     ></div>
     
     <!-- JavaScript -->

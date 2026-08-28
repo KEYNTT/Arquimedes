@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-PE" dir="ltr" data-locale-code="es" data-build="standalone-v14-i18n">
+<html lang="zh-CN" dir="ltr" data-locale-code="zh" data-build="standalone-v14-i18n">
 <head>
     <meta charset="UTF-8">
 
@@ -9,11 +9,11 @@
     >
 
     <!-- SEO principal: traducir estos metadatos en cada versión de idioma -->
-    <title>Progreso del año, mes, semana y día | RutaFinal</title>
+    <title>年、月、周和日进度 | RutaFinal</title>
 
     <meta
         name="description"
-        content="Visualiza en tiempo real cuánto ha transcurrido y cuánto falta del año, mes, semana y día. Organiza tareas y añade notas a tu calendario."
+        content="实时查看年、月、周和日已经过去多少、还剩多少。管理任务，并在日历中为每一天添加备注。"
     >
 
     <meta
@@ -21,7 +21,7 @@
         content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     >
 
-    <link rel="canonical" href="https://big-strategy.com/">
+    <link rel="canonical" href="https://big-strategy.com/zh/">
 
     <link rel="alternate" hreflang="es" href="https://big-strategy.com/">
     <link rel="alternate" hreflang="en" href="https://big-strategy.com/en/">
@@ -53,68 +53,37 @@
     <!-- Vista previa al compartir; el texto se localizará por idioma -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="RutaFinal">
-    <meta property="og:locale" content="es_PE">
-    <meta property="og:url" content="https://big-strategy.com/">
-    <meta property="og:title" content="Progreso del año, mes, semana y día | RutaFinal">
-    <meta property="og:description" content="Visualiza en tiempo real cuánto ha transcurrido y cuánto falta del año, mes, semana y día. Organiza tareas y añade notas a tu calendario.">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:url" content="https://big-strategy.com/zh/">
+    <meta property="og:title" content="年、月、周和日进度 | RutaFinal">
+    <meta property="og:description" content="实时查看年、月、周和日已经过去多少、还剩多少。管理任务，并在日历中为每一天添加备注。">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Progreso del año, mes, semana y día | RutaFinal">
-    <meta name="twitter:description" content="Visualiza en tiempo real cuánto ha transcurrido y cuánto falta del año, mes, semana y día. Organiza tareas y añade notas a tu calendario.">
+    <meta name="twitter:title" content="年、月、周和日进度 | RutaFinal">
+    <meta name="twitter:description" content="实时查看年、月、周和日已经过去多少、还剩多少。管理任务，并在日历中为每一天添加备注。">
 
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "RutaFinal",
-        "url": "https://big-strategy.com/",
-        "description": "Visualiza en tiempo real cuánto ha transcurrido y cuánto falta del año, mes, semana y día. Organiza tareas y añade notas a tu calendario.",
+        "url": "https://big-strategy.com/zh/",
+        "description": "实时查看年、月、周和日已经过去多少、还剩多少。管理任务，并在日历中为每一天添加备注。",
         "applicationCategory": "ProductivityApplication",
         "operatingSystem": "Any",
         "browserRequirements": "Requires JavaScript",
-        "inLanguage": "es-PE",
+        "inLanguage": "zh-CN",
         "isAccessibleForFree": true,
         "featureList": [
-            "Progreso del año, mes, semana y día en tiempo real",
-            "Vista de tiempo transcurrido y restante",
-            "Tareas personales guardadas en el dispositivo",
-            "Calendario anual con notas por día"
+            "实时显示年、月、周和日进度",
+            "查看已过去和剩余时间",
+            "个人任务保存在设备上",
+            "可为每天添加备注的全年日历"
         ]
     }
     </script>
 
-    <script>
-    (() => {
-        const LANGUAGE_KEY = "rutafinal-language";
-        const routes = {"es":"/","en":"/en/","pt":"/pt/","zh":"/zh/","ja":"/ja/","ko":"/ko/","de":"/de/","fr":"/fr/","it":"/it/","hi":"/hi/","ar":"/ar/","ru":"/ru/"};
-        const isRoot = location.pathname === "/" || location.pathname === "/index.html";
-        const isCrawler = /bot|crawler|spider|crawling/i.test(navigator.userAgent);
-
-        if (!isRoot || isCrawler) {
-            return;
-        }
-
-        let savedLanguage = "";
-
-        try {
-            savedLanguage = localStorage.getItem(LANGUAGE_KEY) || "";
-        } catch {}
-
-        const preferredLanguages = savedLanguage
-            ? [savedLanguage]
-            : (navigator.languages?.length ? navigator.languages : [navigator.language]);
-
-        const selectedLanguage = preferredLanguages
-            .map(value => String(value || "").toLowerCase().split("-")[0])
-            .find(value => routes[value]);
-
-        const destination = routes[selectedLanguage] || "/";
-
-        if (destination !== "/") {
-            location.replace(destination + location.search + location.hash);
-        }
-    })();
-    </script>
+    
 
     <!-- Fuente Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3011,7 +2980,7 @@ html[dir="rtl"] textarea {
 
                     <span class="live-dot"></span>
 
-                    EN VIVO
+                    实时
 
                 </span>
 
@@ -3019,11 +2988,11 @@ html[dir="rtl"] textarea {
             <div class="header-actions">
                 <label class="language-picker">
                     <span class="language-picker-icon" aria-hidden="true">🌐</span>
-                    <select id="languageSelector" aria-label="Seleccionar idioma">
-                        <option value="/" data-code="es" selected>Español</option>
+                    <select id="languageSelector" aria-label="选择语言">
+                        <option value="/" data-code="es">Español</option>
                         <option value="/en/" data-code="en">English</option>
                         <option value="/pt/" data-code="pt">Português</option>
-                        <option value="/zh/" data-code="zh">简体中文</option>
+                        <option value="/zh/" data-code="zh" selected>简体中文</option>
                         <option value="/ja/" data-code="ja">日本語</option>
                         <option value="/ko/" data-code="ko">한국어</option>
                         <option value="/de/" data-code="de">Deutsch</option>
@@ -3041,18 +3010,18 @@ html[dir="rtl"] textarea {
                 id="calendarViewButton"
                 class="calendar-view-button"
                 type="button"
-                aria-label="Abrir vista calendario"
-                title="Vista Calendario"
+                aria-label="打开日历视图"
+                title="日历视图"
             >
                 <span class="calendar-view-btn-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="current颜色" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                         <line x1="16" y1="2" x2="16" y2="6"></line>
                         <line x1="8" y1="2" x2="8" y2="6"></line>
                         <line x1="3" y1="10" x2="21" y2="10"></line>
                     </svg>
                 </span>
-                <span class="calendar-view-btn-text">Vista Calendario</span>
+                <span class="calendar-view-btn-text">日历视图</span>
             </button>
             </div>
 
@@ -3071,10 +3040,10 @@ html[dir="rtl"] textarea {
 
             <section
                 class="progress-panel"
-                aria-label="Progreso del tiempo"
+                aria-label="时间进度"
             >
 
-                <!-- AÑO -->
+                <!-- 年 -->
 
                 <article
                     class="progress-card"
@@ -3083,8 +3052,8 @@ html[dir="rtl"] textarea {
                     role="button"
                     tabindex="0"
                     aria-pressed="false"
-                    aria-label="Mostrar el tiempo restante del año"
-                    title="Haz clic para ver el tiempo restante"
+                    aria-label="显示本年剩余时间"
+                    title="点击查看剩余时间"
                 >
 
                     <div class="progress-info">
@@ -3093,7 +3062,7 @@ html[dir="rtl"] textarea {
                             id="yearTitle"
                             class="progress-title"
                         >
-                            AÑO
+                            年
                         </span>
 
                         <span
@@ -3108,7 +3077,7 @@ html[dir="rtl"] textarea {
                     <div
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Progreso del año"
+                        aria-label="本年已过去的进度"
                         aria-valuemin="0"
                         aria-valuemax="100"
                     >
@@ -3123,11 +3092,11 @@ html[dir="rtl"] textarea {
                     <div class="progress-detail">
 
                         <span id="yearDetailLabel">
-                            Mes 1 de 12
+                            第 1 个月，共 12 个月
                         </span>
 
                         <strong id="yearDetail">
-                            0.00 / 365 días
+                            0.00 / 365 天
                         </strong>
 
                     </div>
@@ -3135,7 +3104,7 @@ html[dir="rtl"] textarea {
                 </article>
 
 
-                <!-- MES -->
+                <!-- 月 -->
 
                 <article
                     class="progress-card"
@@ -3144,8 +3113,8 @@ html[dir="rtl"] textarea {
                     role="button"
                     tabindex="0"
                     aria-pressed="false"
-                    aria-label="Mostrar el tiempo restante del mes"
-                    title="Haz clic para ver el tiempo restante"
+                    aria-label="显示本月剩余时间"
+                    title="点击查看剩余时间"
                 >
 
                     <div class="progress-info">
@@ -3154,7 +3123,7 @@ html[dir="rtl"] textarea {
                             id="monthTitle"
                             class="progress-title"
                         >
-                            MES
+                            月
                         </span>
 
                         <span
@@ -3169,7 +3138,7 @@ html[dir="rtl"] textarea {
                     <div
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Progreso del mes"
+                        aria-label="本月已过去的进度"
                         aria-valuemin="0"
                         aria-valuemax="100"
                     >
@@ -3184,11 +3153,11 @@ html[dir="rtl"] textarea {
                     <div class="progress-detail">
 
                         <span id="monthDetailLabel">
-                            Día 1 de 31
+                            第 1 天，共 31 天
                         </span>
 
                         <strong id="monthDetail">
-                            0.00 días transcurridos
+                            已过去 0.00 天
                         </strong>
 
                     </div>
@@ -3196,7 +3165,7 @@ html[dir="rtl"] textarea {
                 </article>
 
 
-                <!-- SEMANA -->
+                <!-- 周 -->
 
                 <article
                     class="progress-card"
@@ -3205,8 +3174,8 @@ html[dir="rtl"] textarea {
                     role="button"
                     tabindex="0"
                     aria-pressed="false"
-                    aria-label="Mostrar el tiempo restante de la semana"
-                    title="Haz clic para ver el tiempo restante"
+                    aria-label="显示本周剩余时间"
+                    title="点击查看剩余时间"
                 >
 
                     <div class="progress-info">
@@ -3215,7 +3184,7 @@ html[dir="rtl"] textarea {
                             id="weekTitle"
                             class="progress-title"
                         >
-                            SEMANA
+                            周
                         </span>
 
                         <span
@@ -3230,7 +3199,7 @@ html[dir="rtl"] textarea {
                     <div
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Progreso de la semana"
+                        aria-label="本周已过去的进度"
                         aria-valuemin="0"
                         aria-valuemax="100"
                     >
@@ -3245,11 +3214,11 @@ html[dir="rtl"] textarea {
                     <div class="progress-detail">
 
                         <span id="weekDetailLabel">
-                            Pasaron
+                            已过去
                         </span>
 
                         <strong id="weekDetail">
-                            0 días y 0 horas
+                            0 天 0 小时
                         </strong>
 
                     </div>
@@ -3257,7 +3226,7 @@ html[dir="rtl"] textarea {
                 </article>
 
 
-                <!-- DÍA -->
+                <!-- 日 -->
 
                 <article
                     class="progress-card"
@@ -3266,8 +3235,8 @@ html[dir="rtl"] textarea {
                     role="button"
                     tabindex="0"
                     aria-pressed="false"
-                    aria-label="Mostrar el tiempo restante del día"
-                    title="Haz clic para ver el tiempo restante"
+                    aria-label="显示今天剩余时间"
+                    title="点击查看剩余时间"
                 >
 
                     <div class="progress-info">
@@ -3276,7 +3245,7 @@ html[dir="rtl"] textarea {
                             id="dayTitle"
                             class="progress-title"
                         >
-                            DÍA
+                            日
                         </span>
 
                         <span
@@ -3291,7 +3260,7 @@ html[dir="rtl"] textarea {
                     <div
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Progreso del día"
+                        aria-label="今天已过去的进度"
                         aria-valuemin="0"
                         aria-valuemax="100"
                     >
@@ -3306,11 +3275,11 @@ html[dir="rtl"] textarea {
                     <div class="progress-detail">
 
                         <span id="dayDetailLabel">
-                            Hora 0 de 24
+                            第 0 小时，共 24 小时
                         </span>
 
                         <strong id="dayDetail">
-                            0.00 horas transcurridas
+                            已过去 0.00 小时
                         </strong>
 
                     </div>
@@ -3325,12 +3294,12 @@ html[dir="rtl"] textarea {
 
             <section
                 class="status-card"
-                aria-label="Resumen del año"
+                aria-label="年度摘要"
             >
 
                 <span>
 
-                    Día del año
+                    年度第几天
 
                     <strong id="dayOfYear">
                         0
@@ -3340,7 +3309,7 @@ html[dir="rtl"] textarea {
 
                 <span>
 
-                    Semana
+                    周
 
                     <strong id="weekNumber">
                         0
@@ -3350,13 +3319,13 @@ html[dir="rtl"] textarea {
 
                 <span>
 
-                    Restan
+                    剩余
 
                     <strong id="remainingDays">
                         0
                     </strong>
 
-                    días
+                    天
 
                 </span>
 
@@ -3384,26 +3353,26 @@ html[dir="rtl"] textarea {
                         id="dayName"
                         class="day-name"
                     >
-                        Lunes
+                        星期一
                     </div>
 
                     <div
                         id="fullDate"
                         class="full-date"
                     >
-                        1 de enero de 2026
+                        2026年1月1日
                     </div>
 
                     <div
                         id="timezone"
                         class="timezone"
                     >
-                        Zona horaria local
+                        本地时区
                     </div>
 
                     <div
                         class="engagement-panel"
-                        aria-label="Opiniones sobre la página"
+                        aria-label="页面反馈"
                     >
 
                         <a
@@ -3411,7 +3380,7 @@ html[dir="rtl"] textarea {
                             href="https://tally.so/r/VLabPE"
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label="Enviar feedback mediante Tally"
+                            aria-label="通过 Tally 发送反馈"
                         >
                             <span
                                 class="feedback-card-icon"
@@ -3424,8 +3393,8 @@ html[dir="rtl"] textarea {
                             </span>
 
                             <span class="feedback-card-copy">
-                                <strong>Feedback</strong>
-                                <small>Enviar una sugerencia</small>
+                                <strong>反馈</strong>
+                                <small>发送建议</small>
                             </span>
 
                             <span
@@ -3439,9 +3408,9 @@ html[dir="rtl"] textarea {
                                 id="likeButton"
                                 class="like-button"
                                 type="button"
-                                aria-label="Dar me gusta a esta página"
+                                aria-label="为此页面点赞"
                                 aria-pressed="false"
-                                title="Me gusta"
+                                title="点赞"
                             >
                                 <svg
                                     class="like-icon"
@@ -3458,7 +3427,7 @@ html[dir="rtl"] textarea {
                                 aria-live="polite"
                             >—</span>
 
-                            <span class="like-label">Me gusta</span>
+                            <span class="like-label">点赞</span>
                         </div>
 
                     </div>
@@ -3475,7 +3444,7 @@ html[dir="rtl"] textarea {
                         <div>
 
                             <span class="tasks-label">
-                                ALMACENAMIENTO LOCAL
+                                本地存储
                             </span>
 
                             <div class="tasks-title-row">
@@ -3485,18 +3454,18 @@ html[dir="rtl"] textarea {
                                     class="tasks-title"
                                     contenteditable="true"
                                     role="textbox"
-                                    aria-label="Título editable de la lista de tareas"
+                                    aria-label="可编辑的任务列表标题"
                                     aria-multiline="false"
                                     spellcheck="false"
-                                    title="Haz clic para editar el título"
-                                >Mis tareas</h2>
+                                    title="点击编辑标题"
+                                >我的任务</h2>
 
                                 <button
                                     id="editTasksTitle"
                                     class="edit-title-button"
                                     type="button"
-                                    aria-label="Editar título de las tareas"
-                                    title="Editar título"
+                                    aria-label="编辑任务列表标题"
+                                    title="编辑标题"
                                 >
                                     ✎
                                 </button>
@@ -3509,7 +3478,7 @@ html[dir="rtl"] textarea {
                             id="taskCount"
                             class="task-count"
                         >
-                            0 pendientes
+                            0 项待办
                         </span>
 
                     </div>
@@ -3526,72 +3495,72 @@ html[dir="rtl"] textarea {
                             type="text"
                             maxlength="120"
                             autocomplete="off"
-                            placeholder="Escribe una nueva tarea..."
-                            aria-label="Nueva tarea"
+                            placeholder="输入新任务..."
+                            aria-label="新任务"
                         >
 
                         <button
                             class="add-task-button"
                             type="submit"
                         >
-                            Agregar
+                            添加
                         </button>
 
                         <div class="task-options">
 
                             <fieldset class="task-colors">
 
-                                <legend>Color</legend>
+                                <legend>颜色</legend>
 
                                 <div class="color-options">
 
-                                    <label title="Azul">
+                                    <label title="蓝色">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="task颜色"
                                             value="blue"
                                             checked
-                                            aria-label="Color azul"
+                                            aria-label="颜色: 蓝色"
                                         >
                                         <span class="color-swatch color-blue"></span>
                                     </label>
 
-                                    <label title="Verde">
+                                    <label title="绿色">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="task颜色"
                                             value="green"
-                                            aria-label="Color verde"
+                                            aria-label="颜色: 绿色"
                                         >
                                         <span class="color-swatch color-green"></span>
                                     </label>
 
-                                    <label title="Amarillo">
+                                    <label title="黄色">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="task颜色"
                                             value="amber"
-                                            aria-label="Color amarillo"
+                                            aria-label="颜色: 黄色"
                                         >
                                         <span class="color-swatch color-amber"></span>
                                     </label>
 
-                                    <label title="Rojo">
+                                    <label title="红色">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="task颜色"
                                             value="red"
-                                            aria-label="Color rojo"
+                                            aria-label="颜色: 红色"
                                         >
                                         <span class="color-swatch color-red"></span>
                                     </label>
 
-                                    <label title="Morado">
+                                    <label title="紫色">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="task颜色"
                                             value="violet"
-                                            aria-label="Color morado"
+                                            aria-label="颜色: 紫色"
                                         >
                                         <span class="color-swatch color-violet"></span>
                                     </label>
@@ -3612,7 +3581,7 @@ html[dir="rtl"] textarea {
                                     aria-hidden="true"
                                 >★</span>
 
-                                <span>Importante</span>
+                                <span>重要</span>
 
                             </label>
 
@@ -3627,13 +3596,13 @@ html[dir="rtl"] textarea {
                             id="emptyTasks"
                             class="empty-state"
                         >
-                            Todavía no tienes tareas.
+                            你还没有任务。
                         </p>
 
                         <ul
                             id="taskList"
                             class="task-list"
-                            aria-label="Lista de tareas"
+                            aria-label="任务列表"
                         ></ul>
 
                     </div>
@@ -3653,7 +3622,7 @@ html[dir="rtl"] textarea {
 
             <div
                 class="footer-contact"
-                aria-label="Redes sociales y contacto"
+                aria-label="社交媒体和联系方式"
             >
 
                 <a
@@ -3677,7 +3646,7 @@ html[dir="rtl"] textarea {
                 rel="noopener noreferrer"
             >
                 <span aria-hidden="true">☕</span>
-                Apóyame en Ko-fi
+                在 Ko-fi 上支持我
             </a>
 
         </footer>
@@ -3716,15 +3685,15 @@ html[dir="rtl"] textarea {
                     <span
                         id="calendarTitleName"
                         class="calendar-title-name"
-                    >Calendario</span>
+                    >日历</span>
                 </h2>
 
                 <button
                     id="closeCalendarBtn"
                     class="calendar-modal-close"
                     type="button"
-                    aria-label="Cerrar calendario"
-                    title="Cerrar"
+                    aria-label="关闭日历"
+                    title="关闭"
                 >
                     ✕
                 </button>
@@ -3750,7 +3719,7 @@ html[dir="rtl"] textarea {
                         <div class="calendar-stat-pill is-elapsed">
                             <span class="calendar-stat-label">
                                 <span class="calendar-stat-dot"></span>
-                                Transcurridos:
+                                已过去：
                             </span>
                             <div class="calendar-stat-values">
                                 <strong
@@ -3768,7 +3737,7 @@ html[dir="rtl"] textarea {
                         <div class="calendar-stat-pill is-today">
                             <span class="calendar-stat-label">
                                 <span class="calendar-stat-dot"></span>
-                                Hoy:
+                                今天：
                             </span>
                             <div class="calendar-stat-values">
                                 <strong
@@ -3786,7 +3755,7 @@ html[dir="rtl"] textarea {
                         <div class="calendar-stat-pill is-remaining">
                             <span class="calendar-stat-label">
                                 <span class="calendar-stat-dot"></span>
-                                Faltan:
+                                剩余：
                             </span>
                             <div class="calendar-stat-values">
                                 <strong
@@ -3806,19 +3775,19 @@ html[dir="rtl"] textarea {
                     <div class="calendar-legend">
                         <div class="calendar-legend-item">
                             <span class="legend-bullet is-past">✕</span>
-                            <span>Días pasados</span>
+                            <span>过去的日期</span>
                         </div>
                         <div class="calendar-legend-item">
                             <span class="legend-bullet is-today">●</span>
-                            <span>Hoy</span>
+                            <span>今天</span>
                         </div>
                         <div class="calendar-legend-item">
                             <span class="legend-bullet is-remaining">○</span>
-                            <span>Días restantes</span>
+                            <span>剩余日期</span>
                         </div>
                         <div class="calendar-legend-item">
                             <span class="legend-bullet is-note">★</span>
-                            <span id="calLegendNoteLabel">Con nota</span>
+                            <span id="calLegendNoteLabel">有备注</span>
                         </div>
                     </div>
 
@@ -3850,14 +3819,14 @@ html[dir="rtl"] textarea {
             <div class="calendar-note-header">
                 <div class="calendar-note-header-info">
                     <span class="calendar-note-icon" aria-hidden="true">★</span>
-                    <h3 id="calendarNoteTitle" class="calendar-note-title">Nota del día</h3>
+                    <h3 id="calendarNoteTitle" class="calendar-note-title">当日备注</h3>
                 </div>
                 <button
                     id="closeCalendarNoteBtn"
                     class="calendar-note-close"
                     type="button"
-                    aria-label="Cerrar nota"
-                    title="Cerrar"
+                    aria-label="关闭备注"
+                    title="关闭"
                 >✕</button>
             </div>
 
@@ -3868,8 +3837,8 @@ html[dir="rtl"] textarea {
                     class="calendar-note-input"
                     maxlength="300"
                     rows="4"
-                    placeholder="Escribe una nota para este día..."
-                    aria-label="Contenido de la nota"
+                    placeholder="为这一天写一条备注..."
+                    aria-label="备注内容"
                 ></textarea>
 
                 <div class="calendar-note-actions">
@@ -3877,12 +3846,12 @@ html[dir="rtl"] textarea {
                         id="deleteCalendarNoteBtn"
                         class="calendar-note-delete-btn"
                         type="button"
-                    >Eliminar</button>
+                    >删除</button>
                     <button
                         id="saveCalendarNoteBtn"
                         class="calendar-note-save-btn"
                         type="submit"
-                    >Guardar</button>
+                    >保存</button>
                 </div>
             </form>
         </div>
@@ -3895,113 +3864,113 @@ html[dir="rtl"] textarea {
     <div
         id="dashboardTranslations"
         hidden
-        data-locale="es-PE"
-        data-year="A&#209;O"
-        data-month="MES"
-        data-week="SEMANA"
-        data-day="D&#205;A"
-        data-remaining="RESTANTE"
-        data-elapsed-time="Pasaron"
-        data-remaining-time="Quedan"
-        data-and="y"
-        data-month-unit-singular="mes"
-        data-month-unit-plural="meses"
-        data-day-unit-singular="d&#237;a"
-        data-day-unit-plural="d&#237;as"
-        data-hour-unit-singular="hora"
-        data-hour-unit-plural="horas"
-        data-minute-unit-singular="minuto"
-        data-minute-unit-plural="minutos"
-        data-year-title-template="{period} {year}"
-        data-year-remaining-title-template="{remaining} {period} {year}"
-        data-month-title-template="{period} {monthName} {monthNumber}"
-        data-month-remaining-title-template="{remaining} {period} {monthName} {monthNumber}"
-        data-week-title-template="{period} {weekNumber}"
-        data-week-remaining-title-template="{remaining} {period} {weekNumber}"
-        data-day-title-template="{period} {weekday} {dayNumber}"
-        data-day-remaining-title-template="{remaining} {period} {weekday} {dayNumber}"
-        data-year-elapsed-bar-label="Progreso transcurrido del a&#241;o"
-        data-year-remaining-bar-label="Tiempo restante del a&#241;o"
-        data-month-elapsed-bar-label="Progreso transcurrido del mes"
-        data-month-remaining-bar-label="Tiempo restante del mes"
-        data-week-elapsed-bar-label="Progreso transcurrido de la semana"
-        data-week-remaining-bar-label="Tiempo restante de la semana"
-        data-day-elapsed-bar-label="Progreso transcurrido del d&#237;a"
-        data-day-remaining-bar-label="Tiempo restante del d&#237;a"
-        data-period-year="del a&#241;o"
-        data-period-month="del mes"
-        data-period-week="de la semana"
-        data-period-day="del d&#237;a"
-        data-show-elapsed-card-template="Mostrar el tiempo transcurrido {period}"
-        data-show-remaining-card-template="Mostrar el tiempo restante {period}"
-        data-show-elapsed-hint="Haz clic para volver al tiempo transcurrido"
-        data-show-remaining-hint="Haz clic para ver el tiempo restante"
-        data-like-remove-aria="Quitar mi me gusta"
-        data-like-add-aria="Dar me gusta a esta p&#225;gina"
-        data-like-remove-title="Quitar me gusta"
-        data-like-title="Me gusta"
-        data-likes-worker-missing="Configura la URL del Worker en app.js"
-        data-likes-connection-error="No se pudo conectar con el contador"
-        data-likes-register-error="No se pudo registrar el me gusta"
-        data-default-tasks-title="Mis tareas"
-        data-color-blue="azul"
-        data-color-green="verde"
-        data-color-amber="amarillo"
-        data-color-red="rojo"
-        data-color-violet="morado"
-        data-task-mark-pending="Marcar como pendiente"
-        data-task-mark-completed="Marcar como completada"
-        data-task-important-badge="IMPORTANTE"
-        data-task-change-color-template="Cambiar color. Color actual: {color}"
-        data-task-change-color-title="Cambiar color"
-        data-task-remove-important-aria="Quitar estado importante"
-        data-task-mark-important-aria="Marcar como importante"
-        data-task-remove-important-title="Quitar importancia"
-        data-task-mark-important-title="Marcar como importante"
-        data-task-delete="Eliminar tarea"
-        data-pending-singular-template="{count} pendiente"
-        data-pending-plural-template="{count} pendientes"
-        data-calendar-view-button="Vista Calendario"
-        data-calendar-modal-title="Calendario"
-        data-calendar-close-aria="Cerrar calendario"
-        data-calendar-close-title="Cerrar"
-        data-cal-stat-elapsed-label="Transcurridos:"
-        data-cal-stat-today-label="Hoy:"
-        data-cal-stat-remaining-label="Faltan:"
-        data-cal-month-1="Enero"
-        data-cal-month-2="Febrero"
-        data-cal-month-3="Marzo"
-        data-cal-month-4="Abril"
-        data-cal-month-5="Mayo"
-        data-cal-month-6="Junio"
-        data-cal-month-7="Julio"
-        data-cal-month-8="Agosto"
-        data-cal-month-9="Septiembre"
-        data-cal-month-10="Octubre"
-        data-cal-month-11="Noviembre"
-        data-cal-month-12="Diciembre"
-        data-cal-day-sun="Do"
-        data-cal-day-mon="Lu"
-        data-cal-day-tue="Ma"
-        data-cal-day-wed="Mi"
-        data-cal-day-thu="Ju"
-        data-cal-day-fri="Vi"
-        data-cal-day-sat="S&#225;"
-        data-cal-status-past="Transcurrido"
-        data-cal-status-today="Hoy"
-        data-cal-status-future="Restante"
+        data-locale="zh-CN"
+        data-year="年"
+        data-month="月"
+        data-week="周"
+        data-day="日"
+        data-remaining="剩余"
+        data-elapsed-time="已过去"
+        data-remaining-time="剩余"
+        data-and="和"
+        data-month-unit-singular="个月"
+        data-month-unit-plural="个月"
+        data-day-unit-singular="天"
+        data-day-unit-plural="天"
+        data-hour-unit-singular="小时"
+        data-hour-unit-plural="小时"
+        data-minute-unit-singular="分钟"
+        data-minute-unit-plural="分钟"
+        data-year-title-template="{year}年"
+        data-year-remaining-title-template="{year}年 · {remaining}"
+        data-month-title-template="{monthName}"
+        data-month-remaining-title-template="{monthName} · {remaining}"
+        data-week-title-template="第{weekNumber}周"
+        data-week-remaining-title-template="第{weekNumber}周 · {remaining}"
+        data-day-title-template="{dayNumber}日 {weekday}"
+        data-day-remaining-title-template="{dayNumber}日 {weekday} · {remaining}"
+        data-year-elapsed-bar-label="本年已过去的进度"
+        data-year-remaining-bar-label="本年剩余时间"
+        data-month-elapsed-bar-label="本月已过去的进度"
+        data-month-remaining-bar-label="本月剩余时间"
+        data-week-elapsed-bar-label="本周已过去的进度"
+        data-week-remaining-bar-label="本周剩余时间"
+        data-day-elapsed-bar-label="今天已过去的进度"
+        data-day-remaining-bar-label="今天剩余时间"
+        data-period-year="本年"
+        data-period-month="本月"
+        data-period-week="本周"
+        data-period-day="今天"
+        data-show-elapsed-card-template="显示{period}已过去的时间"
+        data-show-remaining-card-template="显示{period}剩余时间"
+        data-show-elapsed-hint="点击返回已过去时间"
+        data-show-remaining-hint="点击查看剩余时间"
+        data-like-remove-aria="取消我的点赞"
+        data-like-add-aria="为此页面点赞"
+        data-like-remove-title="取消点赞"
+        data-like-title="点赞"
+        data-likes-worker-missing="请在 app.js 中配置 Worker URL"
+        data-likes-connection-error="无法连接计数器"
+        data-likes-register-error="无法记录点赞"
+        data-default-tasks-title="我的任务"
+        data-color-blue="蓝色"
+        data-color-green="绿色"
+        data-color-amber="黄色"
+        data-color-red="红色"
+        data-color-violet="紫色"
+        data-task-mark-pending="标记为待办"
+        data-task-mark-completed="标记为已完成"
+        data-task-important-badge="重要"
+        data-task-change-color-template="更改颜色。当前颜色：{color}"
+        data-task-change-color-title="更改颜色"
+        data-task-remove-important-aria="取消重要状态"
+        data-task-mark-important-aria="标记为重要"
+        data-task-remove-important-title="取消重要"
+        data-task-mark-important-title="标记为重要"
+        data-task-delete="删除任务"
+        data-pending-singular-template="{count} 项待办"
+        data-pending-plural-template="{count} 项待办"
+        data-calendar-view-button="日历视图"
+        data-calendar-modal-title="日历"
+        data-calendar-close-aria="关闭日历"
+        data-calendar-close-title="关闭"
+        data-cal-stat-elapsed-label="已过去："
+        data-cal-stat-today-label="今天："
+        data-cal-stat-remaining-label="剩余："
+        data-cal-month-1="一月"
+        data-cal-month-2="二月"
+        data-cal-month-3="三月"
+        data-cal-month-4="四月"
+        data-cal-month-5="五月"
+        data-cal-month-6="六月"
+        data-cal-month-7="七月"
+        data-cal-month-8="八月"
+        data-cal-month-9="九月"
+        data-cal-month-10="十月"
+        data-cal-month-11="十一月"
+        data-cal-month-12="十二月"
+        data-cal-day-sun="日"
+        data-cal-day-mon="一"
+        data-cal-day-tue="二"
+        data-cal-day-wed="三"
+        data-cal-day-thu="四"
+        data-cal-day-fri="五"
+        data-cal-day-sat="六"
+        data-cal-status-past="已过去"
+        data-cal-status-today="今天"
+        data-cal-status-future="剩余"
         data-cal-day-of-year-template="({current}/{total})"
-        data-cal-day-tooltip-template="{day} de {month} de {year} - {status}"
-        data-cal-legend-past="D&#237;as pasados"
-        data-cal-legend-today="Hoy"
-        data-cal-legend-remaining="D&#237;as restantes"
-        data-cal-legend-note="Con nota"
-        data-cal-note-modal-title="Nota del d&#237;a"
-        data-cal-note-close-aria="Cerrar nota"
-        data-cal-note-placeholder="Escribe una nota para este d&#237;a..."
-        data-cal-note-input-aria="Contenido de la nota"
-        data-cal-note-save-btn="Guardar"
-        data-cal-note-delete-btn="Eliminar"
+        data-cal-day-tooltip-template="{year}年{month}{day}日 - {status}"
+        data-cal-legend-past="过去的日期"
+        data-cal-legend-today="今天"
+        data-cal-legend-remaining="剩余日期"
+        data-cal-legend-note="有备注"
+        data-cal-note-modal-title="当日备注"
+        data-cal-note-close-aria="关闭备注"
+        data-cal-note-placeholder="为这一天写一条备注..."
+        data-cal-note-input-aria="备注内容"
+        data-cal-note-save-btn="保存"
+        data-cal-note-delete-btn="删除"
     ></div>
     
     <!-- JavaScript -->

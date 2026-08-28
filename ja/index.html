@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-PE" dir="ltr" data-locale-code="es" data-build="standalone-v14-i18n">
+<html lang="ja-JP" dir="ltr" data-locale-code="ja" data-build="standalone-v14-i18n">
 <head>
     <meta charset="UTF-8">
 
@@ -9,11 +9,11 @@
     >
 
     <!-- SEO principal: traducir estos metadatos en cada versión de idioma -->
-    <title>Progreso del año, mes, semana y día | RutaFinal</title>
+    <title>年・月・週・日の進捗 | RutaFinal</title>
 
     <meta
         name="description"
-        content="Visualiza en tiempo real cuánto ha transcurrido y cuánto falta del año, mes, semana y día. Organiza tareas y añade notas a tu calendario."
+        content="年、月、週、日の経過時間と残り時間をリアルタイムで確認できます。タスクを整理し、カレンダーの日ごとにメモを追加できます。"
     >
 
     <meta
@@ -21,7 +21,7 @@
         content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     >
 
-    <link rel="canonical" href="https://big-strategy.com/">
+    <link rel="canonical" href="https://big-strategy.com/ja/">
 
     <link rel="alternate" hreflang="es" href="https://big-strategy.com/">
     <link rel="alternate" hreflang="en" href="https://big-strategy.com/en/">
@@ -53,68 +53,37 @@
     <!-- Vista previa al compartir; el texto se localizará por idioma -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="RutaFinal">
-    <meta property="og:locale" content="es_PE">
-    <meta property="og:url" content="https://big-strategy.com/">
-    <meta property="og:title" content="Progreso del año, mes, semana y día | RutaFinal">
-    <meta property="og:description" content="Visualiza en tiempo real cuánto ha transcurrido y cuánto falta del año, mes, semana y día. Organiza tareas y añade notas a tu calendario.">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:url" content="https://big-strategy.com/ja/">
+    <meta property="og:title" content="年・月・週・日の進捗 | RutaFinal">
+    <meta property="og:description" content="年、月、週、日の経過時間と残り時間をリアルタイムで確認できます。タスクを整理し、カレンダーの日ごとにメモを追加できます。">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Progreso del año, mes, semana y día | RutaFinal">
-    <meta name="twitter:description" content="Visualiza en tiempo real cuánto ha transcurrido y cuánto falta del año, mes, semana y día. Organiza tareas y añade notas a tu calendario.">
+    <meta name="twitter:title" content="年・月・週・日の進捗 | RutaFinal">
+    <meta name="twitter:description" content="年、月、週、日の経過時間と残り時間をリアルタイムで確認できます。タスクを整理し、カレンダーの日ごとにメモを追加できます。">
 
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "RutaFinal",
-        "url": "https://big-strategy.com/",
-        "description": "Visualiza en tiempo real cuánto ha transcurrido y cuánto falta del año, mes, semana y día. Organiza tareas y añade notas a tu calendario.",
+        "url": "https://big-strategy.com/ja/",
+        "description": "年、月、週、日の経過時間と残り時間をリアルタイムで確認できます。タスクを整理し、カレンダーの日ごとにメモを追加できます。",
         "applicationCategory": "ProductivityApplication",
         "operatingSystem": "Any",
         "browserRequirements": "Requires JavaScript",
-        "inLanguage": "es-PE",
+        "inLanguage": "ja-JP",
         "isAccessibleForFree": true,
         "featureList": [
-            "Progreso del año, mes, semana y día en tiempo real",
-            "Vista de tiempo transcurrido y restante",
-            "Tareas personales guardadas en el dispositivo",
-            "Calendario anual con notas por día"
+            "年・月・週・日の進捗をリアルタイム表示",
+            "経過時間と残り時間の表示切り替え",
+            "個人タスクを端末に保存",
+            "日ごとにメモを付けられる年間カレンダー"
         ]
     }
     </script>
 
-    <script>
-    (() => {
-        const LANGUAGE_KEY = "rutafinal-language";
-        const routes = {"es":"/","en":"/en/","pt":"/pt/","zh":"/zh/","ja":"/ja/","ko":"/ko/","de":"/de/","fr":"/fr/","it":"/it/","hi":"/hi/","ar":"/ar/","ru":"/ru/"};
-        const isRoot = location.pathname === "/" || location.pathname === "/index.html";
-        const isCrawler = /bot|crawler|spider|crawling/i.test(navigator.userAgent);
-
-        if (!isRoot || isCrawler) {
-            return;
-        }
-
-        let savedLanguage = "";
-
-        try {
-            savedLanguage = localStorage.getItem(LANGUAGE_KEY) || "";
-        } catch {}
-
-        const preferredLanguages = savedLanguage
-            ? [savedLanguage]
-            : (navigator.languages?.length ? navigator.languages : [navigator.language]);
-
-        const selectedLanguage = preferredLanguages
-            .map(value => String(value || "").toLowerCase().split("-")[0])
-            .find(value => routes[value]);
-
-        const destination = routes[selectedLanguage] || "/";
-
-        if (destination !== "/") {
-            location.replace(destination + location.search + location.hash);
-        }
-    })();
-    </script>
+    
 
     <!-- Fuente Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3011,7 +2980,7 @@ html[dir="rtl"] textarea {
 
                     <span class="live-dot"></span>
 
-                    EN VIVO
+                    リアルタイム
 
                 </span>
 
@@ -3019,12 +2988,12 @@ html[dir="rtl"] textarea {
             <div class="header-actions">
                 <label class="language-picker">
                     <span class="language-picker-icon" aria-hidden="true">🌐</span>
-                    <select id="languageSelector" aria-label="Seleccionar idioma">
-                        <option value="/" data-code="es" selected>Español</option>
+                    <select id="languageSelector" aria-label="言語を選択">
+                        <option value="/" data-code="es">Español</option>
                         <option value="/en/" data-code="en">English</option>
                         <option value="/pt/" data-code="pt">Português</option>
                         <option value="/zh/" data-code="zh">简体中文</option>
-                        <option value="/ja/" data-code="ja">日本語</option>
+                        <option value="/ja/" data-code="ja" selected>日本語</option>
                         <option value="/ko/" data-code="ko">한국어</option>
                         <option value="/de/" data-code="de">Deutsch</option>
                         <option value="/fr/" data-code="fr">Français</option>
@@ -3041,18 +3010,18 @@ html[dir="rtl"] textarea {
                 id="calendarViewButton"
                 class="calendar-view-button"
                 type="button"
-                aria-label="Abrir vista calendario"
-                title="Vista Calendario"
+                aria-label="カレンダー表示を開く"
+                title="カレンダー"
             >
                 <span class="calendar-view-btn-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="current色" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                         <line x1="16" y1="2" x2="16" y2="6"></line>
                         <line x1="8" y1="2" x2="8" y2="6"></line>
                         <line x1="3" y1="10" x2="21" y2="10"></line>
                     </svg>
                 </span>
-                <span class="calendar-view-btn-text">Vista Calendario</span>
+                <span class="calendar-view-btn-text">カレンダー</span>
             </button>
             </div>
 
@@ -3071,10 +3040,10 @@ html[dir="rtl"] textarea {
 
             <section
                 class="progress-panel"
-                aria-label="Progreso del tiempo"
+                aria-label="時間の進捗"
             >
 
-                <!-- AÑO -->
+                <!-- 年 -->
 
                 <article
                     class="progress-card"
@@ -3083,8 +3052,8 @@ html[dir="rtl"] textarea {
                     role="button"
                     tabindex="0"
                     aria-pressed="false"
-                    aria-label="Mostrar el tiempo restante del año"
-                    title="Haz clic para ver el tiempo restante"
+                    aria-label="今年の残り時間を表示"
+                    title="クリックして残り時間を見る"
                 >
 
                     <div class="progress-info">
@@ -3093,7 +3062,7 @@ html[dir="rtl"] textarea {
                             id="yearTitle"
                             class="progress-title"
                         >
-                            AÑO
+                            年
                         </span>
 
                         <span
@@ -3108,7 +3077,7 @@ html[dir="rtl"] textarea {
                     <div
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Progreso del año"
+                        aria-label="今年の経過率"
                         aria-valuemin="0"
                         aria-valuemax="100"
                     >
@@ -3123,11 +3092,11 @@ html[dir="rtl"] textarea {
                     <div class="progress-detail">
 
                         <span id="yearDetailLabel">
-                            Mes 1 de 12
+                            12か月中1か月目
                         </span>
 
                         <strong id="yearDetail">
-                            0.00 / 365 días
+                            0.00 / 365日
                         </strong>
 
                     </div>
@@ -3135,7 +3104,7 @@ html[dir="rtl"] textarea {
                 </article>
 
 
-                <!-- MES -->
+                <!-- 月 -->
 
                 <article
                     class="progress-card"
@@ -3144,8 +3113,8 @@ html[dir="rtl"] textarea {
                     role="button"
                     tabindex="0"
                     aria-pressed="false"
-                    aria-label="Mostrar el tiempo restante del mes"
-                    title="Haz clic para ver el tiempo restante"
+                    aria-label="今月の残り時間を表示"
+                    title="クリックして残り時間を見る"
                 >
 
                     <div class="progress-info">
@@ -3154,7 +3123,7 @@ html[dir="rtl"] textarea {
                             id="monthTitle"
                             class="progress-title"
                         >
-                            MES
+                            月
                         </span>
 
                         <span
@@ -3169,7 +3138,7 @@ html[dir="rtl"] textarea {
                     <div
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Progreso del mes"
+                        aria-label="今月の経過率"
                         aria-valuemin="0"
                         aria-valuemax="100"
                     >
@@ -3184,11 +3153,11 @@ html[dir="rtl"] textarea {
                     <div class="progress-detail">
 
                         <span id="monthDetailLabel">
-                            Día 1 de 31
+                            31日中1日目
                         </span>
 
                         <strong id="monthDetail">
-                            0.00 días transcurridos
+                            0.00日経過
                         </strong>
 
                     </div>
@@ -3196,7 +3165,7 @@ html[dir="rtl"] textarea {
                 </article>
 
 
-                <!-- SEMANA -->
+                <!-- 週 -->
 
                 <article
                     class="progress-card"
@@ -3205,8 +3174,8 @@ html[dir="rtl"] textarea {
                     role="button"
                     tabindex="0"
                     aria-pressed="false"
-                    aria-label="Mostrar el tiempo restante de la semana"
-                    title="Haz clic para ver el tiempo restante"
+                    aria-label="今週の残り時間を表示"
+                    title="クリックして残り時間を見る"
                 >
 
                     <div class="progress-info">
@@ -3215,7 +3184,7 @@ html[dir="rtl"] textarea {
                             id="weekTitle"
                             class="progress-title"
                         >
-                            SEMANA
+                            週
                         </span>
 
                         <span
@@ -3230,7 +3199,7 @@ html[dir="rtl"] textarea {
                     <div
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Progreso de la semana"
+                        aria-label="今週の経過率"
                         aria-valuemin="0"
                         aria-valuemax="100"
                     >
@@ -3245,11 +3214,11 @@ html[dir="rtl"] textarea {
                     <div class="progress-detail">
 
                         <span id="weekDetailLabel">
-                            Pasaron
+                            経過
                         </span>
 
                         <strong id="weekDetail">
-                            0 días y 0 horas
+                            0日と0時間
                         </strong>
 
                     </div>
@@ -3257,7 +3226,7 @@ html[dir="rtl"] textarea {
                 </article>
 
 
-                <!-- DÍA -->
+                <!-- 日 -->
 
                 <article
                     class="progress-card"
@@ -3266,8 +3235,8 @@ html[dir="rtl"] textarea {
                     role="button"
                     tabindex="0"
                     aria-pressed="false"
-                    aria-label="Mostrar el tiempo restante del día"
-                    title="Haz clic para ver el tiempo restante"
+                    aria-label="今日の残り時間を表示"
+                    title="クリックして残り時間を見る"
                 >
 
                     <div class="progress-info">
@@ -3276,7 +3245,7 @@ html[dir="rtl"] textarea {
                             id="dayTitle"
                             class="progress-title"
                         >
-                            DÍA
+                            日
                         </span>
 
                         <span
@@ -3291,7 +3260,7 @@ html[dir="rtl"] textarea {
                     <div
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Progreso del día"
+                        aria-label="今日の経過率"
                         aria-valuemin="0"
                         aria-valuemax="100"
                     >
@@ -3306,11 +3275,11 @@ html[dir="rtl"] textarea {
                     <div class="progress-detail">
 
                         <span id="dayDetailLabel">
-                            Hora 0 de 24
+                            24時間中0時間目
                         </span>
 
                         <strong id="dayDetail">
-                            0.00 horas transcurridas
+                            0.00時間経過
                         </strong>
 
                     </div>
@@ -3325,12 +3294,12 @@ html[dir="rtl"] textarea {
 
             <section
                 class="status-card"
-                aria-label="Resumen del año"
+                aria-label="年間概要"
             >
 
                 <span>
 
-                    Día del año
+                    年間通算日
 
                     <strong id="dayOfYear">
                         0
@@ -3340,7 +3309,7 @@ html[dir="rtl"] textarea {
 
                 <span>
 
-                    Semana
+                    週
 
                     <strong id="weekNumber">
                         0
@@ -3350,13 +3319,13 @@ html[dir="rtl"] textarea {
 
                 <span>
 
-                    Restan
+                    残り
 
                     <strong id="remainingDays">
                         0
                     </strong>
 
-                    días
+                    日
 
                 </span>
 
@@ -3384,26 +3353,26 @@ html[dir="rtl"] textarea {
                         id="dayName"
                         class="day-name"
                     >
-                        Lunes
+                        月曜日
                     </div>
 
                     <div
                         id="fullDate"
                         class="full-date"
                     >
-                        1 de enero de 2026
+                        2026年1月1日
                     </div>
 
                     <div
                         id="timezone"
                         class="timezone"
                     >
-                        Zona horaria local
+                        ローカルタイムゾーン
                     </div>
 
                     <div
                         class="engagement-panel"
-                        aria-label="Opiniones sobre la página"
+                        aria-label="ページへのご意見"
                     >
 
                         <a
@@ -3411,7 +3380,7 @@ html[dir="rtl"] textarea {
                             href="https://tally.so/r/VLabPE"
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label="Enviar feedback mediante Tally"
+                            aria-label="Tallyでフィードバックを送信"
                         >
                             <span
                                 class="feedback-card-icon"
@@ -3424,8 +3393,8 @@ html[dir="rtl"] textarea {
                             </span>
 
                             <span class="feedback-card-copy">
-                                <strong>Feedback</strong>
-                                <small>Enviar una sugerencia</small>
+                                <strong>フィードバック</strong>
+                                <small>提案を送る</small>
                             </span>
 
                             <span
@@ -3439,9 +3408,9 @@ html[dir="rtl"] textarea {
                                 id="likeButton"
                                 class="like-button"
                                 type="button"
-                                aria-label="Dar me gusta a esta página"
+                                aria-label="このページに「いいね」する"
                                 aria-pressed="false"
-                                title="Me gusta"
+                                title="いいね"
                             >
                                 <svg
                                     class="like-icon"
@@ -3458,7 +3427,7 @@ html[dir="rtl"] textarea {
                                 aria-live="polite"
                             >—</span>
 
-                            <span class="like-label">Me gusta</span>
+                            <span class="like-label">いいね</span>
                         </div>
 
                     </div>
@@ -3475,7 +3444,7 @@ html[dir="rtl"] textarea {
                         <div>
 
                             <span class="tasks-label">
-                                ALMACENAMIENTO LOCAL
+                                ローカル保存
                             </span>
 
                             <div class="tasks-title-row">
@@ -3485,18 +3454,18 @@ html[dir="rtl"] textarea {
                                     class="tasks-title"
                                     contenteditable="true"
                                     role="textbox"
-                                    aria-label="Título editable de la lista de tareas"
+                                    aria-label="編集可能なタスクリストのタイトル"
                                     aria-multiline="false"
                                     spellcheck="false"
-                                    title="Haz clic para editar el título"
-                                >Mis tareas</h2>
+                                    title="クリックしてタイトルを編集"
+                                >マイタスク</h2>
 
                                 <button
                                     id="editTasksTitle"
                                     class="edit-title-button"
                                     type="button"
-                                    aria-label="Editar título de las tareas"
-                                    title="Editar título"
+                                    aria-label="タスクリストのタイトルを編集"
+                                    title="タイトルを編集"
                                 >
                                     ✎
                                 </button>
@@ -3509,7 +3478,7 @@ html[dir="rtl"] textarea {
                             id="taskCount"
                             class="task-count"
                         >
-                            0 pendientes
+                            未完了 0件
                         </span>
 
                     </div>
@@ -3526,72 +3495,72 @@ html[dir="rtl"] textarea {
                             type="text"
                             maxlength="120"
                             autocomplete="off"
-                            placeholder="Escribe una nueva tarea..."
-                            aria-label="Nueva tarea"
+                            placeholder="新しいタスクを入力..."
+                            aria-label="新しいタスク"
                         >
 
                         <button
                             class="add-task-button"
                             type="submit"
                         >
-                            Agregar
+                            追加
                         </button>
 
                         <div class="task-options">
 
                             <fieldset class="task-colors">
 
-                                <legend>Color</legend>
+                                <legend>色</legend>
 
                                 <div class="color-options">
 
-                                    <label title="Azul">
+                                    <label title="青">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="task色"
                                             value="blue"
                                             checked
-                                            aria-label="Color azul"
+                                            aria-label="色: 青"
                                         >
                                         <span class="color-swatch color-blue"></span>
                                     </label>
 
-                                    <label title="Verde">
+                                    <label title="緑">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="task色"
                                             value="green"
-                                            aria-label="Color verde"
+                                            aria-label="色: 緑"
                                         >
                                         <span class="color-swatch color-green"></span>
                                     </label>
 
-                                    <label title="Amarillo">
+                                    <label title="黄">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="task色"
                                             value="amber"
-                                            aria-label="Color amarillo"
+                                            aria-label="色: 黄"
                                         >
                                         <span class="color-swatch color-amber"></span>
                                     </label>
 
-                                    <label title="Rojo">
+                                    <label title="赤">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="task色"
                                             value="red"
-                                            aria-label="Color rojo"
+                                            aria-label="色: 赤"
                                         >
                                         <span class="color-swatch color-red"></span>
                                     </label>
 
-                                    <label title="Morado">
+                                    <label title="紫">
                                         <input
                                             type="radio"
-                                            name="taskColor"
+                                            name="task色"
                                             value="violet"
-                                            aria-label="Color morado"
+                                            aria-label="色: 紫"
                                         >
                                         <span class="color-swatch color-violet"></span>
                                     </label>
@@ -3612,7 +3581,7 @@ html[dir="rtl"] textarea {
                                     aria-hidden="true"
                                 >★</span>
 
-                                <span>Importante</span>
+                                <span>重要</span>
 
                             </label>
 
@@ -3627,13 +3596,13 @@ html[dir="rtl"] textarea {
                             id="emptyTasks"
                             class="empty-state"
                         >
-                            Todavía no tienes tareas.
+                            タスクはまだありません。
                         </p>
 
                         <ul
                             id="taskList"
                             class="task-list"
-                            aria-label="Lista de tareas"
+                            aria-label="タスクリスト"
                         ></ul>
 
                     </div>
@@ -3653,7 +3622,7 @@ html[dir="rtl"] textarea {
 
             <div
                 class="footer-contact"
-                aria-label="Redes sociales y contacto"
+                aria-label="SNSと連絡先"
             >
 
                 <a
@@ -3677,7 +3646,7 @@ html[dir="rtl"] textarea {
                 rel="noopener noreferrer"
             >
                 <span aria-hidden="true">☕</span>
-                Apóyame en Ko-fi
+                Ko-fiで応援する
             </a>
 
         </footer>
@@ -3716,15 +3685,15 @@ html[dir="rtl"] textarea {
                     <span
                         id="calendarTitleName"
                         class="calendar-title-name"
-                    >Calendario</span>
+                    >カレンダー</span>
                 </h2>
 
                 <button
                     id="closeCalendarBtn"
                     class="calendar-modal-close"
                     type="button"
-                    aria-label="Cerrar calendario"
-                    title="Cerrar"
+                    aria-label="カレンダーを閉じる"
+                    title="閉じる"
                 >
                     ✕
                 </button>
@@ -3750,7 +3719,7 @@ html[dir="rtl"] textarea {
                         <div class="calendar-stat-pill is-elapsed">
                             <span class="calendar-stat-label">
                                 <span class="calendar-stat-dot"></span>
-                                Transcurridos:
+                                経過：
                             </span>
                             <div class="calendar-stat-values">
                                 <strong
@@ -3768,7 +3737,7 @@ html[dir="rtl"] textarea {
                         <div class="calendar-stat-pill is-today">
                             <span class="calendar-stat-label">
                                 <span class="calendar-stat-dot"></span>
-                                Hoy:
+                                今日：
                             </span>
                             <div class="calendar-stat-values">
                                 <strong
@@ -3786,7 +3755,7 @@ html[dir="rtl"] textarea {
                         <div class="calendar-stat-pill is-remaining">
                             <span class="calendar-stat-label">
                                 <span class="calendar-stat-dot"></span>
-                                Faltan:
+                                残り：
                             </span>
                             <div class="calendar-stat-values">
                                 <strong
@@ -3806,19 +3775,19 @@ html[dir="rtl"] textarea {
                     <div class="calendar-legend">
                         <div class="calendar-legend-item">
                             <span class="legend-bullet is-past">✕</span>
-                            <span>Días pasados</span>
+                            <span>過ぎた日</span>
                         </div>
                         <div class="calendar-legend-item">
                             <span class="legend-bullet is-today">●</span>
-                            <span>Hoy</span>
+                            <span>今日</span>
                         </div>
                         <div class="calendar-legend-item">
                             <span class="legend-bullet is-remaining">○</span>
-                            <span>Días restantes</span>
+                            <span>残りの日</span>
                         </div>
                         <div class="calendar-legend-item">
                             <span class="legend-bullet is-note">★</span>
-                            <span id="calLegendNoteLabel">Con nota</span>
+                            <span id="calLegendNoteLabel">メモあり</span>
                         </div>
                     </div>
 
@@ -3850,14 +3819,14 @@ html[dir="rtl"] textarea {
             <div class="calendar-note-header">
                 <div class="calendar-note-header-info">
                     <span class="calendar-note-icon" aria-hidden="true">★</span>
-                    <h3 id="calendarNoteTitle" class="calendar-note-title">Nota del día</h3>
+                    <h3 id="calendarNoteTitle" class="calendar-note-title">今日のメモ</h3>
                 </div>
                 <button
                     id="closeCalendarNoteBtn"
                     class="calendar-note-close"
                     type="button"
-                    aria-label="Cerrar nota"
-                    title="Cerrar"
+                    aria-label="メモを閉じる"
+                    title="閉じる"
                 >✕</button>
             </div>
 
@@ -3868,8 +3837,8 @@ html[dir="rtl"] textarea {
                     class="calendar-note-input"
                     maxlength="300"
                     rows="4"
-                    placeholder="Escribe una nota para este día..."
-                    aria-label="Contenido de la nota"
+                    placeholder="この日のメモを入力..."
+                    aria-label="メモの内容"
                 ></textarea>
 
                 <div class="calendar-note-actions">
@@ -3877,12 +3846,12 @@ html[dir="rtl"] textarea {
                         id="deleteCalendarNoteBtn"
                         class="calendar-note-delete-btn"
                         type="button"
-                    >Eliminar</button>
+                    >削除</button>
                     <button
                         id="saveCalendarNoteBtn"
                         class="calendar-note-save-btn"
                         type="submit"
-                    >Guardar</button>
+                    >保存</button>
                 </div>
             </form>
         </div>
@@ -3895,113 +3864,113 @@ html[dir="rtl"] textarea {
     <div
         id="dashboardTranslations"
         hidden
-        data-locale="es-PE"
-        data-year="A&#209;O"
-        data-month="MES"
-        data-week="SEMANA"
-        data-day="D&#205;A"
-        data-remaining="RESTANTE"
-        data-elapsed-time="Pasaron"
-        data-remaining-time="Quedan"
-        data-and="y"
-        data-month-unit-singular="mes"
-        data-month-unit-plural="meses"
-        data-day-unit-singular="d&#237;a"
-        data-day-unit-plural="d&#237;as"
-        data-hour-unit-singular="hora"
-        data-hour-unit-plural="horas"
-        data-minute-unit-singular="minuto"
-        data-minute-unit-plural="minutos"
-        data-year-title-template="{period} {year}"
-        data-year-remaining-title-template="{remaining} {period} {year}"
-        data-month-title-template="{period} {monthName} {monthNumber}"
-        data-month-remaining-title-template="{remaining} {period} {monthName} {monthNumber}"
-        data-week-title-template="{period} {weekNumber}"
-        data-week-remaining-title-template="{remaining} {period} {weekNumber}"
-        data-day-title-template="{period} {weekday} {dayNumber}"
-        data-day-remaining-title-template="{remaining} {period} {weekday} {dayNumber}"
-        data-year-elapsed-bar-label="Progreso transcurrido del a&#241;o"
-        data-year-remaining-bar-label="Tiempo restante del a&#241;o"
-        data-month-elapsed-bar-label="Progreso transcurrido del mes"
-        data-month-remaining-bar-label="Tiempo restante del mes"
-        data-week-elapsed-bar-label="Progreso transcurrido de la semana"
-        data-week-remaining-bar-label="Tiempo restante de la semana"
-        data-day-elapsed-bar-label="Progreso transcurrido del d&#237;a"
-        data-day-remaining-bar-label="Tiempo restante del d&#237;a"
-        data-period-year="del a&#241;o"
-        data-period-month="del mes"
-        data-period-week="de la semana"
-        data-period-day="del d&#237;a"
-        data-show-elapsed-card-template="Mostrar el tiempo transcurrido {period}"
-        data-show-remaining-card-template="Mostrar el tiempo restante {period}"
-        data-show-elapsed-hint="Haz clic para volver al tiempo transcurrido"
-        data-show-remaining-hint="Haz clic para ver el tiempo restante"
-        data-like-remove-aria="Quitar mi me gusta"
-        data-like-add-aria="Dar me gusta a esta p&#225;gina"
-        data-like-remove-title="Quitar me gusta"
-        data-like-title="Me gusta"
-        data-likes-worker-missing="Configura la URL del Worker en app.js"
-        data-likes-connection-error="No se pudo conectar con el contador"
-        data-likes-register-error="No se pudo registrar el me gusta"
-        data-default-tasks-title="Mis tareas"
-        data-color-blue="azul"
-        data-color-green="verde"
-        data-color-amber="amarillo"
-        data-color-red="rojo"
-        data-color-violet="morado"
-        data-task-mark-pending="Marcar como pendiente"
-        data-task-mark-completed="Marcar como completada"
-        data-task-important-badge="IMPORTANTE"
-        data-task-change-color-template="Cambiar color. Color actual: {color}"
-        data-task-change-color-title="Cambiar color"
-        data-task-remove-important-aria="Quitar estado importante"
-        data-task-mark-important-aria="Marcar como importante"
-        data-task-remove-important-title="Quitar importancia"
-        data-task-mark-important-title="Marcar como importante"
-        data-task-delete="Eliminar tarea"
-        data-pending-singular-template="{count} pendiente"
-        data-pending-plural-template="{count} pendientes"
-        data-calendar-view-button="Vista Calendario"
-        data-calendar-modal-title="Calendario"
-        data-calendar-close-aria="Cerrar calendario"
-        data-calendar-close-title="Cerrar"
-        data-cal-stat-elapsed-label="Transcurridos:"
-        data-cal-stat-today-label="Hoy:"
-        data-cal-stat-remaining-label="Faltan:"
-        data-cal-month-1="Enero"
-        data-cal-month-2="Febrero"
-        data-cal-month-3="Marzo"
-        data-cal-month-4="Abril"
-        data-cal-month-5="Mayo"
-        data-cal-month-6="Junio"
-        data-cal-month-7="Julio"
-        data-cal-month-8="Agosto"
-        data-cal-month-9="Septiembre"
-        data-cal-month-10="Octubre"
-        data-cal-month-11="Noviembre"
-        data-cal-month-12="Diciembre"
-        data-cal-day-sun="Do"
-        data-cal-day-mon="Lu"
-        data-cal-day-tue="Ma"
-        data-cal-day-wed="Mi"
-        data-cal-day-thu="Ju"
-        data-cal-day-fri="Vi"
-        data-cal-day-sat="S&#225;"
-        data-cal-status-past="Transcurrido"
-        data-cal-status-today="Hoy"
-        data-cal-status-future="Restante"
+        data-locale="ja-JP"
+        data-year="年"
+        data-month="月"
+        data-week="週"
+        data-day="日"
+        data-remaining="残り"
+        data-elapsed-time="経過"
+        data-remaining-time="残り"
+        data-and="と"
+        data-month-unit-singular="か月"
+        data-month-unit-plural="か月"
+        data-day-unit-singular="日"
+        data-day-unit-plural="日"
+        data-hour-unit-singular="時間"
+        data-hour-unit-plural="時間"
+        data-minute-unit-singular="分"
+        data-minute-unit-plural="分"
+        data-year-title-template="{year}年"
+        data-year-remaining-title-template="{year}年・{remaining}"
+        data-month-title-template="{monthName}"
+        data-month-remaining-title-template="{monthName}・{remaining}"
+        data-week-title-template="第{weekNumber}週"
+        data-week-remaining-title-template="第{weekNumber}週・{remaining}"
+        data-day-title-template="{dayNumber}日（{weekday}）"
+        data-day-remaining-title-template="{dayNumber}日（{weekday}）・{remaining}"
+        data-year-elapsed-bar-label="今年の経過率"
+        data-year-remaining-bar-label="今年の残り時間"
+        data-month-elapsed-bar-label="今月の経過率"
+        data-month-remaining-bar-label="今月の残り時間"
+        data-week-elapsed-bar-label="今週の経過率"
+        data-week-remaining-bar-label="今週の残り時間"
+        data-day-elapsed-bar-label="今日の経過率"
+        data-day-remaining-bar-label="今日の残り時間"
+        data-period-year="今年"
+        data-period-month="今月"
+        data-period-week="今週"
+        data-period-day="今日"
+        data-show-elapsed-card-template="{period}の経過時間を表示"
+        data-show-remaining-card-template="{period}の残り時間を表示"
+        data-show-elapsed-hint="クリックして経過時間に戻る"
+        data-show-remaining-hint="クリックして残り時間を見る"
+        data-like-remove-aria="自分の「いいね」を取り消す"
+        data-like-add-aria="このページに「いいね」する"
+        data-like-remove-title="「いいね」を取り消す"
+        data-like-title="いいね"
+        data-likes-worker-missing="app.jsでWorker URLを設定してください"
+        data-likes-connection-error="カウンターに接続できませんでした"
+        data-likes-register-error="「いいね」を登録できませんでした"
+        data-default-tasks-title="マイタスク"
+        data-color-blue="青"
+        data-color-green="緑"
+        data-color-amber="黄"
+        data-color-red="赤"
+        data-color-violet="紫"
+        data-task-mark-pending="未完了にする"
+        data-task-mark-completed="完了にする"
+        data-task-important-badge="重要"
+        data-task-change-color-template="色を変更。現在の色：{color}"
+        data-task-change-color-title="色を変更"
+        data-task-remove-important-aria="重要設定を解除"
+        data-task-mark-important-aria="重要に設定"
+        data-task-remove-important-title="重要設定を解除"
+        data-task-mark-important-title="重要に設定"
+        data-task-delete="タスクを削除"
+        data-pending-singular-template="未完了 {count}件"
+        data-pending-plural-template="未完了 {count}件"
+        data-calendar-view-button="カレンダー"
+        data-calendar-modal-title="カレンダー"
+        data-calendar-close-aria="カレンダーを閉じる"
+        data-calendar-close-title="閉じる"
+        data-cal-stat-elapsed-label="経過："
+        data-cal-stat-today-label="今日："
+        data-cal-stat-remaining-label="残り："
+        data-cal-month-1="1月"
+        data-cal-month-2="2月"
+        data-cal-month-3="3月"
+        data-cal-month-4="4月"
+        data-cal-month-5="5月"
+        data-cal-month-6="6月"
+        data-cal-month-7="7月"
+        data-cal-month-8="8月"
+        data-cal-month-9="9月"
+        data-cal-month-10="10月"
+        data-cal-month-11="11月"
+        data-cal-month-12="12月"
+        data-cal-day-sun="日"
+        data-cal-day-mon="月"
+        data-cal-day-tue="火"
+        data-cal-day-wed="水"
+        data-cal-day-thu="木"
+        data-cal-day-fri="金"
+        data-cal-day-sat="土"
+        data-cal-status-past="経過"
+        data-cal-status-today="今日"
+        data-cal-status-future="残り"
         data-cal-day-of-year-template="({current}/{total})"
-        data-cal-day-tooltip-template="{day} de {month} de {year} - {status}"
-        data-cal-legend-past="D&#237;as pasados"
-        data-cal-legend-today="Hoy"
-        data-cal-legend-remaining="D&#237;as restantes"
-        data-cal-legend-note="Con nota"
-        data-cal-note-modal-title="Nota del d&#237;a"
-        data-cal-note-close-aria="Cerrar nota"
-        data-cal-note-placeholder="Escribe una nota para este d&#237;a..."
-        data-cal-note-input-aria="Contenido de la nota"
-        data-cal-note-save-btn="Guardar"
-        data-cal-note-delete-btn="Eliminar"
+        data-cal-day-tooltip-template="{year}年{month}{day}日 - {status}"
+        data-cal-legend-past="過ぎた日"
+        data-cal-legend-today="今日"
+        data-cal-legend-remaining="残りの日"
+        data-cal-legend-note="メモあり"
+        data-cal-note-modal-title="今日のメモ"
+        data-cal-note-close-aria="メモを閉じる"
+        data-cal-note-placeholder="この日のメモを入力..."
+        data-cal-note-input-aria="メモの内容"
+        data-cal-note-save-btn="保存"
+        data-cal-note-delete-btn="削除"
     ></div>
     
     <!-- JavaScript -->
