@@ -2848,70 +2848,92 @@ body::before {
 
     
 /* ==========================================
-   SELECTOR DE IDIOMA
+   SELECTOR DE IDIOMA · PIE DE PÁGINA
 ========================================== */
 
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+}
+
+.site-footer {
+    flex-wrap: wrap;
+}
+
+.footer-language {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
 }
 
 .language-picker {
     position: relative;
     display: inline-flex;
     align-items: center;
-    height: 44px;
-    min-width: 148px;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    background: var(--surface);
-    box-shadow: var(--shadow);
-    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+    height: 30px;
+    min-width: 112px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    opacity: 0.68;
+    transition:
+        opacity 180ms ease,
+        color 180ms ease,
+        border-color 180ms ease,
+        background 180ms ease;
 }
 
 .language-picker:hover {
-    transform: translateY(-2px);
-    background: var(--surface-hover);
-    border-color: rgba(91, 140, 255, 0.45);
+    opacity: 1;
+    color: var(--text);
+    border-color: rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.025);
 }
 
 .language-picker:focus-within {
-    outline: 3px solid rgba(121, 167, 255, 0.48);
-    outline-offset: 3px;
+    opacity: 1;
+    outline: 2px solid rgba(121, 167, 255, 0.30);
+    outline-offset: 2px;
 }
 
 .language-picker-icon {
     position: absolute;
-    inset-inline-start: 13px;
+    inset-inline-start: 8px;
     z-index: 1;
+    display: inline-flex;
     pointer-events: none;
-    font-size: 1rem;
-    line-height: 1;
+    color: currentColor;
+}
+
+.language-picker-icon svg {
+    width: 13px;
+    height: 13px;
 }
 
 .language-picker::after {
     content: "▾";
     position: absolute;
-    inset-inline-end: 13px;
+    inset-inline-end: 8px;
     pointer-events: none;
-    color: var(--text-secondary);
-    font-size: 0.72rem;
+    color: currentColor;
+    font-size: 0.58rem;
+    opacity: 0.72;
 }
 
 .language-picker select {
     width: 100%;
     height: 100%;
-    padding-inline: 38px 32px;
+    padding-inline: 27px 22px;
     border: 0;
     outline: 0;
     appearance: none;
     cursor: pointer;
     background: transparent;
-    color: var(--text);
+    color: inherit;
     font: inherit;
-    font-size: 0.84rem;
-    font-weight: 600;
+    font-size: 0.74rem;
+    font-weight: 500;
 }
 
 .language-picker option {
@@ -2929,27 +2951,13 @@ html[dir="rtl"] textarea {
     text-align: right;
 }
 
-@media (max-width: 760px) {
-    .header {
-        flex-wrap: wrap;
-        gap: 16px;
-    }
-
-    .header-actions {
-        margin-inline-start: auto;
+@media (max-width: 650px) {
+    .footer-language {
+        width: 100%;
     }
 }
 
 @media (max-width: 520px) {
-    .header-actions {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .language-picker {
-        min-width: 142px;
-    }
-
     .calendar-view-btn-text {
         display: none;
     }
@@ -2986,23 +2994,7 @@ html[dir="rtl"] textarea {
 
             </div>
             <div class="header-actions">
-                <label class="language-picker">
-                    <span class="language-picker-icon" aria-hidden="true">🌐</span>
-                    <select id="languageSelector" aria-label="Seleziona lingua">
-                        <option value="/" data-code="es">Español</option>
-                        <option value="/en/" data-code="en">English</option>
-                        <option value="/pt/" data-code="pt">Português</option>
-                        <option value="/zh/" data-code="zh">简体中文</option>
-                        <option value="/ja/" data-code="ja">日本語</option>
-                        <option value="/ko/" data-code="ko">한국어</option>
-                        <option value="/de/" data-code="de">Deutsch</option>
-                        <option value="/fr/" data-code="fr">Français</option>
-                        <option value="/it/" data-code="it" selected>Italiano</option>
-                        <option value="/hi/" data-code="hi">हिन्दी</option>
-                        <option value="/ar/" data-code="ar">العربية</option>
-                        <option value="/ru/" data-code="ru">Русский</option>
-                    </select>
-                </label>
+                
 
 
 
@@ -3648,6 +3640,33 @@ html[dir="rtl"] textarea {
                 <span aria-hidden="true">☕</span>
                 Supportami su Ko-fi
             </a>
+
+                    <div class="footer-language">
+                <label class="language-picker">
+                                    <span class="language-picker-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="9"></circle>
+                                            <path d="M3 12h18"></path>
+                                            <path d="M12 3c2.4 2.5 3.7 5.5 3.7 9s-1.3 6.5-3.7 9"></path>
+                                            <path d="M12 3c-2.4 2.5-3.7 5.5-3.7 9s1.3 6.5 3.7 9"></path>
+                                        </svg>
+                                    </span>
+                                    <select id="languageSelector" aria-label="Seleziona lingua">
+                                        <option value="/" data-code="es">Español</option>
+                                        <option value="/en/" data-code="en">English</option>
+                                        <option value="/pt/" data-code="pt">Português</option>
+                                        <option value="/zh/" data-code="zh">简体中文</option>
+                                        <option value="/ja/" data-code="ja">日本語</option>
+                                        <option value="/ko/" data-code="ko">한국어</option>
+                                        <option value="/de/" data-code="de">Deutsch</option>
+                                        <option value="/fr/" data-code="fr">Français</option>
+                                        <option value="/it/" data-code="it" selected>Italiano</option>
+                                        <option value="/hi/" data-code="hi">हिन्दी</option>
+                                        <option value="/ar/" data-code="ar">العربية</option>
+                                        <option value="/ru/" data-code="ru">Русский</option>
+                                    </select>
+                                </label>
+            </div>
 
         </footer>
 
